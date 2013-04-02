@@ -15,16 +15,26 @@ class JSListView extends JSScrollView
 			$(@_viewSelector+"_select").height(frame.size.height)
 
 	setDataList:(@listData)->
-		size = @listData.length
-		@_tag = "<div id='"+@_viewSelector+"_div' style='position:absolute;overflow:scroll;'><select name='"+@_viewSelector+"_select' size='"+size+"'>"
+		size = @listData.count()
+		if (size < 2)
+			size = 2
+		@_tag = "<select id='"+@_viewSelector+"_select' size='"+size+"' style='width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;'>"
 		if (!@listData?)
 			return
-		for value of @listData
-			disp = @listData[value]
-			@_tag += "<option value='"+value+"'>"+disp
-		@_tag += "</select></div>"
+		for value of @listData.dictionary
+			disp = @listData.objectForKey(value)
+			@_tag += "<option value='"+value+"'>"+disp+"</option>"
+		@_tag += "</select>"
+		if ($(@_viewSelector+"_select").length)
+			$(@_viewSelector+"_select").remove()
+		$(@_viewSelector).append(@_tag)	
 		debug(@_tag)
+		debug("width="+@_frame.size.width)
+#		$(@_viewSelector+"_select").width(@_frame.size.width+"px")
+#		$(@_viewSelector+"_select").height(@_frame.size.height+"px")		
 	
 	viewDidAppear:->
-		$(@_viewSelector).append(@_tag)	
-
+		super()
+		if (@listData?)
+			@setDataList(@listData)
+		

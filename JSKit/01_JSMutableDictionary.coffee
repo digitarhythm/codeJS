@@ -16,7 +16,7 @@ class JSMutableDictionary extends JSObject
 		@dictionary[key] = object
 		
 	objectForKey:(key)->
-		return @dictionaru[key]
+		return @dictionary[key]
 		
 	count:->
 		num = 0
@@ -33,6 +33,6 @@ class JSMutableDictionary extends JSObject
 	allValues:->
 		ret new Array()
 		for d of @dictionary
-			ret.push(@dictionaru[d])
+			ret.push(@dictionary[d])
 		return ret
 
