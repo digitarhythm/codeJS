@@ -1,0 +1,96 @@
+#!/bin/bash
+
+opt=$1
+opt2=$2
+opt3=$3
+cwd=$(cd $(dirname $0);pwd)
+
+echo "Execute directory ["$(pwd)"]"
+
+##################################################
+# verify package
+##################################################
+
+# PHP
+which php > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+	echo "PHP（cli） is not found."
+fi
+
+# Smarty
+ls /usr/share/php/smarty/Smarty.class.php > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+	echo "Smarty is not found."
+fi
+
+# SQLite3
+which sqlite3 > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+	echo "SQLite3 is not found."
+fi
+
+# CoffeeScript
+which coffee > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+	echo "coffee-script is not found."
+fi
+
+##################################################
+# process codejs
+##################################################
+
+if [ -z "$opt" ]; then
+	echo "<Usage>"
+	echo "codejs function [option1] [option2]"
+	echo "<function>"
+	echo "new     : create new project(require option1 is package name)"
+	echo "build   : keep watch on a user coffee-script"
+	echo "update  : update system library"
+	echo "succeed : The class which inherited the specified class is made.(require option1 is new class name, option2 is class to inherit)"
+	exit
+fi
+
+case ${opt} in
+new)
+	pkg=$2
+	if [ -z "$pkg" ]; then
+		echo "Please specify an option."
+		exit
+	fi
+	${cwd}/cjnewenv ${pkg}
+	${cwd}/cjupdate ${pkg}
+;;
+
+build)
+	if [ ! -d "./appscode" ]; then
+		echo "Please perform in a package directory."
+		exit
+	fi
+	${cwd}/cjbuild
+;;
+
+update)
+	if [ ! -d "./appscode" ]; then
+		echo "Please perform in a package directory."
+		exit
+	fi
+	${cwd}/cjupdate
+;;
+
+inheritance)
+	if [ ! -d "./appscode" ]; then
+		echo "Please perform in a package directory."
+		exit
+	fi
+	if [ -z "$opt2" -o -z "$opt3" ]; then
+		echo "Please specify an option."
+		exit
+	fi
+	${cwd}/cjinheritance $opt2 $opt3
+;;
+
+*)
+	echo "parameter error."
+;;
+
+esac

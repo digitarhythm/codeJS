@@ -1,0 +1,44 @@
+<?php
+	$_HOMEDIR_ = realpath(__DIR__);
+	$sid = session_id();
+	if ($sid != "") {
+		session_regenerate_id();
+	} else {
+		session_start();
+	}
+	$_SESSION["_HOMEDIR_"] = $_HOMEDIR_;
+	set_include_path(get_include_path().PATH_SEPARATOR.$_HOMEDIR_."/syslibs");
+	require_once("main.php");
+?>
+	<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width">
+		<link rel="stylesheet" href="[{$jqueryuicss}]" />
+		<script type="text/javascript" charset="UTF-8" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="http://code.jquery.com/ui/1.10.2/jquery-ui.min.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="syslibs/coffee-script.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="syslibs/library.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="syslibs/JSKit.js"></script>
+<?php
+		$link_arr = array();	
+		$search_dir = "usrlibs";
+		$ext = "js";
+		$dir = opendir($_HOMEDIR_."/".$search_dir);
+		while ($fname = readdir($dir)) {
+			if ($fname != "applicationMain.js" && preg_match("/.*\.".$ext."$/", $fname)) {
+				$link_arr[] = $search_dir."/".$fname;
+			}
+		}
+		sort($link_arr);
+		foreach ($link_arr as $f) {
+?>			<script type="text/javascript" charset="UTF-8" src="<?php echo "$f" ?>"></script>
+<?php	}
+?>
+		<script type="text/javascript" charset="UTF-8" src="usrlibs/applicationMain.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="syslibs/main.js"></script>
+	</head>
+	<body marginheight="0" marginwidth="0" topmargin="0" leftmargin="0">
+	</body>
+	</html>

@@ -1,0 +1,84 @@
+#!/usr/bin/php -f
+<?php
+if (isset($argv[1]) == false) {
+	echo "Please specify a project name.";
+	echo "Usage: ".$argv[0]." [project name]\n";
+	exit;
+}
+
+$homedir = realpath(".")."/".$argv[1];
+if (is_dir($homedir) == true) {
+	echo "A same name project exists.";
+	exit;
+}
+
+$jqueryui_package = "jquery-ui-1.10.2.custom.zip";
+
+$projdir = realpath(__DIR__."/..");
+$system_ini = parse_ini_file($projdir."/configs/system.ini", true);
+$environ = $system_ini["ENVIRON"];
+
+// path initialize
+$sysjslibs = $projdir."/syslibs";
+$usrjslibs = $homedir."/syslibs";
+$extjslibs = $projdir."/extlibs";
+$sysphplibs = $projdir."/phplibs";
+$usrlibs = $homedir."/usrlibs";
+$syscode = $projdir."/appscode";
+$usrcode = $homedir."/appscode";
+$smartypath = $environ["smartypath"];
+
+// make directory
+$createdir_arr = array();
+array_push($createdir_arr, $homedir);
+array_push($createdir_arr, $homedir."/configs");
+array_push($createdir_arr, $homedir."/appscode");
+array_push($createdir_arr, $homedir."/usrlibs");
+array_push($createdir_arr, $homedir."/syslibs");
+array_push($createdir_arr, $homedir."/templates");
+array_push($createdir_arr, $homedir."/templates_c");
+array_push($createdir_arr, $homedir."/cache");
+array_push($createdir_arr, $homedir."/data");
+array_push($createdir_arr, $homedir."/Documents");
+
+foreach($createdir_arr as $path) {
+	mkdir($path);
+}
+
+// setup smarty
+if (!defined("SMARTY_DIR")) {
+    define("SMARTY_DIR", $smartypath);
+}
+require_once(SMARTY_DIR . "/Smarty.class.php");
+$smarty = new Smarty();
+$smarty->template_dir   = $projdir."/templates";
+$smarty->compile_dir    = $projdir."/templates_c";
+$smarty->config_dir     = $projdir."/configs";
+$smarty->cache_dir      = $projdir."/cache";
+
+// change delimiter
+$smarty->left_delimiter = "[{";
+$smarty->right_delimiter = "}]";
+
+// create config file
+$fp = fopen($homedir."/configs/system.ini", "w");
+fputs($fp, "[ENVIRON]\n");
+fputs($fp, "smartypath=\"".$smartypath."\"\n");
+fputs($fp, "jqueryui-theme=\"codejs-default\"\n");
+fclose($fp);
+
+// copy system file
+system("cp -a ".$sysjslibs."/codeJS_default ".$usrjslibs."/");
+
+// copy user script(coffee-script)
+copy($syscode."/applicationMain.coffee", $usrcode."/applicationMain.coffee");
+
+// compile user script(coffee-script)
+system("coffee -b -o ".$usrlibs." -c ".$usrcode);
+
+// create database file
+$db = new SQLite3($homedir."/data/userdefaults.sqlite3");
+$db->close();
+
+echo "New Project Create Done.\n";
+?>

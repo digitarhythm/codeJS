@@ -1,0 +1,45 @@
+#!/usr/bin/php -f
+<?php
+// parameter check
+if (count($argv) < 3) {
+	echo "[Usage]\n";
+	echo $argv[0]." model_class_name new_class_name\n";
+	exit(1);
+}
+
+// path initialize
+$projdir = realpath(__DIR__."/..");
+$system_ini = parse_ini_file($projdir."/configs/system.ini", true);
+$environ = $system_ini["ENVIRON"];
+$smartypath = $environ["smartypath"];
+$homedir = realpath(".");
+$usrcode = $homedir."/appscode";
+$modeldir = $projdir."/classmodel";
+
+// setup smarty
+if (!defined("SMARTY_DIR")) {
+    define("SMARTY_DIR", $smartypath);
+}
+require_once(SMARTY_DIR . "/Smarty.class.php");
+$smarty = new Smarty();
+$smarty->template_dir   = $projdir."/templates";
+$smarty->compile_dir    = $projdir."/templates_c";
+$smarty->config_dir     = $projdir."/configs";
+$smarty->cache_dir      = $projdir."/cache";
+
+// change delimiter
+$smarty->left_delimiter = "[{";
+$smarty->right_delimiter = "}]";
+
+$newclassname = $argv[1];
+$modelclassname = $argv[2];
+
+$modelfilename = $modeldir."/".$modelclassname.".coffee.model";
+$classfilename = $usrcode."/".$newclassname.".coffee";
+
+$smarty->assign("classname", $newclassname);
+$str = $smarty->fetch($modelfilename);
+$fp = fopen($classfilename, "w");
+fputs($fp, $str);
+fclose($fp);
+?>

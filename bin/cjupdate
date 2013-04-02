@@ -1,0 +1,90 @@
+#!/usr/bin/php -f
+<?php
+if (isset($argv[1])) {
+	$projname = "/".$argv[1];
+} else {
+	$projname = "";
+}
+
+// path initialize
+$projdir = realpath(__DIR__."/..");
+
+$system_ini = parse_ini_file($projdir."/configs/system.ini", true);
+$environ = $system_ini["ENVIRON"];
+$csslist = $system_ini["JQUERYUI-CSS"];
+
+$smartypath = $environ["smartypath"];
+$homedir = realpath(".").$projname;
+$p_coffeelibs = $projdir."/syslibs";
+$p_extjslibs = $projdir."/extlibs";
+$h_syslibs = $homedir."/syslibs";
+$p_jskit = $projdir."/JSKit";
+$p_sysphplibs = $projdir."/phplibs";
+$h_usrlibs = realpath($homedir."/usrlibs");
+
+$user_ini = parse_ini_file($homedir."/configs/system.ini", true);
+$usrenviron = $user_ini["ENVIRON"];
+$usecss = $usrenviron["jqueryui-theme"];
+
+// setup smarty
+if (!defined("SMARTY_DIR")) {
+    define("SMARTY_DIR", $smartypath);
+}
+require_once(SMARTY_DIR . "/Smarty.class.php");
+$smarty = new Smarty();
+$smarty->template_dir   = $projdir."/templates";
+$smarty->compile_dir    = $projdir."/templates_c";
+$smarty->config_dir     = $projdir."/configs";
+$smarty->cache_dir      = $projdir."/cache";
+
+// change delimiter
+$smarty->left_delimiter = "[{";
+$smarty->right_delimiter = "}]";
+
+// create index.php
+$cssuri = $csslist[$usecss];
+$smarty->assign("jqueryuicss", $cssuri);
+$index = $smarty->fetch("index.tmpl");
+$fp = fopen($homedir."/index.php", "w");
+fputs($fp, $index);
+fclose($fp);
+
+// compile JSKit
+$path = $p_jskit;
+$dir = opendir($path);
+$file_arr = array();
+while ($fname = readdir($dir)) {
+	if (is_dir("$path/$fname") == true || preg_match("/^\./", $fname) == true || preg_match("/^\d/", $fname) == false) {
+		continue;
+	}
+	$file_arr[] = "$path/$fname";
+}
+sort($file_arr);
+$compile = implode(" ", $file_arr);
+//echo $compile."\n";
+system("coffee -j JSKit.js -b -o ".$h_syslibs." -c ".$compile);
+system("coffee -b -o ".$h_syslibs." -c ".$p_coffeelibs);
+
+// copy js file
+$srcdir = $p_extjslibs;
+$dir = opendir($srcdir);
+while ($fname = readdir($dir)) {
+	if (!preg_match("/.*\.js/", $fname) || preg_match("/^\./", $fname)) {
+		continue;
+	}
+	$src = $srcdir."/".$fname;
+	copy($src, $h_syslibs."/".$fname);
+}
+
+// copy php file
+$srcdir = $p_sysphplibs;
+$dir = opendir($srcdir);
+while ($fname = readdir($dir)) {
+	if (is_dir($srcdir."/".$fname) == true) {
+		continue;
+	}
+	$src = $srcdir."/".$fname;
+	copy($src, $h_syslibs."/".$fname);
+}
+echo "Update System File Done.\n"
+?>

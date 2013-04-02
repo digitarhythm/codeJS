@@ -1,0 +1,4 @@
+#!/bin/bash
+src="./appscode/"
+js="./usrlibs/"
+/usr/bin/coffee -b -o $js -w $src
