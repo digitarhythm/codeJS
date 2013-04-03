@@ -31,7 +31,6 @@ class JSMutableArray extends JSObject
 	removeObject:(obj)->
 		for i in [0...@array.length-1]	
 			if (@array[i] == obj)
-				debug("hit!")
 				@array.splice(i, 1)
 				
 	removeObjectAtIndex:(index)->
