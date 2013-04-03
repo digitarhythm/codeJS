@@ -11,7 +11,6 @@ class JSImageView extends JSView
 			@setImage(@_image)
 
 	setImage: (@_image) ->
-		debug("path="+@_image._imagepath)
 		img = "<img id='"+@_objectID+"_image' src='"+@_image._imagepath+"'>"
 		if ($(@_viewSelector).length)
 			if ($(@_viewSelector+"_image").length)
@@ -19,6 +18,7 @@ class JSImageView extends JSView
 			$(@_viewSelector).append(img)
 		else
 			@_div = @_div.replace(/<!--null-->/, img+"<!--null-->")
+		@_self.setClipToBounds(true)
 		
 	setFrame: (frame) ->
 		super(frame)

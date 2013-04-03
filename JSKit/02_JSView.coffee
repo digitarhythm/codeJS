@@ -136,7 +136,7 @@ class JSView extends JSResponder
 					@_tapAction2(@_self)
 					event.stopPropagation()
 				
-	animateWithDuration:(duration, animations, completion = null)->
+	animateWithDuration:(duration, animations, completion = null)=>
 		duration *= 1000
 		animobj = animations.dictionary
 		if (completion?)
