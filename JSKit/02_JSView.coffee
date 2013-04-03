@@ -116,7 +116,7 @@ class JSView extends JSResponder
 			@_parent._objlist.removeObjectAtIndex(t)
 			$(@_viewSelector).remove()
 	
-	addTapGesture:(tapAction, tapnum = 1)->
+	addTapGesture:(tapAction, tapnum = 1)=>
 		if (tapnum == 1)
 			@_tapAction = tapAction
 		if (tapnum == 2)
@@ -140,7 +140,7 @@ class JSView extends JSResponder
 		duration *= 1000
 		animobj = animations.dictionary
 		if (completion?)
-			$(@_viewSelector).animate animobj, duration, => completion()
+			$(@_viewSelector).animate animobj, duration, => completion(@_self)
 		else
 			$(@_viewSelector).animate animobj, duration
   
