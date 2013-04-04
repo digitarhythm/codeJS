@@ -128,17 +128,24 @@ class JSView extends JSResponder
 			$(@_viewSelector).unbind("click").bind "click", (event) =>
 				if (@_tapAction?)
 					@_tapAction(@_self)
-					event.stopPropagation()
+#					event.stopPropagation()
 					
 		if (tapnum == 2)
 			$(@_viewSelector).unbind("dblclick").bind "dblclick", (event) =>
 				if (@_tapAction2?)
 					@_tapAction2(@_self)
-					event.stopPropagation()
+#					event.stopPropagation()
 				
 	animateWithDuration:(duration, animations, completion = null)=>
 		duration *= 1000
-		animobj = animations.dictionary
+		animtmp = animations.dictionary
+		animobj = {}
+		for key of animtmp
+			value = animtmp[key]
+			if (key == "alpha")
+				key = "opacity"
+			animobj[key] = value
+				
 		if (completion?)
 			$(@_viewSelector).animate animobj, duration, => completion(@_self)
 		else

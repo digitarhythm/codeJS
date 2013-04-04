@@ -1,6 +1,6 @@
-class [{$classname}] extends JSView
-	constructor:(frame)->
-		super(frame)
+class [{$classname}] extends JSMenuView
+	constructor:(action)->
+		super(action)
 		
 	viewDidAppear:->
 		super()
@@ -8,4 +8,4 @@ class [{$classname}] extends JSView
 		Please describe the user code below from here.
 		Please arrange an indent with the head of this comment. 
 		###
-
+		

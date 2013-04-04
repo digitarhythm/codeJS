@@ -1,11 +1,11 @@
-class [{$classname}] extends JSView
+class [{$classname}] extends JSLabel
 	constructor:(frame)->
 		super(frame)
 		
-	viewDidAppear:->
+	viewDidAppear: ->
 		super()
 		###
 		Please describe the user code below from here.
 		Please arrange an indent with the head of this comment. 
 		###
-
+		

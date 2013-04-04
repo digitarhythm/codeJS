@@ -30,11 +30,11 @@ class JSMenuView extends JSScrollView
 		$(@_viewSelector).append(@_div)
 		$(@_viewSelector+"_menu").css("top", @_parent._frame.size.height+"px")
 		$(@_viewSelector+"_menu").css("position", "absolute")
-		$(@_viewSelector+"_menu").css("overflow", "scroll")
+		$(@_viewSelector+"_menu").css("overflow", "visible")
 		$(@_viewSelector+"_menu").css("font-size", @_textSize+"pt")
 		$(@_viewSelector+"_menu").menu
 			select: (event, ui) =>
-				item = ui.item.context.innerText.replace(/\n/, "")
+				item = ui.item.context.innerText.replace(/\n$/, "")
 				@selectMenuItem(item)
 				@closeMenu()
 				

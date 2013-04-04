@@ -1,11 +1,11 @@
-class [{$classname}] extends JSView
-	constructor:(frame)->
-		super(frame)
+class [{$classname}] extends JSImageView
+	constructor:(image)->
+		super(image)
 		
 	viewDidAppear:->
-		super()
+		super()	
 		###
 		Please describe the user code below from here.
 		Please arrange an indent with the head of this comment. 
 		###
-
+			

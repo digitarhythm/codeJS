@@ -1,11 +1,8 @@
-##########################################
-# JSButton - Button Object
-# Coded by kouichi.sakazaki 2013.03.25
-##########################################
-
 class [{$classname}] extends JSButton
-	constructor:(@frame)->super(@frame)
-	viewDidAppear: ->
+	constructor:(frame)->
+		super(frame)
+
+	viewDidAppear:->
 		super()
 		###
 		Please describe the user code below from here.

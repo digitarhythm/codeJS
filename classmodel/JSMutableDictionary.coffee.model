@@ -1,11 +1,8 @@
-class [{$classname}] extends JSView
-	constructor:(frame)->
-		super(frame)
-		
-	viewDidAppear:->
-		super()
+class [{$classname}] extends JSMutableDictionary
+	constructor:(dictionary)->
+		super(dictionary)
 		###
 		Please describe the user code below from here.
 		Please arrange an indent with the head of this comment. 
 		###
-
+		
