@@ -4,13 +4,13 @@
 ##########################################
 
 class JSImageView extends JSView
-	constructor: (@_image) ->
+	constructor:(@_image)->
 		super()
 		if (@_image?)
 			@_bgColor = JSColor("#c0c0c0")
 			@setImage(@_image)
 
-	setImage: (@_image) ->
+	setImage:(@_image)->
 		img = "<img id='"+@_objectID+"_image' src='"+@_image._imagepath+"'>"
 		if ($(@_viewSelector).length)
 			if ($(@_viewSelector+"_image").length)
@@ -20,19 +20,21 @@ class JSImageView extends JSView
 			@_div = @_div.replace(/<!--null-->/, img+"<!--null-->")
 		@_self.setClipToBounds(true)
 		
-	setFrame: (frame) ->
+	setFrame:(frame)->
 		super(frame)
 		$(@_viewSelector+"_image").width(frame.size.width)
 		$(@_viewSelector+"_image").height(frame.size.height)
 
-	setCornerRadius: (radius) ->
+	setCornerRadius:(radius)->
 		super(radius)
 		$(@_viewSelector+"_image").css("border-radius", radius)
 		$(@_viewSelector+"_image").css("-webkit-border-radius", radius)
 		$(@_viewSelector+"_image").css("-moz-border-radius", radius)
 		
-	viewDidAppear: ->
+	viewDidAppear:->
 		super()
 		$(@_viewSelector+"_image").css("position", "absolute")
 		@setCornerRadius(@_cornerRadius)
 		
+	setClipToBounds:->
+		@_clipToBounds = true

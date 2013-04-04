@@ -50,7 +50,7 @@ JSSizeMake = (w, h) ->
 	return size
 	
 # create JSRange
-JSRangeMake = (loc, len) ->
+JSMakeRange = (loc, len) ->
 	range = new JSRange()
 	range.location = loc
 	range.length = len
