@@ -5,7 +5,6 @@
 
 class JSMenuView extends JSScrollView
 	constructor:(@_action = null)->
-		debug(@_action)
 		super(JSRectMake(0, 0, 200, 0))
 		@_textSize = 10
 		@_backgroundColor = JSColor("clearColor")
@@ -35,16 +34,19 @@ class JSMenuView extends JSScrollView
 		$(@_viewSelector+"_menu").css("font-size", @_textSize+"pt")
 		$(@_viewSelector+"_menu").menu
 			select: (event, ui) =>
-				item = ui.item.context.innerText
+				item = ui.item.context.innerText.replace(/\n/, "")
 				@selectMenuItem(item)
 				@closeMenu()
 				
 	selectMenuItem:(item)->
-		debug("action")
 		if (@_action?)
-			@_action(item)
+			for o, i in @_menuitem.array
+				if (o == item)
+					ret = i
+					break
+			@_action(ret)
 		
-	closeMenu:=>
+	closeMenu:->
 		$(@_viewSelector+"_menu").remove()
 		event.stopPropagation()
 		
