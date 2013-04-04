@@ -5,7 +5,7 @@
 
 class JSView extends JSResponder
 	constructor: (@_frame = JSRectMake(0, 0, 640, 480)) ->
-		super(@_frame)
+		super()
 		@_parent = null
 		@_viewSelector = "#"+@_objectID
 		@_bgColor = JSColor("#f0f0f0")
@@ -23,13 +23,13 @@ class JSView extends JSResponder
 		if (!object?)
 			return
 			
+		@_objlist.addObject(object)
+		object._parent = @_self
+			
 		if ($(@_viewSelector).length)
 			$(@_viewSelector).append(object._div)
 			object.setDraggable(object._draggable)
 			object.viewDidAppear()
-			
-		@_objlist.addObject(object)
-		object._parent = @_self
 		
 	setFrame: (@_frame) ->
 		if ($(@_viewSelector).length)
