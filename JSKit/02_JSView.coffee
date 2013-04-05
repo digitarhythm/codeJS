@@ -4,7 +4,7 @@
 ##########################################
 
 class JSView extends JSResponder
-	constructor: (@_frame = JSRectMake(0, 0, 640, 480)) ->
+	constructor: (@_frame = JSRectMake(0, 0, 320, 240)) ->
 		super()
 		@_parent = null
 		@_viewSelector = "#"+@_objectID
@@ -18,6 +18,7 @@ class JSView extends JSResponder
 		@_containment = false
 		@_div = "<div id=\"" + @_objectID + "\" style='position:absolute;'><!--null--></div>"
 		@_objlist = new JSMutableArray()
+		@_shadow = false
 
 	addSubview: (object) ->
 		if (!object?)
@@ -99,8 +100,8 @@ class JSView extends JSResponder
 			
 	bringSubviewToFront:(obj)->
 		id = obj._objectID
-		v = $('#' + id);
-		v.appendTo(v.parent());
+		v = $('#' + id)
+		v.appendTo(v.parent())
 		
 	removeFromSuperview:=>
 		if (@_parent == null)
@@ -150,6 +151,12 @@ class JSView extends JSResponder
 			$(@_viewSelector).animate animobj, duration, => completion(@_self)
 		else
 			$(@_viewSelector).animate animobj, duration
+			
+	setShadow:(@_shadow)->
+		if (@_shadow == true)
+			$(@_viewSelector).css("box-shadow", "4px 4px 10px rgba(0,0,0,0.4)")
+		else
+			$(@_viewSelector).css("box-shadow", "none")
   
 	viewDidAppear: ->
 		@setFrame(@_frame)
@@ -158,6 +165,7 @@ class JSView extends JSResponder
 		@setAlpha(@_alpha)
 		@setBorderColor(@_borderColor)
 		@setBorderWidth(@_borderWidth)
+		@setShadow(@_shadow)
 		@setClipToBounds(@_clipToBounds)
 		@setDraggable(@_draggable)
 		if (@_tapAction?)

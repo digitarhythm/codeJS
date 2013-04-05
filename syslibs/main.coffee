@@ -2,11 +2,12 @@ $ ->
 	bounds = getBounds()
 	width = bounds.size.width
 	height = bounds.size.height
-	
+
 	frame = JSRectMake(0, 0, width, height)
 	@rootView = new JSWindow(frame)
 	@rootView.setBackgroundColor(JSColor("white"))
 	@rootView.setClipToBounds(true)
+	@rootView.setBackgroundColor(JSColor("clearColor"))
 
 	$("body").append(@rootView._div)
 	@rootView.viewDidAppear()

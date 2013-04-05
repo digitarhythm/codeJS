@@ -19,8 +19,25 @@
 		<script type="text/javascript" charset="UTF-8" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="http://code.jquery.com/ui/1.10.2/jquery-ui.min.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="syslibs/coffee-script.js"></script>
+<?php
+		$link_arr = array();	
+		$search_dir = "syslibs/gl-enchant";
+		$ext = "js";
+		$dir = opendir($_HOMEDIR_."/".$search_dir);
+		while ($fname = readdir($dir)) {
+			if ($fname != "applicationMain.js" && preg_match("/^[0-9]{2}.*\.".$ext."$/", $fname)) {
+				$link_arr[] = $search_dir."/".$fname;
+			}
+		}
+		sort($link_arr);
+		foreach ($link_arr as $f) {
+?>			<script type="text/javascript" charset="UTF-8" src="<?php echo "$f" ?>"></script>
+<?php	}
+?>
 		<script type="text/javascript" charset="UTF-8" src="syslibs/library.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="syslibs/JSKit.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="usrlibs/applicationMain.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="syslibs/main.js"></script>
 <?php
 		$link_arr = array();	
 		$search_dir = "usrlibs";
@@ -35,10 +52,7 @@
 		foreach ($link_arr as $f) {
 ?>			<script type="text/javascript" charset="UTF-8" src="<?php echo "$f" ?>"></script>
 <?php	}
-?>
-		<script type="text/javascript" charset="UTF-8" src="usrlibs/applicationMain.js"></script>
-		<script type="text/javascript" charset="UTF-8" src="syslibs/main.js"></script>
-	</head>
+?>	</head>
 	<body marginheight="0" marginwidth="0" topmargin="0" leftmargin="0">
 	</body>
 	</html>
