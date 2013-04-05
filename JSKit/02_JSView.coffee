@@ -29,6 +29,7 @@ class JSView extends JSResponder
 			
 		if ($(@_viewSelector).length)
 			$(@_viewSelector).append(object._div)
+			$(@_viewSelector).css("zIndex", "1")
 			object.setDraggable(object._draggable)
 			object.viewDidAppear()
 		
@@ -154,7 +155,7 @@ class JSView extends JSResponder
 			
 	setShadow:(@_shadow)->
 		if (@_shadow == true)
-			$(@_viewSelector).css("box-shadow", "4px 4px 10px rgba(0,0,0,0.4)")
+			$(@_viewSelector).css("box-shadow", "2px 2px 10px rgba(0,0,0,0.4)")
 		else
 			$(@_viewSelector).css("box-shadow", "none")
   

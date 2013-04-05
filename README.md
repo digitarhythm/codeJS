@@ -8,5 +8,5 @@ code:JSは、iOSなどのViewベースプログラミングと同じような形
 code:JS Japanese document(It is the middle of writing)
 http://www.prominence.tv/codejsdoc/
 
-code:JS DEMO page
-http://www.prominence.tv/codejsdemo/
+code:JS DEMO & Support homepage
+http://www.prominence.tv/

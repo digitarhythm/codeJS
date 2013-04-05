@@ -7,7 +7,7 @@ class JSImageView extends JSView
 	constructor:(@_image)->
 		super()
 		if (@_image?)
-			@_bgColor = JSColor("#c0c0c0")
+			@_bgColor = JSColor("#f0f0f0")
 			@setImage(@_image)
 
 	setImage:(@_image)->

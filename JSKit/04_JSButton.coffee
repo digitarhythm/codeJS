@@ -19,6 +19,8 @@ class JSButton extends JSControl
 		
 	viewDidAppear: ->
 		super()
+		if ($(@_viewSelector+"_button").length)
+			$(@_viewSelector+"_button").remove()
 		@setBackgroundColor(JSColor("clearColor"))
 		tag = "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;' value='"+@_buttonTitle+"' />"
 		$(@_viewSelector).append(tag)
