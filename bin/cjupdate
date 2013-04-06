@@ -15,7 +15,7 @@ $csslist = $system_ini["JQUERYUI-CSS"];
 
 $smartypath = $environ["smartypath"];
 $homedir = realpath(".").$projname;
-$p_coffeelibs = $projdir."/syslibs";
+$p_syslibs = $projdir."/syslibs";
 $p_extjslibs = $projdir."/extlibs";
 $h_syslibs = $homedir."/syslibs";
 $p_jskit = $projdir."/JSKit";
@@ -63,7 +63,7 @@ sort($file_arr);
 $compile = implode(" ", $file_arr);
 //echo $compile."\n";
 system("coffee -j JSKit.js -b -o ".$h_syslibs." -c ".$compile);
-system("coffee -b -o ".$h_syslibs." -c ".$p_coffeelibs);
+system("coffee -b -o ".$h_syslibs." -c ".$p_syslibs);
 
 // copy js file
 $srcdir = $p_extjslibs;
@@ -91,5 +91,18 @@ while ($fname = readdir($dir)) {
 system("cp -a ".$p_extjslibs."/codeJS_default ".$h_syslibs."/");
 copy($p_extjslibs."/three.min.js", $h_syslibs."/three.min.js");
 
+// copy htaccess file
+copy($p_syslibs."/htaccess", $homedir."/configs/.htaccess");
+copy($p_syslibs."/htaccess", $homedir."/data/.htaccess");
+copy($p_syslibs."/htaccess", $homedir."/templates/.htaccess");
+
+copy($p_syslibs."/htaccess2", $homedir."/.htaccess");
+copy($p_syslibs."/htaccess2", $homedir."/appscode/.htaccess");
+copy($p_syslibs."/htaccess2", $homedir."/usrlibs/.htaccess");
+copy($p_syslibs."/htaccess2", $homedir."/syslibs/.htaccess");
+copy($p_syslibs."/htaccess2", $homedir."/cache/.htaccess");
+copy($p_syslibs."/htaccess2", $homedir."/Documents/.htaccess");
+
 echo "Update System File Done.\n"
 ?>
+

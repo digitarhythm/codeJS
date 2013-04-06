@@ -15,10 +15,11 @@ class JSGLView extends JSView
 		@_lookat_x = 0
 		@_lookat_y = 0
 		@_lookat_z = 0
-		@_lightcolor = "#0xcccccc"
+		@_lightcolor = 0xffffff
 		@_lightdir_x = 0.577
 		@_lightdir_y = 0.577
 		@_lightdir_z = 0.577
+		@_ambientLightColor = 0x404040
 		
 		# init rendere
 		@_renderer = new THREE.WebGLRenderer({ antialias:@_antialias })
@@ -38,8 +39,8 @@ class JSGLView extends JSView
 		@_light.position = new THREE.Vector3(@_lightdir_x, @_lightdir_y, @_lightdir_z);
 		@_scene.add(@_light);
  
-	setAmbient:(@_ambientlight_color)->
-		@_ambient = new THREE.AmbientLight(@_ambientlight_color)
+	setAmbient:(@_ambientLightColor)->
+		@_ambient = new THREE.AmbientLight(@_ambientLightColor)
 		@_scene.add(@_ambient);
 
 	render:=>
@@ -58,3 +59,5 @@ class JSGLView extends JSView
 		@_scene = new THREE.Scene()
 		@setCamera(@_perspective, @_camera_x, @_camera_y, @_camera_z, @_lookat_x, @_lootat_y, @_lookat_z)
 		@setLight(@_lightcolor, @_lightdir_x, @_lightdir_y, @_lightdir_z) 
+		@setAmbient(@_ambientLightColor)
+

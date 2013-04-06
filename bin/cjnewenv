@@ -67,11 +67,6 @@ fputs($fp, "smartypath=\"".$smartypath."\"\n");
 fputs($fp, "jqueryui-theme=\"codejs-default\"\n");
 fclose($fp);
 
-// copy system file
-copy($sysjslibs."/htaccess", $homedir."/configs/.htaccess");
-copy($sysjslibs."/htaccess", $homedir."/data/.htaccess");
-copy($sysjslibs."/htaccess", $homedir."/templates/.htaccess");
-
 // copy user script(coffee-script)
 copy($syscode."/applicationMain.coffee", $usrcode."/applicationMain.coffee");
 

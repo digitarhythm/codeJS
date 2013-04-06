@@ -20,7 +20,7 @@ class JSTextView extends JSScrollView
 		@_text.string = @_text.string.replace(/\n/gi, "[br]")
 		@_text.string = @_text.string.replace(/<br>/gi, "[br]")
 		if ($(@_viewSelector+"_textarea").length)
-			$(@_viewSelector+"_textarea").html(@_text.string)
+			@setEditable(@_editable)
 		
 	setTextSize: (@_textSize) ->
 		if ($(@_viewSelector+"_textarea").length)
@@ -45,8 +45,6 @@ class JSTextView extends JSScrollView
 		if (!@_text?)
 			@_text = @S("")
 			
-		#/////////////////////////////////////////////////////////////////
-		
 		if (@_editable == true)
 			disp = @_text.string.replace(/\[br\]/g, "\n")
 			@_text.string = ""
@@ -55,7 +53,7 @@ class JSTextView extends JSScrollView
 			y = -2
 		else
 			if (@_text.string == "" && $(@_viewSelector+"_textarea").length)
-				@_text.setText(@S($(@_viewSelector+"_textarea").val()))
+				@_text.string = $(@_viewSelector+"_textarea").val()
 				@_text.string = @_text.string.replace(/\n/g, "[br]")
 			disp = @_text.string.replace(/\[br\]/g, "<br>")
 			tag = "<div id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;'></div>"
@@ -75,10 +73,7 @@ class JSTextView extends JSScrollView
 		@setUserInteraction(@_userInteraction)	
 		$(@_viewSelector+"_textarea").css("left", x)
 		$(@_viewSelector+"_textarea").css("top", y)
-		
 		$(@_viewSelector+"_textarea").html(disp)
-			
-		#/////////////////////////////////////////////////////////////////
 		
 		$(@_viewSelector+"_textarea").width(@_frame.size.width)
 		$(@_viewSelector+"_textarea").height(@_frame.size.height)
