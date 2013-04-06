@@ -10,5 +10,6 @@ class JSObject
 		@tag = ""
 
 	S:(str)->
-		obj = new JSString(str)
+		obj = new JSString()
+		obj.string = str
 		return obj

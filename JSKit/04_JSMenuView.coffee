@@ -20,7 +20,6 @@ class JSMenuView extends JSScrollView
 			
 		@_div = "<ul id='"+@_objectID+"_menu'><!--menuitem--></ul>"
 		menustr = ""
-		debug(@_menuitem)
 		for disp in @_menuitem.array
 			menustr += "<li><a href='#'>"+disp.string+"</a></li>"	
 		@_div = @_div.replace(/<!--menuitem-->/, menustr)
@@ -36,7 +35,6 @@ class JSMenuView extends JSScrollView
 		$(@_viewSelector+"_menu").menu
 			select: (event, ui) =>
 				item = ui.item.context.textContent
-				debug("item="+item)
 				@selectMenuItem(item)
 				@closeMenu()
 				
@@ -46,7 +44,6 @@ class JSMenuView extends JSScrollView
 				if (o.string == item)
 					ret = i
 					break
-			debug("ret="+ret)
 			@_action(ret)
 		
 	closeMenu:->

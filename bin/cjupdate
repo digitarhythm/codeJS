@@ -86,5 +86,10 @@ while ($fname = readdir($dir)) {
 	$src = $srcdir."/".$fname;
 	copy($src, $h_syslibs."/".$fname);
 }
+
+// copy system file
+system("cp -a ".$p_extjslibs."/codeJS_default ".$h_syslibs."/");
+copy($p_extjslibs."/three.min.js", $h_syslibs."/three.min.js");
+
 echo "Update System File Done.\n"
 ?>

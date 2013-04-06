@@ -14,7 +14,7 @@ class JSTextView extends JSScrollView
 		@_borderColor = JSColor("clearColor")
 		@_borderWidth = 0
 		@_textAlignment = "JSTextAlignmentLeft"
-		@_text = @S ""
+		@_text = @S("")
 
 	setText: (@_text) ->
 		@_text.string = @_text.string.replace(/\n/gi, "[br]")
@@ -43,7 +43,7 @@ class JSTextView extends JSScrollView
 			return
 			
 		if (!@_text?)
-			@_text = @S ""
+			@_text = @S("")
 			
 		#/////////////////////////////////////////////////////////////////
 		
@@ -55,7 +55,7 @@ class JSTextView extends JSScrollView
 			y = -2
 		else
 			if (@_text.string == "" && $(@_viewSelector+"_textarea").length)
-				@_text.setText($(@_viewSelector+"_textarea").val())
+				@_text.setText(@S($(@_viewSelector+"_textarea").val()))
 				@_text.string = @_text.string.replace(/\n/g, "[br]")
 			disp = @_text.string.replace(/\[br\]/g, "<br>")
 			tag = "<div id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;'></div>"

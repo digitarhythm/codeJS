@@ -1,11 +1,9 @@
 class [{$classname}] extends JSGLView
-	constructor:(frame)->
-		super(frame)
-
+	constructor:(frame, @_bgColor, @_alpha, @_antialias)->
+		super(frame, @_bgColor, @_alpha, @_antialias)
+		
 	viewDidAppear:->
 		super()
-		###
-		Please describe the user code below from here.
-		Please arrange an indent with the head of this comment. 
-		###
 		
+	enterFrame:->
+

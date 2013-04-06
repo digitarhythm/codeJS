@@ -68,8 +68,6 @@ fputs($fp, "jqueryui-theme=\"codejs-default\"\n");
 fclose($fp);
 
 // copy system file
-system("cp -a ".$sysjslibs."/codeJS_default ".$usrjslibs."/");
-system("cp -a ".$extjslibs."/gl-enchant ".$usrjslibs."/");
 copy($sysjslibs."/htaccess", $homedir."/configs/.htaccess");
 copy($sysjslibs."/htaccess", $homedir."/data/.htaccess");
 copy($sysjslibs."/htaccess", $homedir."/templates/.htaccess");

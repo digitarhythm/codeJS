@@ -8,7 +8,7 @@ class JSButton extends JSControl
 		super(frame)
 		@_borderColor = JSColor("clearColor")
 		@_backgroundColor = JSColor("clearColor")
-		@_buttonTitle = @S "Button"
+		@_buttonTitle = @S("Button")
 		@_textSize = 8
 		
 	setButtonTitle: (@_buttonTitle) ->

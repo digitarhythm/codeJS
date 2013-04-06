@@ -22,14 +22,12 @@ class JSListView extends JSScrollView
 		if (!@listData?)
 			return
 		for value of @listData.dictionary
-			disp = @listData.objectForKey(value)
-			@_tag += "<option value='"+value+"'>"+disp+"</option>"
+			disp = @listData.objectForKey(value.string)
+			@_tag += "<option value='"+value+"'>"+disp.string+"</option>"
 		@_tag += "</select>"
 		if ($(@_viewSelector+"_select").length)
 			$(@_viewSelector+"_select").remove()
 		$(@_viewSelector).append(@_tag)	
-		debug(@_tag)
-		debug("width="+@_frame.size.width)
 #		$(@_viewSelector+"_select").width(@_frame.size.width+"px")
 #		$(@_viewSelector+"_select").height(@_frame.size.height+"px")		
 	

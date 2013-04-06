@@ -37,6 +37,11 @@ $modelclassname = $argv[2];
 $modelfilename = $modeldir."/".$modelclassname.".coffee.model";
 $classfilename = $usrcode."/".$newclassname.".coffee";
 
+if (!is_file($modelfilename)) {
+	echo "'$modelfilename' is not classfile.\n"
+	exit(0)
+}
+
 $smarty->assign("classname", $newclassname);
 $str = $smarty->fetch($modelfilename);
 $fp = fopen($classfilename, "w");
