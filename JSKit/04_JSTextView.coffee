@@ -14,13 +14,13 @@ class JSTextView extends JSScrollView
 		@_borderColor = JSColor("clearColor")
 		@_borderWidth = 0
 		@_textAlignment = "JSTextAlignmentLeft"
-		@_text = ""
+		@_text = @S ""
 
 	setText: (@_text) ->
-		@_text = @_text.replace(/\n/gi, "[br]")
-		@_text = @_text.replace(/<br>/gi, "[br]")
+		@_text.string = @_text.string.replace(/\n/gi, "[br]")
+		@_text.string = @_text.string.replace(/<br>/gi, "[br]")
 		if ($(@_viewSelector+"_textarea").length)
-			$(@_viewSelector+"_textarea").html(@_text)
+			$(@_viewSelector+"_textarea").html(@_text.string)
 		
 	setTextSize: (@_textSize) ->
 		if ($(@_viewSelector+"_textarea").length)
@@ -43,21 +43,21 @@ class JSTextView extends JSScrollView
 			return
 			
 		if (!@_text?)
-			@_text = ""
+			@_text = @S ""
 			
 		#/////////////////////////////////////////////////////////////////
 		
 		if (@_editable == true)
-			disp = @_text.replace(/\[br\]/g, "\n")
-			@_text = ""
+			disp = @_text.string.replace(/\[br\]/g, "\n")
+			@_text.string = ""
 			tag = "<textarea id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;'></textarea>"
 			x = -2
 			y = -2
 		else
-			if (@_text == "" && $(@_viewSelector+"_textarea").length)
-				@_text = $(@_viewSelector+"_textarea").val()
-				@_text = @_text.replace(/\n/g, "[br]")
-			disp = @_text.replace(/\[br\]/g, "<br>")
+			if (@_text.string == "" && $(@_viewSelector+"_textarea").length)
+				@_text.setText($(@_viewSelector+"_textarea").val())
+				@_text.string = @_text.string.replace(/\n/g, "[br]")
+			disp = @_text.string.replace(/\[br\]/g, "<br>")
 			tag = "<div id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;'></div>"
 			x = 0
 			y = 0

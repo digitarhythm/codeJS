@@ -6,8 +6,23 @@
 class JSString extends JSObject
 	constructor:(@string)->
 		super()
-		@string = ""
+		if (!@string?)
+			@string = ""
+		else
+			@string = @escapeHTML_replace_func_rulescached(@string)
+
 	length:->
 		return @string.length
+	
+	setText:(s) ->
+		@string = @escapeHTML_replace_func_rulescached(s)
 
-		
+	escapeHTML_replace_func_rulescached:(s) ->
+	  s.replace /[&"<>]/g, (c) ->
+	    escapeRules[c]
+	
+	escapeRules =
+	  "&": "&amp;"
+	  "\"": "&quot;"
+	  "<": "&lt;"
+	  ">": "&gt;"

@@ -8,3 +8,7 @@ class JSSize extends JSObject
 		super()
 		@width = 0
 		@height = 0
+
+	@S:(str)->
+		obj = new JSString(str)
+		return obj
