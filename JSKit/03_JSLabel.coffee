@@ -57,7 +57,7 @@ class JSLabel extends JSView
 			if (@_text.string == "" && $(@_viewSelector+"_text").length)
 				@_text.setText(@S($(@_viewSelector+"_text").val()))
 			disp = @_text.string
-			tag = "<div id='"+@_objectID+"_text' style='position:absolute;></div>"
+			tag = "<div id='"+@_objectID+"_text' style='position:absolute;'></div>"
 			x = 0
 			y = 0
 			
