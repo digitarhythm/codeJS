@@ -50,14 +50,14 @@ class JSLabel extends JSView
 				return
 			disp = @_text.string
 			@_text.string = ""
-			tag = "<input id='"+@_objectID+"_text' style='position:absolute;z-index:1' />"
+			tag = "<input id='"+@_objectID+"_text' style='position:absolute;' />"
 			x = -4
 			y = -4
 		else
 			if (@_text.string == "" && $(@_viewSelector+"_text").length)
 				@_text.setText(@S($(@_viewSelector+"_text").val()))
 			disp = @_text.string
-			tag = "<div id='"+@_objectID+"_text' style='position:absolute;z-index:1'></div>"
+			tag = "<div id='"+@_objectID+"_text' style='position:absolute;></div>"
 			x = 0
 			y = 0
 			
@@ -91,9 +91,11 @@ class JSLabel extends JSView
 		super()
 		$(@_viewSelector).css("display", "block-inline")
 		$(@_viewSelector).css("vertical-align", "middle")
+		$(@_viewSelector).css("z-index", "1")
 		$(@_viewSelector+"_text").width(@_frame.size.width)
 		$(@_viewSelector+"_text").css("display", "block-inline")
 		$(@_viewSelector+"_text").css("line-height",@_frame.size.height+"px")
+		$(@_viewSelector+"_text").css("z-index", "1")
 		@setTextSize(@_textSize)
 		@setTextColor(@_textColor)
 		@setTextAlignment(@_textAlignment)
