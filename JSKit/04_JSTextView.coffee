@@ -48,7 +48,7 @@ class JSTextView extends JSScrollView
 		if (@_editable == true)
 			disp = @_text.string.replace(/\[br\]/g, "\n")
 			@_text.string = ""
-			tag = "<textarea id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;'></textarea>"
+			tag = "<textarea id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;z-index:1;'></textarea>"
 			x = -2
 			y = -2
 		else
@@ -56,7 +56,7 @@ class JSTextView extends JSScrollView
 				@_text.string = $(@_viewSelector+"_textarea").val()
 				@_text.string = @_text.string.replace(/\n/g, "[br]")
 			disp = @_text.string.replace(/\[br\]/g, "<br>")
-			tag = "<div id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;'></div>"
+			tag = "<div id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;z-index:1;'></div>"
 			x = 0
 			y = 0
 			

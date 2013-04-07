@@ -29,7 +29,7 @@ class JSView extends JSResponder
 			
 		if ($(@_viewSelector).length)
 			$(@_viewSelector).append(object._div)
-			$(@_viewSelector).css("zIndex", "1")
+			$(@_viewSelector).css("z-index", "1")
 			object.setDraggable(object._draggable)
 			object.viewDidAppear()
 		

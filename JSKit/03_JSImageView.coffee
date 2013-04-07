@@ -34,7 +34,6 @@ class JSImageView extends JSView
 	viewDidAppear:->
 		super()
 		$(@_viewSelector+"_image").css("position", "absolute")
+		$(@_viewSelector).css("z-index", "1")
+		$(@_viewSelector+"_image").css("z-index", "1")
 		@setCornerRadius(@_cornerRadius)
-		
-	setClipToBounds:->
-		@_clipToBounds = true

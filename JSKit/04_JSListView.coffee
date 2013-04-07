@@ -18,7 +18,7 @@ class JSListView extends JSScrollView
 		size = @listData.count()
 		if (size < 2)
 			size = 2
-		@_tag = "<select id='"+@_viewSelector+"_select' size='"+size+"' style='width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;'>"
+		@_tag = "<select id='"+@_viewSelector+"_select' size='"+size+"' style='width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;z-index:1;'>"
 		if (!@listData?)
 			return
 		for value of @listData.dictionary

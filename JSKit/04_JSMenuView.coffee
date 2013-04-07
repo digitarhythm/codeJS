@@ -18,7 +18,7 @@ class JSMenuView extends JSScrollView
 		if (!$(@_viewSelector).length)
 			return
 			
-		@_div = "<ul id='"+@_objectID+"_menu'><!--menuitem--></ul>"
+		@_div = "<ul id='"+@_objectID+"_menu' style='z-index:1;'><!--menuitem--></ul>"
 		menustr = ""
 		for disp in @_menuitem.array
 			menustr += "<li><a href='#'>"+disp.string+"</a></li>"	

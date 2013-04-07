@@ -23,7 +23,7 @@ class JSButton extends JSControl
 		if ($(@_viewSelector+"_button").length)
 			$(@_viewSelector+"_button").remove()
 		@setBackgroundColor(JSColor("clearColor"))
-		tag = "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;' value='"+@_buttonTitle.string+"' />"
+		tag = "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;z-index:1;' value='"+@_buttonTitle.string+"' />"
 		$(@_viewSelector).append(tag)
 		$(@_viewSelector+"_button").width(@_frame.size.width)
 		$(@_viewSelector+"_button").height(@_frame.size.height)
