@@ -4,7 +4,7 @@ debug = (a) ->
 	
 # YES/NO dialog
 isConfirm = (str) ->
-	if (window.confirm(str))
+	if (window.confirm(str.string))
 		return 1
 
 # get cookie value
@@ -75,3 +75,14 @@ JSColor = (color) ->
 
 	return ret
 	
+# Get Standard Path
+JSSearchPathForDirectoriesInDomains = (kind) ->
+	ret = ""
+	switch kind
+		when "JSLibraryDirectory"
+			ret = "Library"
+		when "JSDocumentDirectory"
+			ret = "Documents"
+	
+	return ret
+

@@ -93,7 +93,7 @@ copy($p_extjslibs."/three.min.js", $h_syslibs."/three.min.js");
 
 // copy htaccess file
 copy($p_syslibs."/htaccess", $homedir."/configs/.htaccess");
-copy($p_syslibs."/htaccess", $homedir."/data/.htaccess");
+copy($p_syslibs."/htaccess", $homedir."/Library/.htaccess");
 copy($p_syslibs."/htaccess", $homedir."/templates/.htaccess");
 
 copy($p_syslibs."/htaccess2", $homedir."/.htaccess");

@@ -24,12 +24,18 @@ class JSString extends JSObject
 	  "<": "&lt;"
 	  ">": "&gt;"
 
-	stringWithContentsOfFile:(fname, @action)->	  
+	stringWithContentsOfFile:(fname, @readaction)->	  
 		if (!fname.string?)
 			return
 		$.post 'syslibs/library.php',
 			mode: 'stringWithContentsOfFile'
 			fname: fname.string
-			(data) => @action(data)
+			(data) => @readaction(data)
   
+	writeToFile:(fpath, encoding, @saveaction)->
+		$.post 'syslibs/library.php',
+			mode: 'writeToFile'
+			fname: fpath.string
+			data: @string
+			(data) => @saveaction(data)
 

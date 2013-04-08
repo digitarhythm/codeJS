@@ -38,7 +38,7 @@ array_push($createdir_arr, $homedir."/syslibs");
 array_push($createdir_arr, $homedir."/templates");
 array_push($createdir_arr, $homedir."/templates_c");
 array_push($createdir_arr, $homedir."/cache");
-array_push($createdir_arr, $homedir."/data");
+array_push($createdir_arr, $homedir."/Library");
 array_push($createdir_arr, $homedir."/Documents");
 
 foreach($createdir_arr as $path) {
@@ -74,7 +74,7 @@ copy($syscode."/applicationMain.coffee", $usrcode."/applicationMain.coffee");
 system("coffee -b -o ".$usrlibs." -c ".$usrcode);
 
 // create database file
-$db = new SQLite3($homedir."/data/userdefaults.sqlite3");
+$db = new SQLite3($homedir."/Library/userdefaults.sqlite3");
 $db->close();
 
 echo "New Project Create Done.\n";
