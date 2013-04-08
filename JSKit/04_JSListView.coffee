@@ -19,13 +19,13 @@ class JSListView extends JSScrollView
 		size = @_listData.count()
 		if (size < 2)
 			size = 2
-		@_tag = "<select id='"+@_objectID+"_select' size='"+size+"' style='width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;z-index:1;'>"
+		@_tag = "<form><select id='"+@_objectID+"_select' size='"+size+"' style='width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;z-index:1;'>"
 		if (!@_listData?)
 			return
 		for value of @_listData.dictionary
 			disp = @_listData.objectForKey(value)
 			@_tag += "<option value='"+value+"'>"+disp.string+"</option>"
-		@_tag += "</select>"
+		@_tag += "</select></form>"
 		if ($(@_viewSelector+"_select").length)
 			$(@_viewSelector+"_select").remove()
 		$(@_viewSelector).append(@_tag)	

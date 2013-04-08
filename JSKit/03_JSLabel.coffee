@@ -36,6 +36,11 @@ class JSLabel extends JSView
 			else
 				$(@_viewSelector).css("text-align", "center")
 	
+	setFrame:(frame)->
+		super(frame)
+		$(@_viewSelector+"_text").width(frame.size.width)
+		$(@_viewSelector+"_text").height(frame.size.height)
+	
 	setEditable:(@_editable)->
 		
 		if (!$(@_viewSelector).length)
