@@ -37,15 +37,13 @@ class JSListView extends JSScrollView
 			e.stopPropagation()
 		$(@_viewSelector+"_select").change =>
 			select = $(@_viewSelector+"_select option:selected").val()
-			debug("action="+@_action)
-			if (@_action?)
+			if (@_action? && select?)
 				@_action(select)
 
 		$(@_viewSelector+"_select").width(@_frame.size.width+"px")
 		$(@_viewSelector+"_select").height(@_frame.size.height+"px")		
 		
 	addTarget:(@_action)->
-		debug("set action="+@_action)
 	
 	reload:->
 		@setDataList(@_listData)

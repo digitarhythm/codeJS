@@ -15,6 +15,9 @@ class JSTextView extends JSScrollView
 		@_borderWidth = 0
 		@_textAlignment = "JSTextAlignmentLeft"
 		@_text = @S("")
+		@_writingMode = 0
+		
+	setWritingMode:(@_writingMode)->
 
 	setText: (@_text) ->
 		@_text.string = @_text.string.replace(/\n/gi, "[br]")
@@ -63,6 +66,13 @@ class JSTextView extends JSScrollView
 		if ($(@_viewSelector+"_textarea").length)
 			$(@_viewSelector+"_textarea").remove()
 		$(@_viewSelector).append(tag)
+		if (@_writingMode == 0)
+			writingmode = "horizontal-tb"
+		else
+			writingmode = "vertical-rl"
+		$(@_viewSelector+"_textarea").css("-webkit-writing-mode", writingmode)
+		$(@_viewSelector+"_textarea").css("background-color", JSColor("clearColor"))
+		$(@_viewSelector+"_textarea").css("border", "0px "+JSColor("clearColor"))
 		if (@_editable == true)
 			$(@_viewSelector+"_textarea").unbind("click").bind "click", (event) =>
 				event.stopPropagation()
