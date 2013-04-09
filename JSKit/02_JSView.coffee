@@ -4,7 +4,7 @@
 ##########################################
 
 class JSView extends JSResponder
-	constructor: (@_frame = JSRectMake(0, 0, 320, 240)) ->
+	constructor: (@_frame = JSRectMake(0, 0, 320, 240))->
 		super()
 		@_parent = null
 		@_viewSelector = "#"+@_objectID
@@ -15,6 +15,7 @@ class JSView extends JSResponder
 		@_borderWidth = 0
 		@_clipToBounds = false
 		@_draggable = false
+		@_resizable = false
 		@_containment = false
 		@_div = "<div id=\"" + @_objectID + "\" style='position:absolute;'><!--null--></div>"
 		@_objlist = new JSMutableArray()
@@ -31,6 +32,7 @@ class JSView extends JSResponder
 			$(@_viewSelector).append(object._div)
 			$(@_viewSelector).css("z-index", "1")
 			object.setDraggable(object._draggable)
+			object.setResizable(object._resizable)
 			object.viewDidAppear()
 		
 	setFrame: (@_frame) ->
@@ -94,6 +96,40 @@ class JSView extends JSResponder
 		else
 			$(@_viewSelector).css("cursor", "normal")
 			$(@_viewSelector).draggable({disabled: true})
+			
+	setResizable: (@_resizable, @_resizeAction = null, minWidth = 0, minHeight = 0, maxWidth = 16777216, maxHeight = 16777216) ->
+		if (@_parent?)
+			containment = @_parent._containment
+		else
+			containment = false
+			
+		if (!$(@_viewSelector).length)
+			return
+			
+		if (@_resizable == true)
+			if (containment == true)
+				$(@_viewSelector).resizable
+					containment:"parent"
+					minWidth:minWidth
+					minHeight:minHeight
+					maxWidth:maxWidth
+					maxHeight:maxHeight
+					resize: (event, ui) =>
+						@_resizeAction()
+			else
+				$(@_viewSelector).resizable
+					opacity:0.5
+					disabled: false
+				$(@_viewSelector).resizable("destroy")
+				$(@_viewSelector).resizable
+					minWidth:minWidth
+					minHeight:minHeight
+					maxWidth:maxWidth
+					maxHeight:maxHeight
+					opacity:0.5
+					disabled: false
+#		else
+#			$(@_viewSelector).resizable("destroy")
 			
 	setContainment:(@_containment) ->
 		for obj in @_objlist.array

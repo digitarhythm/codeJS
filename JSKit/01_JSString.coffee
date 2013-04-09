@@ -39,3 +39,8 @@ class JSString extends JSObject
 			data: @string
 			(data) => @saveaction(data)
 
+	isEqualToString:(str)->
+		if (@string == str.string)
+			return true
+		else
+			return false

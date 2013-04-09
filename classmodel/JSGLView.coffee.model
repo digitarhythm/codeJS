@@ -1,6 +1,6 @@
 class [{$classname}] extends JSGLView
-	constructor:(frame, @_bgColor, @_alpha, @_antialias)->
-		super(frame, @_bgColor, @_alpha, @_antialias)
+	constructor:(frame, bgColor, alpha, antialias)->
+		super(frame, bgColor, alpha, antialias)
 		
 	viewDidAppear:->
 		super()
