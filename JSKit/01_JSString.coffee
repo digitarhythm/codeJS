@@ -11,8 +11,8 @@ class JSString extends JSObject
 	length:->
 		return @string.length
 	
-	setText:(s) ->
-		@string = @escapeHTML_replace_func_rulescached(s.string)
+	setText:(str) ->
+		@string = @escapeHTML_replace_func_rulescached(str.string)
 
 	escapeHTML_replace_func_rulescached:(s) ->
 	  s.replace /[&"<>]/g, (c) ->
@@ -46,5 +46,6 @@ class JSString extends JSObject
 			return false
 
 	stringByAppendingString:(str)->
-		@string += str
-		return @string
+		ret = new JSString()
+		ret.string = @string+str.string
+		return ret
