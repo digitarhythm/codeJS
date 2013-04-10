@@ -108,6 +108,7 @@ class JSView extends JSResponder
 			
 		if (@_resizable == true)
 			if (containment == true)
+				debug("resize1")
 				$(@_viewSelector).resizable
 					containment:"parent"
 					minWidth:minWidth
@@ -117,6 +118,7 @@ class JSView extends JSResponder
 					resize: (event, ui) =>
 						@_resizeAction()
 			else
+				debug("resize2")
 				$(@_viewSelector).resizable
 					opacity:0.5
 					disabled: false
@@ -128,6 +130,8 @@ class JSView extends JSResponder
 					maxHeight:maxHeight
 					opacity:0.5
 					disabled: false
+					resize: (event, ui) =>
+						@_resizeAction()
 #		else
 #			$(@_viewSelector).resizable("destroy")
 			

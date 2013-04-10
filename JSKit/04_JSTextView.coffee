@@ -72,7 +72,7 @@ class JSTextView extends JSScrollView
 			writingmode = "vertical-rl"
 		$(@_viewSelector+"_textarea").css("-webkit-writing-mode", writingmode)
 		$(@_viewSelector+"_textarea").css("background-color", JSColor("clearColor"))
-		$(@_viewSelector+"_textarea").css("border", "0px "+JSColor("clearColor"))
+		$(@_viewSelector+"_textarea").css("border", "none")
 		if (@_editable == true)
 			$(@_viewSelector+"_textarea").unbind("click").bind "click", (event) =>
 				event.stopPropagation()
