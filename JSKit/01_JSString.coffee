@@ -44,3 +44,7 @@ class JSString extends JSObject
 			return true
 		else
 			return false
+
+	stringByAppendingString:(str)->
+		@string += str
+		return @string

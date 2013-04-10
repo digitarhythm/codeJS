@@ -132,8 +132,6 @@ class JSView extends JSResponder
 					disabled: false
 					resize: (event, ui) =>
 						@_resizeAction()
-#		else
-#			$(@_viewSelector).resizable("destroy")
 			
 	setContainment:(@_containment) ->
 		for obj in @_objlist.array

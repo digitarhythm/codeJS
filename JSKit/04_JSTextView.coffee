@@ -76,6 +76,8 @@ class JSTextView extends JSScrollView
 		if (@_editable == true)
 			$(@_viewSelector+"_textarea").unbind("click").bind "click", (event) =>
 				event.stopPropagation()
+			$(@_viewSelector+"_textarea").bind "change", =>
+				@_text = @S($(@_viewSelector+"_textarea").val())
 			
 		@setTextSize(@_textSize)
 		@setTextColor(@_textColor)
