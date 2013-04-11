@@ -6,15 +6,8 @@
 class JSString extends JSObject
 	constructor:->
 		super()
-		@string = ""
 
-	length:->
-		return @string.length
-	
-	setText:(str) ->
-		@string = @escapeHTML_replace_func_rulescached(str.string)
-
-	escapeHTML_replace_func_rulescached:(s) ->
+	escapeHTML:(s) ->
 	  s.replace /[&"<>]/g, (c) ->
 	    escapeRules[c]
 	
@@ -25,27 +18,18 @@ class JSString extends JSObject
 	  ">": "&gt;"
 
 	stringWithContentsOfFile:(fname, @readaction)->	  
-		if (!fname.string?)
+		if (!fname?)
 			return
 		$.post 'syslibs/library.php',
 			mode: 'stringWithContentsOfFile'
-			fname: fname.string
+			fname: fname
 			(data) => @readaction(data)
   
 	writeToFile:(fpath, encoding, @saveaction)->
 		$.post 'syslibs/library.php',
 			mode: 'writeToFile'
-			fname: fpath.string
+			fname: fpath
 			data: @string
-			(data) => @saveaction(data)
-
-	isEqualToString:(str)->
-		if (@string == str.string)
-			return true
-		else
-			return false
-
-	stringByAppendingString:(str)->
-		ret = new JSString()
-		ret.string = @string+str.string
-		return ret
+			, (data) =>
+				@string = data
+				@saveaction()

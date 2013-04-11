@@ -6,8 +6,8 @@
 class JSImage extends JSObject
 	constructor: (imagename) ->
 		super()
-		if (imagename.string?)
-			@imageNamed(imagename.string)
+		if (imagename?)
+			@imageNamed(imagename)
 	
 	imageNamed: (imagefile) ->
-		@_imagepath = @S("Documents/"+imagefile)
+		@_imagepath = "Documents/"+imagefile

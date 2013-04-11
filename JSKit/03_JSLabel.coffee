@@ -10,13 +10,12 @@ class JSLabel extends JSView
 		@_textColor = JSColor("black")
 		@_bgColor = JSColor("#f0f0f0")
 		@_textAlignment = "JSTextAlignmentCenter"
-		@_text = @S("Label")
+		@_text = "Label"
 		@_editable = true
 		
-	setText: (text) ->
-		@_text.string = text.string
+	setText: (@_text) ->
 		if ($(@_viewSelector+"_text").length)
-			$(@_viewSelector+"_text").html(@_text.string)
+			$(@_viewSelector+"_text").html(@_text)
 
 	setTextSize: (@_textSize) ->
 		if ($(@_viewSelector+"_text").length)
@@ -48,21 +47,21 @@ class JSLabel extends JSView
 			return
 			
 		if (!@_text?)
-			@_text.string = ""
+			@_text = ""
 			
 		#/////////////////////////////////////////////////////////////////
 		if (@_editable == true)
-			if(@_text.string == "")
+			if(@_text == "")
 				return
-			disp = @_text.string
-			@_text.string = ""
+			disp = @_text
+			@_text = ""
 			tag = "<input id='"+@_objectID+"_text' style='position:absolute;' />"
 			x = -4
 			y = -4
 		else
-			if (@_text.string == "" && $(@_viewSelector+"_text").length)
-				@_text.setText(@S($(@_viewSelector+"_text").val()))
-			disp = @_text.string
+			if (@_text == "" && $(@_viewSelector+"_text").length)
+				@_text = $(@_viewSelector+"_text").val()
+			disp = @_text
 			tag = "<div id='"+@_objectID+"_text' style='position:absolute;'></div>"
 			x = 0
 			y = 0

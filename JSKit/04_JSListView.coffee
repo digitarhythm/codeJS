@@ -16,15 +16,15 @@ class JSListView extends JSScrollView
 			$(@_viewSelector+"_select").height(frame.size.height)
 
 	setDataList:(@_listData)->
-		size = @_listData.count()
+		size = @_listData.length
 		if (size < 2)
 			size = 2
 		@_tag = "<form><select id='"+@_objectID+"_select' size='"+size+"' style='width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;z-index:1;'>"
 		if (!@_listData?)
 			return
-		for i in [0...@_listData.count()]
-			value = @_listData.objectAtIndex(i)
-			disp = value.string
+		for i in [0...@_listData.length]
+			value = @_listData[i]
+			disp = value
 			@_tag += "<option value='"+i+"'>"+disp+"</option>"
 		@_tag += "</select></form>"
 		if ($(@_viewSelector+"_select").length)

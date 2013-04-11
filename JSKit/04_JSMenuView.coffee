@@ -20,8 +20,8 @@ class JSMenuView extends JSScrollView
 			
 		@_div = "<ul id='"+@_objectID+"_menu' style='z-index:1;'><!--menuitem--></ul>"
 		menustr = ""
-		for disp in @_menuitem.array
-			menustr += "<li><a href='#'>"+disp.string+"</a></li>"	
+		for disp in @_menuitem
+			menustr += "<li><a href='#'>"+disp+"</a></li>"	
 		@_div = @_div.replace(/<!--menuitem-->/, menustr)
 		
 		if ($(@_viewSelector+"_menu").length)
@@ -40,8 +40,8 @@ class JSMenuView extends JSScrollView
 				
 	selectMenuItem:(item)->
 		if (@_action?)
-			for o, i in @_menuitem.array
-				if (o.string == item)
+			for o, i in @_menuitem
+				if (o == item)
 					ret = i
 					break
 			@_action(ret)

@@ -8,8 +8,3 @@ class JSObject
 		@_self = @
 		@_objectID = UniqueID()
 		@tag = ""
-
-	S:(str)->
-		obj = new JSString()
-		obj.string = str
-		return obj

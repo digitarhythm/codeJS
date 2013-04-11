@@ -18,14 +18,14 @@ class JSView extends JSResponder
 		@_resizable = false
 		@_containment = false
 		@_div = "<div id=\"" + @_objectID + "\" style='position:absolute;'><!--null--></div>"
-		@_objlist = new JSMutableArray()
+		@_objlist = new Array()
 		@_shadow = false
 
 	addSubview: (object) ->
 		if (!object?)
 			return
 			
-		@_objlist.addObject(object)
+		@_objlist.push(object)
 		object._parent = @_self
 			
 		if ($(@_viewSelector).length)
@@ -155,7 +155,7 @@ class JSView extends JSResponder
 						@_resizeAction()
 			
 	setContainment:(@_containment) ->
-		for obj in @_objlist.array
+		for obj in @_objlist
 			obj.setDraggable(obj._draggable)
 			
 	bringSubviewToFront:(obj)->
@@ -168,14 +168,15 @@ class JSView extends JSResponder
 			return
 		t = -1
 		i = 0
-		for o in @_parent._objlist.array
+		for o in @_parent._objlist
 			if (o._objectID == @_objectID)
 				t = i
 				break;
 			i++
 		if ( t >= 0)
-			@_parent._objlist.removeObjectAtIndex(t)
+			@_parent._objlist.splice(t, 1)
 			$(@_viewSelector).remove()
+			return null
 	
 	addTapGesture:(tapAction, tapnum = 1)=>
 		if (tapnum == 1)
@@ -199,10 +200,8 @@ class JSView extends JSResponder
 				
 	animateWithDuration:(duration, animations, completion = null)=>
 		duration *= 1000
-		animtmp = animations.dictionary
 		animobj = {}
-		for key of animtmp
-			value = animtmp[key]
+		for key, value of animations
 			if (key == "alpha")
 				key = "opacity"
 			animobj[key] = value
@@ -233,9 +232,9 @@ class JSView extends JSResponder
 		if (@_tapAction2?)
 			@addTapGesture(@_tapAction2, 2)
 
-		if (@_objlist.count() > 0)
-			for i in [0...@_objlist.count()]
-				o = @_objlist.objectAtIndex(i)
+		if (@_objlist.length > 0)
+			for i in [0...@_objlist.length]
+				o = @_objlist[i]
 				if (!$(o._viewSelector).length)
 					$(@_viewSelector).append(o._div)
 					o.setDraggable(o._draggable)

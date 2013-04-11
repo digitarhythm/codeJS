@@ -6,12 +6,12 @@
 class JSImageView extends JSView
 	constructor:(@_image)->
 		super()
-		if (@_image._imagepath.string?)
+		if (@_image._imagepath?)
 			@_bgColor = JSColor("clearColor")
 			@setImage(@_image)
 
 	setImage:(@_image)->
-		img = "<img id='"+@_objectID+"_image' src='"+@_image._imagepath.string+"'>"
+		img = "<img id='"+@_objectID+"_image' src='"+@_image._imagepath+"'>"
 		if ($(@_viewSelector).length)
 			if ($(@_viewSelector+"_image").length)
 				$(@_viewSelector+"_image").remove()

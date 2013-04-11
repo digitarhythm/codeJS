@@ -4,7 +4,7 @@ debug = (a) ->
 	
 # YES/NO dialog
 isConfirm = (str) ->
-	if (window.confirm(str.string))
+	if (window.confirm(str))
 		return 1
 
 # get cookie value
