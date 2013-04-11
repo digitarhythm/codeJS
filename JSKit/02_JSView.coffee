@@ -88,11 +88,26 @@ class JSView extends JSResponder
 		if (@_draggable == true)
 			$(@_viewSelector).css("cursor", "pointer")
 			if (containment == true)
-				$(@_viewSelector).draggable({containment:"parent", opacity:0.5, disabled: false})
+				$(@_viewSelector).draggable
+					containment:"parent"
+					opacity:0.5
+					disabled: false
+					drag: (event, ui) =>
+						frame = @_self._frame
+						frame.origin.x = $(@_viewSelector).css("left")
+						frame.origin.y = $(@_viewSelector).css("top")
+						@_self.setFrame(frame)
 			else
 				$(@_viewSelector).draggable({opacity:0.5, disabled: false})
 				$(@_viewSelector).draggable("destroy")
-				$(@_viewSelector).draggable({opacity:0.5, disabled: false})
+				$(@_viewSelector).draggable
+					opacity:0.5
+					disabled: false
+					drag: (event, ui) =>
+						frame = @_self._frame
+						frame.origin.x = $(@_viewSelector).css("left")
+						frame.origin.y = $(@_viewSelector).css("top")
+						@_self.setFrame(frame)
 		else
 			$(@_viewSelector).css("cursor", "normal")
 			$(@_viewSelector).draggable({disabled: true})
@@ -115,6 +130,10 @@ class JSView extends JSResponder
 					maxWidth:maxWidth
 					maxHeight:maxHeight
 					resize: (event, ui) =>
+						frame = @_self._frame
+						frame.size.width = $(@_viewSelector).width()
+						frame.size.height = $(@_viewSelector).height()
+						@_self.setFrame(frame)
 						@_resizeAction()
 			else
 				$(@_viewSelector).resizable
@@ -129,6 +148,10 @@ class JSView extends JSResponder
 					opacity:0.5
 					disabled: false
 					resize: (event, ui) =>
+						frame = @_self._frame
+						frame.size.width = $(@_viewSelector).width()
+						frame.size.height = $(@_viewSelector).height()
+						@_self.setFrame(frame)
 						@_resizeAction()
 			
 	setContainment:(@_containment) ->

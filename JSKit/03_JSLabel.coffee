@@ -13,7 +13,8 @@ class JSLabel extends JSView
 		@_text = @S("Label")
 		@_editable = true
 		
-	setText: (@_text) ->
+	setText: (text) ->
+		@_text.string = text.string
 		if ($(@_viewSelector+"_text").length)
 			$(@_viewSelector+"_text").html(@_text.string)
 

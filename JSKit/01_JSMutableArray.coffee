@@ -17,9 +17,8 @@ class JSMutableArray extends JSObject
 		return @array[@array.length-1]
 		
 	containsObject:(str)->
-		for i in [0...@array.length]
-			value = @array[i]
-			if (str.string == value.string)
+		for value in @array
+			if (str == value)
 				return true;
 		return false;
 
@@ -30,7 +29,7 @@ class JSMutableArray extends JSObject
 		@array.splice(index,0,obj)
 		
 	replaceObjectAtIndex:(index, obj)->
-		@array.splice(index,obj)
+		@array.splice(index, 1, obj)
 
 	removeObject:(obj)->
 		for i in [0...@array.length-1]	

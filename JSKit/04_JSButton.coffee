@@ -11,7 +11,8 @@ class JSButton extends JSControl
 		@_buttonTitle = @S("Button")
 		@_textSize = 8
 		
-	setButtonTitle: (@_buttonTitle) ->
+	setButtonTitle: (title) ->
+		@_buttonTitle.string = title.string
 		if ($(@_viewSelector+"_button").length)
 			$(@_viewSelector+"_button").val(@_buttonTitle.string)
 		

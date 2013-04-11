@@ -19,8 +19,8 @@ class JSTextView extends JSScrollView
 		
 	setWritingMode:(@_writingMode)->
 
-	setText: (@_text) ->
-		@_text.string = @_text.string.replace(/\n/gi, "[br]")
+	setText: (text) ->
+		@_text.string = text.string.replace(/\n/gi, "[br]")
 		@_text.string = @_text.string.replace(/<br>/gi, "[br]")
 		if ($(@_viewSelector+"_textarea").length)
 			@setEditable(@_editable)

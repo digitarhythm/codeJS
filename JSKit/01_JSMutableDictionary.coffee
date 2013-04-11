@@ -10,13 +10,13 @@ class JSMutableDictionary extends JSObject
 		@dictionary = {}
 		
 	removeObjectForKey:(key)->
-		delete @dictionary.key
+		delete @dictionary.key.string
 		
 	setObject:(object, key)->
-		@dictionary[key] = object
+		@dictionary[key.string] = object
 		
 	objectForKey:(key)->
-		return @dictionary[key]
+		return @dictionary[key.string]
 		
 	count:->
 		num = 0
@@ -26,13 +26,13 @@ class JSMutableDictionary extends JSObject
 		
 	allKeys:->
 		ret = new Array()
-		for d of @dictionary
-			ret.push(d)
+		for key of @dictionary
+			ret.push(@S(key))
 		return ret
 
 	allValues:->
 		ret new Array()
-		for d of @dictionary
-			ret.push(@dictionary[d])
+		for key, val of @dictionary
+			ret.push(val)
 		return ret
 
