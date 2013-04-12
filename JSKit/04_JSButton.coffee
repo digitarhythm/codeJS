@@ -19,14 +19,19 @@ class JSButton extends JSControl
 	setTextSize: (@_textSize) ->
 		$(@_viewSelector+"_button").css('font-size', @_textSize+'pt')
 		
+	setClipToBounds:->
+		$(@_viewSelector).css("overflow", "visible")
+		
 	viewDidAppear: ->
 		super()
 		if ($(@_viewSelector+"_button").length)
 			$(@_viewSelector+"_button").remove()
-		@setBackgroundColor(JSColor("clearColor"))
-		tag = "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;z-index:1;' value='"+@_buttonTitle+"' />"
+		tag = "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;' value='"+@_buttonTitle+"' />"
+		$(@_viewSelector).css("z-index", "1")
 		$(@_viewSelector).append(tag)
-		$(@_viewSelector+"_button").width(@_frame.size.width)
-		$(@_viewSelector+"_button").height(@_frame.size.height)
+		$(@_viewSelector).css("background-color", "transparent")
+		$(@_viewSelector+"_button").css("background-color", "transparent")
+		$(@_viewSelector+"_button").width(@_frame.size.width-16)
+		$(@_viewSelector+"_button").height(@_frame.size.height-8)
 		$(@_viewSelector+"_button").css("font-size", @_textSize)
 		$(@_viewSelector+"_button").button()

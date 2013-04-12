@@ -6,3 +6,14 @@
 class JSScrollView extends JSView
 	constructor:(frame)->
 		super(frame)
+		@_scroll = false
+	
+	setScroll:(@_scroll)->
+		if (@_scroll == true)
+			$(@_viewSelector).css("overflow", "auto")
+		else
+			@setClipToBounds(@_clipToBounds)
+
+	viewDidAppear:->
+		super()
+		@setScroll(@_scroll)

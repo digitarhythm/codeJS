@@ -20,7 +20,7 @@ class JSControl extends JSView
 	
 	setEnable:(@_enable)->
 		if (@_enable == false)
-			@_self.setAlpha(0.3)
+			@_self.setAlpha(0.0)
 		else
 			@_self.setAlpha(1.0)
 	
