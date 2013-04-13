@@ -39,7 +39,6 @@ class JSListView extends JSScrollView
 				
 				$(@_viewSelector+"_select").click (e) =>
 					e.stopPropagation()
-				$(@_viewSelector+"_select").change =>
 					select = $(@_viewSelector+"_select option:selected").val()
 					if (@_action? && select?)
 						@_action(select)
