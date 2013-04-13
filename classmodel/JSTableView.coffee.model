@@ -1,9 +1,13 @@
 class [{$classname}] extends JSTableView
-	constructor: (frame) ->
+	constructor: (frame)->
 		super(frame)
 		###
-		Please describe the user code below from here.
-		Please arrange an indent with the head of this comment. 
+		Please describe user processing below from here. 
 		###
 		
-	
+	viewDidAppear:->
+		super()
+		###
+		Please describe the processing about a view below from here. 
+		###
+ 	

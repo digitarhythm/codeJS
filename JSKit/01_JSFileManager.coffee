@@ -1,9 +1,9 @@
 ##########################################
-# JSString - string manage class
+# JSFileManager - File manage clss
 # Coded by kouichi.sakazaki 2013.03.31
 ##########################################
 
-class JSString extends JSObject
+class JSFileManager extends JSObject
 	constructor:->
 		super()
 

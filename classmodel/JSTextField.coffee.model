@@ -1,6 +1,6 @@
-class [{$classname}] extends JSMenuView
-	constructor:(action)->
-		super(action)
+class JSTextField extends JSControl
+	constructor: (frame)->
+		super(frame)
 		###
 		Please describe initialization processing of a class below from here. 
 		###
@@ -10,4 +10,3 @@ class [{$classname}] extends JSMenuView
 		###
 		Please describe the processing about a view below from here. 
 		###
-		

@@ -15,24 +15,28 @@ echo "Execute directory ["$(pwd)"]"
 which php > /dev/null 2>&1
 if [ $? -ne 0 ]; then
 	echo "PHP（cli） is not found."
+	exit
 fi
 
 # Smarty
 ls /usr/share/php/smarty/Smarty.class.php > /dev/null 2>&1
 if [ $? -ne 0 ]; then
 	echo "Smarty is not found."
+	exit
 fi
 
 # SQLite3
 which sqlite3 > /dev/null 2>&1
 if [ $? -ne 0 ]; then
 	echo "SQLite3 is not found."
+	exit
 fi
 
 # CoffeeScript
 which coffee > /dev/null 2>&1
 if [ $? -ne 0 ]; then
 	echo "coffee-script is not found."
+	exit
 fi
 
 ##################################################
@@ -43,10 +47,10 @@ if [ -z "$opt" ]; then
 	echo "<Usage>"
 	echo "codejs function [option1] [option2]"
 	echo "<function>"
-	echo "new     : create new project(require option1 is package name)"
-	echo "build   : keep watch on a user coffee-script"
-	echo "update  : update system library"
-	echo "succeed : The class which inherited the specified class is made.(require option1 is new class name, option2 is class to inherit)"
+	echo "new         : create new project(require option1 is package name)"
+	echo "build       : keep watch on a user coffee-script"
+	echo "update      : update system library"
+	echo "inheritance : The class which inherited the specified class is made.(require option1 is new class name, option2 is class to inherit)"
 	exit
 fi
 

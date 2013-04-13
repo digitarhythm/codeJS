@@ -2,7 +2,6 @@ class [{$classname}] extends JSImage
 	constructor:(imagename)->
 		super(imagename)
 		###
-		Please describe the user code below from here.
-		Please arrange an indent with the head of this comment. 
+		Please describe user processing below from here. 
 		###
 		

@@ -1,9 +1,15 @@
 class [{$classname}] extends JSGLView
 	constructor:(frame, bgColor, alpha, antialias)->
 		super(frame, bgColor, alpha, antialias)
+		###
+		Please describe initialization processing of a class below from here. 
+		###
 		
 	viewDidAppear:->
 		super()
+		###
+		Please describe the processing about a view below from here. 
+		###
 		
 	enterFrame:->
 

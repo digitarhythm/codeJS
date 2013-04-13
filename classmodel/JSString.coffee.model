@@ -1,8 +1,0 @@
-class [{$classname}] extends JSString
-	constructor:(string)->
-		super(string)
-		###
-		Please describe the user code below from here.
-		Please arrange an indent with the head of this comment. 
-		###
-		

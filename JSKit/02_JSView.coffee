@@ -86,7 +86,7 @@ class JSView extends JSResponder
 			return
 			
 		if (@_draggable == true)
-			$(@_viewSelector).css("cursor", "pointer")
+#			$(@_viewSelector).css("cursor", "pointer")
 			if (containment == true)
 				$(@_viewSelector).draggable
 					containment:"parent"
@@ -109,7 +109,7 @@ class JSView extends JSResponder
 						frame.origin.y = $(@_viewSelector).css("top")
 						@_self.setFrame(frame)
 		else
-			$(@_viewSelector).css("cursor", "normal")
+			$(@_viewSelector).css("cursor", "auto")
 			$(@_viewSelector).draggable({disabled: true})
 			
 	setResizable: (@_resizable, @_resizeAction = null, minWidth = 0, minHeight = 0, maxWidth = 16777216, maxHeight = 16777216) ->

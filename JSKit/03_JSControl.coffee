@@ -8,19 +8,18 @@ class JSControl extends JSView
 		super(frame)
 		@_enable = true
 	
-	viewDidAppear:->
-		super()
-		$(@_viewSelector).unbind("click").bind "click", (event) =>
-			if (@action?)
-				if (@_enable == true)
-					@action(@_self)
-				event.stopPropagation()
-
 	addTarget: (@action) ->
 	
 	setEnable:(@_enable)->
 		if (@_enable == false)
-			@_self.setAlpha(0.0)
+			@_self.setAlpha(0.2)
 		else
 			@_self.setAlpha(1.0)
-	
+
+	viewDidAppear:->
+		super()
+		@setEnable(@_enable)
+		$(@_viewSelector).unbind("click").bind "click", (event) =>
+			if (@action? && @_enable == true)
+					@action(@_self)
+				event.stopPropagation()

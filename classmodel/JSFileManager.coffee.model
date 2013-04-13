@@ -1,6 +1,7 @@
-class [{$classname}] extends JSObject
+class [{$classname}] extends JSFileManager
 	constructor:->
 		super()
 		###
 		Please describe user processing below from here. 
 		###
+		
