@@ -1,8 +1,3 @@
-##########################################
-# applicationMain - User Editing Source Code
-# Coded by kouichi.sakazaki 2013.03.25
-##########################################
-
 class applicationMain extends JSObject
 	constructor:(@rootView)-> super()
 	didFinishLaunching:->

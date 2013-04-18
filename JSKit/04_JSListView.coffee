@@ -27,7 +27,6 @@ class JSListView extends JSScrollView
 					if (!list?)
 						return
 					size = 1
-					JSLog(list+"\n--------------\n")
 					@_listData = new Array("-select-")
 					for item in list
 						if (item == "-select-")
@@ -39,7 +38,6 @@ class JSListView extends JSScrollView
 					@_listData = new Array()
 				for i in [0...@_listData.length]
 					value = @_listData[i]
-					JSLog(value)
 					disp = value
 					@_tag += "<option id='"+i+"' value='"+i+"'>"+disp+"</option>"
 				@_tag += "</select>"
