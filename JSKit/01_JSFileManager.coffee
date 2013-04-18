@@ -23,7 +23,8 @@ class JSFileManager extends JSObject
 		$.post 'syslibs/library.php',
 			mode: 'stringWithContentsOfFile'
 			fname: fname
-			(data) => @readaction(data)
+			(data) =>
+				@readaction(data)
   
 	writeToFile:(fpath, encoding, @saveaction)->
 		$.post 'syslibs/library.php',
@@ -33,3 +34,4 @@ class JSFileManager extends JSObject
 			, (data) =>
 				@string = data
 				@saveaction()
+

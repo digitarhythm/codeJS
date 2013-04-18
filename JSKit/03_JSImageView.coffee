@@ -4,11 +4,10 @@
 ##########################################
 
 class JSImageView extends JSView
-	constructor:(@_image)->
-		super()
-		if (@_image._imagepath?)
-			@_bgColor = JSColor("clearColor")
-			@setImage(@_image)
+	constructor:(frame)->
+		super(frame)
+		@_userInteractionEnabled = false
+		@_bgColor = JSColor("clearColor")
 
 	setImage:(@_image)->
 		img = "<img id='"+@_objectID+"_image' src='"+@_image._imagepath+"'>"

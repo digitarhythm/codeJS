@@ -1,5 +1,5 @@
 # debug write
-debug = (a) ->
+JSLog = (a) ->
 	console.log(a)
 	
 # YES/NO dialog
@@ -25,6 +25,8 @@ UniqueID = ->
 	S4 = ->
 		return (((1+Math.random())*0x10000)|0).toString(16).substring(1)
 	return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4())
+
+#//////////////////////////////////////////////////////////////////////////////////////////
 
 # create JSRect
 JSRectMake = (x, y, w, h) ->
@@ -56,6 +58,8 @@ JSMakeRange = (loc, len) ->
 	range.length = len
 	return range
 	
+#//////////////////////////////////////////////////////////////////////////////////////////
+
 # get browser size(not include scrolling bar)
 getApplicationFrame=->
 	frame = new JSRect(0, 0, $("html").innerWidth(), $("html").innerHeight())
@@ -75,6 +79,8 @@ JSColor = (color) ->
 
 	return ret
 	
+#//////////////////////////////////////////////////////////////////////////////////////////
+
 # Get Standard Path
 JSSearchPathForDirectoriesInDomains = (kind) ->
 	ret = ""

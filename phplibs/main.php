@@ -8,6 +8,7 @@ if ($sid != "") {
 }
 // setup directory
 $_HOMEDIR_ = $_SESSION["_HOMEDIR_"];
+$_DOCDIR_ = $_SESSION["_HOMEDIR_"]."/Documents";
 
 // parse ini file
 $ini = parse_ini_file($_HOMEDIR_."/configs/system.ini");

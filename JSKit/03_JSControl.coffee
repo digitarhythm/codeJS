@@ -12,9 +12,9 @@ class JSControl extends JSView
 	
 	setEnable:(@_enable)->
 		if (@_enable == false)
-			@_self.setAlpha(0.2)
+			@_self.setHidden(true)
 		else
-			@_self.setAlpha(1.0)
+			@_self.setHidden(false)
 
 	viewDidAppear:->
 		super()

@@ -61,7 +61,6 @@ while ($fname = readdir($dir)) {
 }
 sort($file_arr);
 $compile = implode(" ", $file_arr);
-//echo $compile."\n";
 system("coffee -j JSKit.js -b -o ".$h_syslibs." -c ".$compile);
 system("coffee -b -o ".$h_syslibs." -c ".$p_syslibs);
 

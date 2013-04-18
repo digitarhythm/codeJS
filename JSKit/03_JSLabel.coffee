@@ -43,7 +43,6 @@ class JSLabel extends JSView
 	viewDidAppear: ->
 		super()
 		$(@_viewSelector).width(@_frame.size.width)
-		$(@_viewSelector).css("display", "block-inline")
 		$(@_viewSelector).css("vertical-align", "middle")
 		$(@_viewSelector).css("line-height",@_frame.size.height+"px")
 		$(@_viewSelector).css("z-index", "1")

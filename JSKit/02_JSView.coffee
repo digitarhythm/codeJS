@@ -19,7 +19,9 @@ class JSView extends JSResponder
 		@_containment = false
 		@_div = "<div id=\"" + @_objectID + "\" style='position:absolute;'><!--null--></div>"
 		@_objlist = new Array()
+		@_hidden = false
 		@_shadow = false
+		@_userInteractionEnabled = true
 
 	addSubview: (object) ->
 		if (!object?)
@@ -153,6 +155,13 @@ class JSView extends JSResponder
 						frame.size.height = $(@_viewSelector).height()
 						@_self.setFrame(frame)
 						@_resizeAction()
+						
+	setHidden:(@_hidden)->
+		if ($(@_viewSelector).length)
+			if (@_hidden == true)
+				$(@_viewSelector).css("visibility", "hidden")
+			else
+				$(@_viewSelector).css("visibility", "visible")
 			
 	setContainment:(@_containment) ->
 		for obj in @_objlist
@@ -188,13 +197,13 @@ class JSView extends JSResponder
 			return
 		if (tapnum == 1)
 			$(@_viewSelector).unbind("click").bind "click", (event) =>
-				if (@_tapAction?)
+				if (@_tapAction? && @_userInteractionEnabled == true)
 					@_tapAction(@_self)
 #					event.stopPropagation()
 					
 		if (tapnum == 2)
 			$(@_viewSelector).unbind("dblclick").bind "dblclick", (event) =>
-				if (@_tapAction2?)
+				if (@_tapAction2? && @_userInteractionEnabled == true)
 					@_tapAction2(@_self)
 #					event.stopPropagation()
 				
@@ -218,6 +227,7 @@ class JSView extends JSResponder
 			$(@_viewSelector).css("box-shadow", "none")
   
 	viewDidAppear: ->
+		@setHidden(@_hidden)
 		@setFrame(@_frame)
 		@setBackgroundColor(@_bgColor)
 		@setCornerRadius(@_cornerRadius)
@@ -239,6 +249,7 @@ class JSView extends JSResponder
 					$(@_viewSelector).append(o._div)
 					o.setDraggable(o._draggable)
 					o.viewDidAppear()
+					
 			
 			
 		

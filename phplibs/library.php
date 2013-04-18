@@ -7,7 +7,20 @@ if (!isset($_REQUEST)) {
 
 $_arg = array();
 foreach ($_REQUEST as $key => $val) {
-	$_arg[$key] = htmlspecialchars($val);
+	if (is_array($val) == true) {
+		$arr = array();
+		foreach ($val as $val2) {
+			$arr[] = htmlspecialchars($val2);
+		}
+		$_arg[$key] = $arr;
+	} else {
+		$_arg[$key] = htmlspecialchars($val);
+	}
+}
+
+$_file = array();
+foreach ($_FILES as $key => $val) {
+	$_file[$key] = htmlspecialchars($val);
 }
 
 $mode = $_arg["mode"];
@@ -24,6 +37,12 @@ switch ($mode) {
 		$ret = writeToFile($data, $fname);
 		echo $ret;
 		break;
+		
+	case "filelist":
+		$path = $_arg["path"];
+		$filter = $_arg["filter"];
+		$ret = filelist($path, $filter);
+		echo JSON_encode($ret);
 }
 
 //##########################################################################################
@@ -42,7 +61,7 @@ function stringWithContentsOfFile($fname) {
 //##########################################################################################
 // 渡されたデータを指定されたファイル名で保存する
 //##########################################################################################
-function writeToData($data, $fname) {
+function writeToFile($data, $fname) {
 	$fp = fopen($fname, "w");
 	if ($fp == null) {
 		return "0";
@@ -50,5 +69,40 @@ function writeToData($data, $fname) {
 	fputs ($data, $fp);
 	fclose($fp);
 	return "1";
+}
+
+//##########################################################################################
+// アップロードされた画像を保存する
+//##########################################################################################
+function saveImageFile($_file) {
+	$browserFileName = $_file['image']['name'];
+	$tempFileName = $_file['image']['tmp_name'];
+	$originalFileName = 'image_'.date('YmdHis');
+	if(is_uploaded_file($tempFileName)){
+		move_uploaded_file($tempFileName, "/web/images/$originalFileName");
+	}else{
+		return 0;
+	}
+}
+
+//##########################################################################################
+// 指定したパスのファイルリストを返す
+//##########################################################################################
+function filelist($path, $filter)
+{
+	global $_DOCDIR_;
+	$dir = opendir($_DOCDIR_."/".$path);
+	$result = array();
+	while ($fname = readdir($dir)) {
+		$target = "$_DOCDIR_/$path/$fname";
+		if (is_dir($target) == true) {
+			continue;
+		}
+		$ext = pathinfo($fname, PATHINFO_EXTENSION);
+		if (in_array($ext, $filter) == true) {
+			$result[] = "$path/$fname";
+		}
+	}
+	return $result;
 }
 ?>

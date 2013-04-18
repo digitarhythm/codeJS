@@ -69,7 +69,6 @@ class JSTextField extends JSControl
 		if ($(@_viewSelector+"_text").length)
 			$(@_viewSelector+"_text").remove()
 		$(@_viewSelector).append(tag)
-		$(@_viewSelector+"_text").css("display", "block-inline")
 		$(@_viewSelector+"_text").css("line-height",@_frame.size.height+"px")
 		if (@_editable == true)
 			$(@_viewSelector+"_text").unbind("click").bind "click", (event) =>
@@ -94,11 +93,9 @@ class JSTextField extends JSControl
 	viewDidAppear: ->
 		@setEditable(@_editable)
 		super()
-		$(@_viewSelector).css("display", "block-inline")
 		$(@_viewSelector).css("vertical-align", "middle")
 		$(@_viewSelector).css("z-index", "1")
 		$(@_viewSelector+"_text").width(@_frame.size.width)
-		$(@_viewSelector+"_text").css("display", "block-inline")
 		$(@_viewSelector+"_text").css("line-height",@_frame.size.height+"px")
 		$(@_viewSelector+"_text").css("z-index", "1")
 		@setTextSize(@_textSize)
