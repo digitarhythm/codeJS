@@ -26,14 +26,27 @@ class JSButton extends JSControl
 			
 	setFrame:(frame)->
 		super(frame)
-		if (@_type == "JSFormButtonTypeNormal")
-			w = frame.size.width - 16
-			h = frame.size.height - 8
-			$(@_viewSelector+"_button").width(w+"px")
-			$(@_viewSelector+"_button").height(h+"px")
-		else if (@_type == "JSFormButtonTypeFileSelect")
-			w = @_frame.size.width
-			$(@_viewSelector+"_button").width(w+"px")
+		switch @_type
+			when "JSFormButtonTypeNormal"
+				w = frame.size.width - 16
+				h = frame.size.height - 8
+				$(@_viewSelector+"_button").width(w+"px")
+				$(@_viewSelector+"_button").height(h+"px")
+			when "JSFormButtonTypeFileSelect"
+				w = @_frame.size.width
+				$(@_viewSelector+"_button").width(w+"px")
+
+	setUploadButton:(selector)->
+		switch @_type
+			when "JSFormButtonTypeNormal"
+				return
+			when "JSFormButtonTypeFileSelect"
+				$(selector._viewSelector+"_button").click =>
+					$(@_viewSelector+"_button").upload "syslibs/library.php",
+						mode: "uploadfile"
+					, (res) =>
+						JSLog(res)
+					, "json"
 		
 	viewDidAppear:->
 		super()
@@ -44,12 +57,13 @@ class JSButton extends JSControl
 			w = @_frame.size.width - 16
 			h = @_frame.size.height - 8
 		else if (@_type == "JSFormButtonTypeFileSelect")
-			tag = "<input type='file' id='"+@_objectID+"_button' style='position:absolute;' />"
+			tag = "<input id='"+@_objectID+"_button' type='file' name='"+@_objectID+"_button' enctype='multipart/form-data' />"
 			w = @_frame.size.width
 			h = 18
 		$(@_viewSelector).append(tag)
 		$(@_viewSelector).css("overflow", "visible")
 		$(@_viewSelector+"_button").css("overflow", "hidden")
+		$(@_viewSelector+"_button").css("position", "absolute")
 		$(@_viewSelector+"_button").css("background-color", "transparent")
 		$(@_viewSelector+"_button").width(w+"px")
 		$(@_viewSelector+"_button").height(h+"px")

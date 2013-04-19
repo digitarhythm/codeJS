@@ -43,6 +43,11 @@ switch ($mode) {
 		$filter = $_arg["filter"];
 		$ret = filelist($path, $filter);
 		echo JSON_encode($ret);
+		break;
+		
+	case "uploadfile":
+		echo "{code:1}";
+		break;
 }
 
 //##########################################################################################

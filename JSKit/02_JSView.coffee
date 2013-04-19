@@ -9,7 +9,7 @@ class JSView extends JSResponder
 		@_parent = null
 		@_viewSelector = "#"+@_objectID
 		@_bgColor = JSColor("#f0f0f0")
-		@_alpha = 1
+		@_alpha = 1.0
 		@_cornerRadius = 0
 		@_borderColor = JSColor("clearColor")
 		@_borderWidth = 0
@@ -77,6 +77,8 @@ class JSView extends JSResponder
 				$(@_viewSelector).css("overflow", "visible")
 			else
 				$(@_viewSelector).css("overflow", "hidden")
+				
+	setUserInteractionEnabled:(@_userInteractionEnabled)->
 			
 	setDraggable: (@_draggable) ->
 		if (@_parent?)
@@ -88,7 +90,7 @@ class JSView extends JSResponder
 			return
 			
 		if (@_draggable == true)
-#			$(@_viewSelector).css("cursor", "pointer")
+			$(@_viewSelector).css("cursor", "pointer")
 			if (containment == true)
 				$(@_viewSelector).draggable
 					containment:"parent"
@@ -195,6 +197,8 @@ class JSView extends JSResponder
 			
 		if (!$(@_viewSelector).length)
 			return
+			
+		$(@_viewSelector).css("cursor", "pointer")
 		if (tapnum == 1)
 			$(@_viewSelector).unbind("click").bind "click", (event) =>
 				if (@_tapAction? && @_userInteractionEnabled == true)

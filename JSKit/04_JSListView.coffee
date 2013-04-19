@@ -27,10 +27,8 @@ class JSListView extends JSScrollView
 					if (!list?)
 						return
 					size = 1
-					@_listData = new Array("-select-")
+					@_listData = new Array()
 					for item in list
-						if (item == "-select-")
-							continue
 						@_listData.push(item)
 			
 				@_tag = "<select id='"+@_objectID+"_select' size='"+size+"' style='width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;'>"

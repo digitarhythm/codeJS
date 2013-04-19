@@ -31,8 +31,8 @@ $smarty->cache_dir      = $projdir."/cache";
 $smarty->left_delimiter = "[{";
 $smarty->right_delimiter = "}]";
 
-$newclassname = $argv[1];
-$modelclassname = $argv[2];
+$modelclassname = $argv[1];
+$newclassname = $argv[2];
 
 $modelfilename = $modeldir."/".$modelclassname.".coffee.model";
 $classfilename = $usrcode."/".$newclassname.".coffee";

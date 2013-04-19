@@ -7,4 +7,3 @@ class JSObject
 	constructor: ->
 		@_self = @
 		@_objectID = UniqueID()
-		@tag = ""

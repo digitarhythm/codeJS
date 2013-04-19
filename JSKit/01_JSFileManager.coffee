@@ -26,12 +26,11 @@ class JSFileManager extends JSObject
 			(data) =>
 				@readaction(data)
   
-	writeToFile:(fpath, encoding, @saveaction)->
+	writeToFile:(fpath, string, encoding, @saveaction)->
 		$.post 'syslibs/library.php',
 			mode: 'writeToFile'
 			fname: fpath
-			data: @string
+			data: string
 			, (data) =>
-				@string = data
 				@saveaction()
 
