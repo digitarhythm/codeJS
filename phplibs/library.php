@@ -37,14 +37,14 @@ switch ($mode) {
 		$ret = writeToFile($data, $fname);
 		echo $ret;
 		break;
-		
+
 	case "filelist":
 		$path = $_arg["path"];
 		$filter = $_arg["filter"];
 		$ret = filelist($path, $filter);
 		echo JSON_encode($ret);
 		break;
-		
+
 	case "uploadfile":
 		echo "{code:1}";
 		break;

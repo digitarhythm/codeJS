@@ -1,20 +1,13 @@
 <?php
-// session start
-$sid = session_id();
-if ($sid != "") {
-	session_regenerate_id();
-} else {
-	session_start();
-}
 // setup directory
-$_HOMEDIR_ = $_SESSION["_HOMEDIR_"];
-$_DOCDIR_ = $_SESSION["_HOMEDIR_"]."/Documents";
+$_HOMEDIR_ = realpath(__DIR__."/..");
+$_DOCDIR_ = $_HOMEDIR_."/Documents";
 
 // parse ini file
 $ini = parse_ini_file($_HOMEDIR_."/configs/system.ini");
 
 // add library include path
-set_include_path(get_include_path().PATH_SEPARATOR.$_HOMEDIR_."/libs");
+set_include_path(get_include_path().PATH_SEPARATOR.$_HOMEDIR_."/syslibs");
 
 // setup smarty
 if (!defined("SMARTY_DIR")) {

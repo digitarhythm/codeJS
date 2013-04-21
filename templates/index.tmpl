@@ -6,7 +6,6 @@
 	} else {
 		session_start();
 	}
-	$_SESSION["_HOMEDIR_"] = $_HOMEDIR_;
 	set_include_path(get_include_path().PATH_SEPARATOR.$_HOMEDIR_."/syslibs");
 	require_once("main.php");
 ?>
