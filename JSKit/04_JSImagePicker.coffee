@@ -6,8 +6,8 @@
 class JSImagePicker extends JSScrollView
 	constructor:(frame)->
 		super()
-		@_thumbnail_width = 160
-		@_thumbnail_height = 160
+		@_thumbnail_width = 120
+		@_thumbnail_height = 120
 		@_delegate = null
 
 	viewDidAppear:->
@@ -49,10 +49,10 @@ class JSImagePicker extends JSScrollView
 		ynum = 0
 		pos = new JSPoint()
 		for imgfname in imagelist
-			JSLog(imgfname)
 			pos.x = xnum * (@_thumbnail_width+4)+4
 			pos.y = ynum * (@_thumbnail_height+4)+4
-			img = new JSImage(imgfname)
+			imgfname_s = imgfname.replace(/(.*)\.(.*)/, ".thumb/$1_s.png")
+			img = new JSImage(imgfname_s)
 			view = new JSImageView(JSRectMake(pos.x, pos.y, @_thumbnail_width, @_thumbnail_height))
 			view.imgfname = imgfname
 			view.setUserInteractionEnabled(true)
@@ -71,6 +71,7 @@ class JSImagePicker extends JSScrollView
 			@_delegate.didPickedImage(sender.imgfname)
 		
 	closeImagePickerView:->
-		@imagelistview.animateWithDuration 0.2, {top:-@_frame.size.height}, =>
+		@imagebase.animateWithDuration 0.2, {top:-@_frame.size.height}, =>
 			@imagelistview.removeFromSuperview()
+			@imagebase.removeFromSuperview()
 			@_self.removeFromSuperview()

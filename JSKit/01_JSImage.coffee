@@ -9,6 +9,9 @@ class JSImage extends JSObject
 		if (imagename?)
 			@imageNamed(imagename)
 	
-	imageNamed: (imagefile) ->
-		path = JSSearchPathForDirectoriesInDomains("JSPictureDirectory")
+	imageNamed: (imagefile, flag = false) ->
+		if (flag == true)
+			path = JSSearchPathForDirectoriesInDomains("JSPictureDirectory")+"/.thumb"
+		else
+			path = JSSearchPathForDirectoriesInDomains("JSPictureDirectory")
 		@_imagepath = path+"/"+imagefile

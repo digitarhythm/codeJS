@@ -58,8 +58,12 @@ class JSButton extends JSControl
 					key: @_objectID+"_button"
 				, (res) =>
 					$(@_viewSelector+"_button").val("")
-					if (@_fileuploadAction?)
-						@_fileuploadAction(res)
+					$.post "syslibs/library.php",
+						mode:"createThumbnail"
+						path:"Media/Picture"
+					, =>
+						if (@_fileuploadAction?)
+							@_fileuploadAction(res)
 				, "json"
 		$(@_viewSelector).css("overflow", "visible")
 		$(@_viewSelector+"_button").css("overflow", "hidden")

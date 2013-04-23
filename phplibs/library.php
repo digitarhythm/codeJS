@@ -59,6 +59,11 @@ switch ($mode) {
 		$ret = saveImageFile($_file, $_arg);
 		echo $ret;
 		break;
+	
+	case "createThumbnail":
+		$path = $_arg["path"];
+		createThumbnail($path);
+		break;
 }
 
 //##########################################################################################
@@ -154,5 +159,27 @@ function filelist($path, $filter)
 	$result["file"] = $result_f;
 	$result["dir"] = $result_d;
 	return $result;
+}
+
+//##########################################################################################
+// 指定したパスにある画像のサムネイルを生成する
+//##########################################################################################
+function createThumbnail($path)
+{
+	global $_HOMEDIR_;
+	$imgdir = $_HOMEDIR_."/$path";
+	$thumbdir = $_HOMEDIR_."/$path/.thumb";
+	if (is_dir($thumbdir) == false) {
+		return;
+	}
+	$extarray = array("png", "jpg", "jpeg", "gif");
+	$dir = opendir($_HOMEDIR_."/".$path);
+	while ($fname = readdir($dir)) {
+		$ext = pathinfo($fname, PATHINFO_EXTENSION);
+		$file = pathinfo($fname, PATHINFO_FILENAME);
+		if (in_array($ext, $extarray) == true && is_file("$thumbdir/$file.png") == false) {
+			exec("convert -geometry 120x120 ".$imgdir."/".$fname." ".$thumbdir."/".$file."_s.png");
+		}
+	}
 }
 ?>
