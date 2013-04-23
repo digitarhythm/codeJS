@@ -10,4 +10,5 @@ class JSImage extends JSObject
 			@imageNamed(imagename)
 	
 	imageNamed: (imagefile) ->
-		@_imagepath = "Documents/"+imagefile
+		path = JSSearchPathForDirectoriesInDomains("JSPictureDirectory")
+		@_imagepath = path+"/"+imagefile

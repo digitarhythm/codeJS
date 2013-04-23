@@ -36,18 +36,8 @@ class JSButton extends JSControl
 				w = @_frame.size.width
 				$(@_viewSelector+"_button").width(w+"px")
 
-	setUploadButton:(selector)->
-		switch @_type
-			when "JSFormButtonTypeNormal"
-				return
-			when "JSFormButtonTypeFileSelect"
-				$(selector._viewSelector+"_button").click =>
-					$(@_viewSelector+"_button").upload "syslibs/library.php",
-						mode: "uploadfile"
-					, (res) =>
-						JSLog(res)
-					, "json"
-		
+	setAction:(@_fileuploadAction)->
+
 	viewDidAppear:->
 		super()
 		if ($(@_viewSelector+"_button").length)
@@ -61,6 +51,16 @@ class JSButton extends JSControl
 			w = @_frame.size.width
 			h = 18
 		$(@_viewSelector).append(tag)
+		if (@_type == "JSFormButtonTypeFileSelect")
+			$(@_viewSelector+"_button").change =>
+				$(@_viewSelector+"_button").upload "syslibs/library.php",
+					mode: "uploadfile"
+					key: @_objectID+"_button"
+				, (res) =>
+					$(@_viewSelector+"_button").val("")
+					if (@_fileuploadAction?)
+						@_fileuploadAction(res)
+				, "json"
 		$(@_viewSelector).css("overflow", "visible")
 		$(@_viewSelector+"_button").css("overflow", "hidden")
 		$(@_viewSelector+"_button").css("position", "absolute")

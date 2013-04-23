@@ -34,3 +34,11 @@ class JSFileManager extends JSObject
 			, (data) =>
 				@saveaction()
 
+	fileList:(fpath, type, @listaction)->
+		$.post "syslibs/library.php",
+			mode: "filelist"
+			path: fpath
+			filter: type
+		,(filelist) =>
+			if (@listaction?)
+				@listaction(filelist)

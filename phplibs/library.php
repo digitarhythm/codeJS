@@ -1,7 +1,7 @@
 <?php
 require_once("main.php");
 
-if (!isset($_REQUEST)) {
+if (!isset($_REQUEST['mode'])) {
 	return;
 }
 
@@ -18,9 +18,19 @@ foreach ($_REQUEST as $key => $val) {
 	}
 }
 
-$_file = array();
-foreach ($_FILES as $key => $val) {
-	$_file[$key] = htmlspecialchars($val);
+$_file = procarray($_FILES);
+
+function procarray($arr) {
+	$ret = array();
+	foreach ($arr as $key => $val) {
+		if (is_array($val) == true) {
+			$val = procarray($val);
+		} else {
+			$val = htmlspecialchars($val);
+		}
+		$ret[$key] = $val;
+	}
+	return $ret;
 }
 
 $mode = $_arg["mode"];
@@ -30,7 +40,7 @@ switch ($mode) {
 		$ret = stringWithContentsOfFile($fname);
 		echo $ret;
 		break;
-		
+
 	case "writeToFile":
 		$fname = $_arg["fname"];
 		$data = $_arg["data"];
@@ -46,7 +56,8 @@ switch ($mode) {
 		break;
 
 	case "uploadfile":
-		echo "{code:1}";
+		$ret = saveImageFile($_file, $_arg);
+		echo $ret;
 		break;
 }
 
@@ -79,14 +90,41 @@ function writeToFile($data, $fname) {
 //##########################################################################################
 // アップロードされた画像を保存する
 //##########################################################################################
-function saveImageFile($_file) {
-	$browserFileName = $_file['image']['name'];
-	$tempFileName = $_file['image']['tmp_name'];
-	$originalFileName = 'image_'.date('YmdHis');
-	if(is_uploaded_file($tempFileName)){
-		move_uploaded_file($tempFileName, "/web/images/$originalFileName");
-	}else{
-		return 0;
+function saveImageFile($_file, $_dir) {
+	global $_HOMEDIR_;
+	
+	$imginfo = $_file[$_dir['key']];
+	$tmpname = $imginfo['tmp_name'];
+	$type = $imginfo['type'];
+	$orgname = $imginfo['name'];
+	
+	$savedir = $_HOMEDIR_."/Media/Picture";
+	switch ($type) {
+		case "image/png":
+			$ext = ".png";
+			break;
+		case "image/jpg":
+			$ext = ".jpg";
+			break;
+		case "image/jpeg":
+			$ext = ".jpg";
+			break;
+		case "image/gif":
+			$ext = ".gif";
+			break;
+		default:
+			return "{err:0}";
+			break;
+	}
+	
+	if(is_uploaded_file($tmpname)){
+		$temppath = tempnam($savedir, "img_");
+		$savepath = $temppath.$ext;
+		move_uploaded_file($tmpname, $savepath);
+		unlink($temppath);
+		return "{path:'".$savepath."'}";
+	} else {
+		return "{err:0}";
 	}
 }
 
@@ -95,19 +133,26 @@ function saveImageFile($_file) {
 //##########################################################################################
 function filelist($path, $filter)
 {
-	global $_DOCDIR_;
-	$dir = opendir($_DOCDIR_."/".$path);
-	$result = array();
+	global $_HOMEDIR_;
+	$dir = opendir($_HOMEDIR_."/".$path);
+	$result_f = array();
+	$result_d = array();
 	while ($fname = readdir($dir)) {
-		$target = "$_DOCDIR_/$path/$fname";
+		$target = "$_HOMEDIR_/$path/$fname";
 		if (is_dir($target) == true) {
-			continue;
-		}
-		$ext = pathinfo($fname, PATHINFO_EXTENSION);
-		if (in_array($ext, $filter) == true) {
-			$result[] = "$path/$fname";
+			if (!preg_match("/^\./", $fname)) {
+				$result_d[] = $fname;
+			}
+		} else {
+			$ext = pathinfo($fname, PATHINFO_EXTENSION);
+			if (in_array($ext, $filter) == true) {
+				$result_f[] = $fname;
+			}
 		}
 	}
+	$result = array();
+	$result["file"] = $result_f;
+	$result["dir"] = $result_d;
 	return $result;
 }
 ?>

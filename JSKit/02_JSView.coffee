@@ -188,7 +188,16 @@ class JSView extends JSResponder
 			@_parent._objlist.splice(t, 1)
 			$(@_viewSelector).remove()
 			return null
-	
+
+	removeTapGesture:(tapnum)->
+		switch tapnum
+			when 1
+				$(@_viewSelector).unbind("click").bind "click", (event) =>
+					event.stopPropagation()
+			when 2
+				$(@_viewSelector).unbind("dblclick").bind "dblclick", (event) =>
+					event.stopPropagation()
+
 	addTapGesture:(tapAction, tapnum = 1)=>
 		if (tapnum == 1)
 			@_tapAction = tapAction
@@ -203,13 +212,13 @@ class JSView extends JSResponder
 			$(@_viewSelector).unbind("click").bind "click", (event) =>
 				if (@_tapAction? && @_userInteractionEnabled == true)
 					@_tapAction(@_self)
-#					event.stopPropagation()
+				event.stopPropagation()
 					
 		if (tapnum == 2)
 			$(@_viewSelector).unbind("dblclick").bind "dblclick", (event) =>
 				if (@_tapAction2? && @_userInteractionEnabled == true)
 					@_tapAction2(@_self)
-#					event.stopPropagation()
+				event.stopPropagation()
 				
 	animateWithDuration:(duration, animations, completion = null)=>
 		duration *= 1000
@@ -241,6 +250,8 @@ class JSView extends JSResponder
 		@setShadow(@_shadow)
 		@setClipToBounds(@_clipToBounds)
 		@setDraggable(@_draggable)
+		@removeTapGesture(1)
+		@removeTapGesture(2)
 		if (@_tapAction?)
 			@addTapGesture(@_tapAction)
 		if (@_tapAction2?)
