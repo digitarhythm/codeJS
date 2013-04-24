@@ -172,6 +172,7 @@ function filelist($path, $filter)
 //##########################################################################################
 function thumbnailList($path)
 {
+	deleteAloneThumb($path)
 	global $_HOMEDIR_;
 	$thumbdir = $_HOMEDIR_."/$path/.thumb";
 	$dir = opendir($_HOMEDIR_."/".$path);
@@ -215,6 +216,20 @@ function createThumbnail($path)
 		if (in_array($ext, $extarray) == true && is_file($thumbdir."/".$file."_s.".$ext) == false) {
 			exec("convert -resize 120x120 ".$imgdir."/".$fname." ".$thumbdir."/".$file."_s.".$ext);
 		}
+	}
+	deleteAloneThumb($path);
+}
+
+//##########################################################################################
+// 指定したディレクトリの画像で、親画像が無くなっているサムネイル画像を削除する
+//##########################################################################################
+function deleteAloneThumb($path)
+{
+	global $_HOMEDIR_;
+	$imgdir = $_HOMEDIR_."/$path";
+	$thumbdir = $_HOMEDIR_."/$path/.thumb";
+	if (is_dir($thumbdir) == false) {
+		return;
 	}
 	$dir = opendir($thumbdir);
 	while ($fname = readdir($dir)) {
