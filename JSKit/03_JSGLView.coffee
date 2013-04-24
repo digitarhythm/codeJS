@@ -25,7 +25,7 @@ class JSGLView extends JSView
 		@_renderer = new THREE.WebGLRenderer({ antialias:@_antialias })
 		@_renderer.setSize(frame.size.width, frame.size.height)
 		@_renderer.setClearColorHex(@_bgcolor, @_alpha)
-		
+	
 	setCamera:(@_perspective, @_camera_x, @_camera_y, @_camera_z, @_lookat_x, @_lookat_y, @_lookat_z)->
 		# init camera
 		@_camera = new THREE.PerspectiveCamera(@_perspective, @_frame.size.width / @_frame.size.height);
@@ -55,7 +55,6 @@ class JSGLView extends JSView
 	viewDidAppear:->
 		super()
 		$(@_viewSelector).append(@_renderer.domElement)
-		$(@_viewSelector).css("z-index", "1")
 		@_scene = new THREE.Scene()
 		@setCamera(@_perspective, @_camera_x, @_camera_y, @_camera_z, @_lookat_x, @_lootat_y, @_lookat_z)
 		@setLight(@_lightcolor, @_lightdir_x, @_lightdir_y, @_lightdir_z) 

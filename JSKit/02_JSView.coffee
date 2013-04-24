@@ -17,7 +17,7 @@ class JSView extends JSResponder
 		@_draggable = false
 		@_resizable = false
 		@_containment = false
-		@_div = "<div id=\"" + @_objectID + "\" style='position:absolute;'><!--null--></div>"
+		@_div = "<div id=\"" + @_objectID + "\" style='position:absolute;z-index:1;'><!--null--></div>"
 		@_objlist = new Array()
 		@_hidden = false
 		@_shadow = false
@@ -32,7 +32,6 @@ class JSView extends JSResponder
 			
 		if ($(@_viewSelector).length)
 			$(@_viewSelector).append(object._div)
-			$(@_viewSelector).css("z-index", "1")
 			object.setDraggable(object._draggable)
 			object.setResizable(object._resizable)
 			object.viewDidAppear()
@@ -212,13 +211,13 @@ class JSView extends JSResponder
 			$(@_viewSelector).unbind("click").bind "click", (event) =>
 				if (@_tapAction? && @_userInteractionEnabled == true)
 					@_tapAction(@_self)
-				event.stopPropagation()
+#				event.stopPropagation()
 					
 		if (tapnum == 2)
 			$(@_viewSelector).unbind("dblclick").bind "dblclick", (event) =>
 				if (@_tapAction2? && @_userInteractionEnabled == true)
 					@_tapAction2(@_self)
-				event.stopPropagation()
+#				event.stopPropagation()
 				
 	animateWithDuration:(duration, animations, completion = null)=>
 		duration *= 1000

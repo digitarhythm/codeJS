@@ -64,6 +64,12 @@ switch ($mode) {
 		$path = $_arg["path"];
 		createThumbnail($path);
 		break;
+	
+	case "thumbnailList":
+		$path = $_arg["path"];
+		$ret = thumbnailList($path);
+		echo JSON_encode($ret);
+		break;
 }
 
 //##########################################################################################
@@ -162,6 +168,35 @@ function filelist($path, $filter)
 }
 
 //##########################################################################################
+// サムネイルリストを返す
+//##########################################################################################
+function thumbnailList($path)
+{
+	global $_HOMEDIR_;
+	$thumbdir = $_HOMEDIR_."/$path/.thumb";
+	$dir = opendir($_HOMEDIR_."/".$path);
+	$result_f = array();
+	$result_d = array();
+	$extarray = array("png", "jpg", "jpeg", "gif");
+	while ($fname = readdir($dir)) {
+		$target = "$_HOMEDIR_/$path/$fname";
+		if (is_dir($target) == false) {
+			$ext = pathinfo($fname, PATHINFO_EXTENSION);
+			$file = pathinfo($fname, PATHINFO_FILENAME);
+			if (in_array($ext, $extarray) == true && is_file($thumbdir."/".$file."_s.".$ext) == true) {
+				$result_f[] = $path."/.thumb/".$file."_s.".$ext;
+			} else {
+				$result_f[] = $path."/".$fname;
+			}
+		}
+	}
+	$result = array();
+	$result["file"] = $result_f;
+	$result["dir"] = $result_d;
+	return $result;
+}
+
+//##########################################################################################
 // 指定したパスにある画像のサムネイルを生成する
 //##########################################################################################
 function createThumbnail($path)
@@ -177,8 +212,20 @@ function createThumbnail($path)
 	while ($fname = readdir($dir)) {
 		$ext = pathinfo($fname, PATHINFO_EXTENSION);
 		$file = pathinfo($fname, PATHINFO_FILENAME);
-		if (in_array($ext, $extarray) == true && is_file("$thumbdir/$file.png") == false) {
-			exec("convert -geometry 120x120 ".$imgdir."/".$fname." ".$thumbdir."/".$file."_s.png");
+		if (in_array($ext, $extarray) == true && is_file($thumbdir."/".$file."_s.".$ext) == false) {
+			exec("convert -resize 120x120 ".$imgdir."/".$fname." ".$thumbdir."/".$file."_s.".$ext);
+		}
+	}
+	$dir = opendir($thumbdir);
+	while ($fname = readdir($dir)) {
+		$ext = pathinfo($fname, PATHINFO_EXTENSION);
+		$filetmp = pathinfo($fname, PATHINFO_FILENAME);
+		preg_match("/(.*)_s/", $filetmp, $match);
+		if (isset($match[1]) == false) {
+			continue;
+		}
+		if (is_file($imgdir."/".$match[1].".".$ext) == false) {
+			unlink($thumbdir."/".$fname);
 		}
 	}
 }

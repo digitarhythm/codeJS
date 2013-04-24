@@ -31,7 +31,7 @@ class JSListView extends JSScrollView
 					for item in list
 						@_listData.push(item)
 			
-				@_tag = "<select id='"+@_objectID+"_select' size='"+size+"' style='width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;'>"
+				@_tag = "<select id='"+@_objectID+"_select' size='"+size+"' style='width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;z-index:1;'>"
 				if (!@_listData?)
 					@_listData = new Array()
 				for i in [0...@_listData.length]
@@ -45,7 +45,6 @@ class JSListView extends JSScrollView
 				
 				$(@_viewSelector+"_select").css("background-color", "transparent")
 				$(@_viewSelector+"_select").css("border", "0px transparent")
-				$(@_viewSelector+"_select").css("z-index", "1")
 				$(@_viewSelector+"_select").css("font-size", @_textSize+"pt")
 				
 				if (@_style=="JSListStyleTypeStandard")
@@ -68,7 +67,7 @@ class JSListView extends JSScrollView
 				for i in [0...@_listData.length]
 					value = @_listData[i]
 					disp = value
-					@_tag += "<tr id='"+i+"' class='ui-state-default' style='width:100%;'><td>"+disp+"</td></tr>"
+					@_tag += "<tr id='"+i+"' class='ui-state-default' style='width:100%;z-index:1;'><td>"+disp+"</td></tr>"
 				@_tag += "</tbody></table>"
 				if ($(@_viewSelector+"_select").length)
 					$(@_viewSelector+"_select").remove()
@@ -83,7 +82,6 @@ class JSListView extends JSScrollView
 				
 				$(@_viewSelector+"_select").css("background-color", "transparent")
 				$(@_viewSelector+"_select").css("border", "0px transparent")
-				$(@_viewSelector+"_select").css("z-index", "1")
 				$(@_viewSelector+"_select").css("font-size", (@_textSize-4)+"pt")
 
 		$(@_viewSelector+"_select").width(@_frame.size.width+"px")

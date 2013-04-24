@@ -42,3 +42,11 @@ class JSFileManager extends JSObject
 		,(filelist) =>
 			if (@listaction?)
 				@listaction(filelist)
+
+	thumbnailList:(fpath, @imagelistaction)->
+		$.post "syslibs/library.php",
+			mode: "thumbnailList"
+			path: fpath
+		,(filelist) =>
+			if (@imagelistaction?)
+				@imagelistaction(filelist)

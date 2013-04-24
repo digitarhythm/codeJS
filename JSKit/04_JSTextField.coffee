@@ -55,14 +55,14 @@ class JSTextField extends JSControl
 				return
 			disp = @_text
 			@_text = ""
-			tag = "<input id='"+@_objectID+"_text' style='position:absolute;' />"
+			tag = "<input id='"+@_objectID+"_text' style='position:absolute;z-index:1;' />"
 			x = -4
 			y = -4
 		else
 			if (@_text == "" && $(@_viewSelector+"_text").length)
 				@_text = $(@_viewSelector+"_text").val()
 			disp = @_text
-			tag = "<div id='"+@_objectID+"_text' style='position:absolute;'></div>"
+			tag = "<div id='"+@_objectID+"_text' style='position:absolute;z-index:1;'></div>"
 			x = 0
 			y = 0
 			
@@ -94,10 +94,8 @@ class JSTextField extends JSControl
 		@setEditable(@_editable)
 		super()
 		$(@_viewSelector).css("vertical-align", "middle")
-		$(@_viewSelector).css("z-index", "1")
 		$(@_viewSelector+"_text").width(@_frame.size.width)
 		$(@_viewSelector+"_text").css("line-height",@_frame.size.height+"px")
-		$(@_viewSelector+"_text").css("z-index", "1")
 		@setTextSize(@_textSize)
 		@setTextColor(@_textColor)
 		@setTextAlignment(@_textAlignment)
