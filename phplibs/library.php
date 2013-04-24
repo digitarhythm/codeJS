@@ -172,7 +172,7 @@ function filelist($path, $filter)
 //##########################################################################################
 function thumbnailList($path)
 {
-	deleteAloneThumb($path)
+	deleteAloneThumb($path);
 	global $_HOMEDIR_;
 	$thumbdir = $_HOMEDIR_."/$path/.thumb";
 	$dir = opendir($_HOMEDIR_."/".$path);

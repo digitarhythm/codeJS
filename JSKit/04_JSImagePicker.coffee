@@ -37,7 +37,7 @@ class JSImagePicker extends JSScrollView
 		y = -@_frame.size.height
 		@imagebase = new JSScrollView(JSRectMake(x, y, w, h2 + 36))
 		@imagebase.setShadow(true)
-		@imagebase.setBackgroundColor(JSColor("white"))
+		@imagebase.setBackgroundColor(JSColor("black"))
 		@_self.addSubview(@imagebase)
 		
 		@listbase = new JSScrollView(JSRectMake(0, 0, w, h2 + 36))
@@ -60,7 +60,9 @@ class JSImagePicker extends JSScrollView
 			imgfname = thumbfname.replace(/^.*\/(.*?)_s\.(.*)/, path+"/$1.$2")
 			img = new JSImage(thumbfname)
 			view = new JSImageView(JSRectMake(pos.x, pos.y, @_thumbnail_width, @_thumbnail_height))
-			view.setShadow(true)
+			view.setContentMode("JSViewContentModeScaleAspectFit")
+#			view.setBackgroundColor(JSColor("clearColor"))
+#			view.setShadow(true)
 			view.imgfname = imgfname
 			view.setUserInteractionEnabled(true)
 			view.addTapGesture(@tapImage, 2)
@@ -72,8 +74,8 @@ class JSImagePicker extends JSScrollView
 				ynum++
 		
 		@imagectrl = new JSView(JSRectMake(0, h2, w, 36))
-		@imagectrl.setBackgroundColor(JSColor("black"))
-		@imagectrl.setAlpha(0.7)
+		@imagectrl.setBackgroundColor(JSColor("white"))
+		@imagectrl.setAlpha(0.8)
 		@imagebase.addSubview(@imagectrl)
 		
 		@closebutton = new JSButton(JSRectMake(w - 84, 4, 80, 28))

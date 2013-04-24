@@ -22,6 +22,7 @@ class JSView extends JSResponder
 		@_hidden = false
 		@_shadow = false
 		@_userInteractionEnabled = true
+		@_contentMode = "JSViewContentModeScaleAspectFit"
 
 	addSubview: (object) ->
 		if (!object?)
@@ -237,6 +238,8 @@ class JSView extends JSResponder
 			$(@_viewSelector).css("box-shadow", "2px 2px 10px rgba(0,0,0,0.4)")
 		else
 			$(@_viewSelector).css("box-shadow", "none")
+
+	setContentMode:(@_contentMode)->
   
 	viewDidAppear: ->
 		@setHidden(@_hidden)
