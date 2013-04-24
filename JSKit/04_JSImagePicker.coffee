@@ -9,10 +9,13 @@ class JSImagePicker extends JSScrollView
 		@_thumbnail_width = 120
 		@_thumbnail_height = 120
 		@_delegate = null
+		@_clipToBounds = true
+		@_imageList = new Array()
 
 	viewDidAppear:->
 		super()
 		@_self.setBackgroundColor(JSColor("clearColor"))
+		@_self.setClipToBounds(true)
 		@_self.addTapGesture(@closeImagePickerView)
 		frm = @_parent._frame
 		frm.origin.x = 0
@@ -29,6 +32,8 @@ class JSImagePicker extends JSScrollView
 #		hnum = parseInt(@_frame.size.width / (@_thumbnail_width + 4))
 		hnum = 4
 		vnum = parseInt(imagelist.length / hnum)+(imagelist.length%hnum!=0)
+		if (vnum > 4)
+			vnum = 4
 		vnum2 = parseInt(@_frame.size.height / (@_thumbnail_height + 4))
 		w = hnum * (@_thumbnail_width+4)+4
 		h = vnum * (@_thumbnail_height+4)+4
@@ -67,7 +72,22 @@ class JSImagePicker extends JSScrollView
 			view.setUserInteractionEnabled(true)
 			view.addTapGesture(@tapImage, 2)
 			view.setImage(img)
+			
+			delbutton = new JSTextView(JSRectMake(4, 4, 24, 24))
+			delbutton.setText("×")
+			delbutton.setTextAlignment("JSTextAlignmentCenter")
+			delbutton.setTextSize(16)
+			delbutton.setHidden(true)
+			delbutton.setEditable(false)
+			delbutton.setBackgroundColor(JSColor("clearColor"))
+			delbutton.setTextColor(JSColor("red"))
+			delbutton.addTapGesture(@deleteImage)
+			view.addSubview(delbutton)
+			view.bringSubviewToFront(delbutton)
+			view.delbutton = delbutton
+			
 			@imagelistview.addSubview(view)
+			@_imageList.push(view)
 			xnum++
 			if (xnum == hnum)
 				xnum = 0
@@ -79,9 +99,14 @@ class JSImagePicker extends JSScrollView
 		@imagebase.addSubview(@imagectrl)
 		
 		@closebutton = new JSButton(JSRectMake(w - 84, 4, 80, 28))
-		@closebutton.setButtonTitle("close")
+		@closebutton.setButtonTitle("閉じる")
 		@closebutton.addTarget(@closeImagePickerView)
 		@imagectrl.addSubview(@closebutton)
+		
+		@editbutton = new JSButton(JSRectMake(4, 4, 80, 28))
+		@editbutton.setButtonTitle("編集")
+		@editbutton.addTarget(@editImageList)
+		@imagectrl.addSubview(@editbutton)
 		
 		@imagebase.animateWithDuration 0.2, {top:0}
 
@@ -95,3 +120,42 @@ class JSImagePicker extends JSScrollView
 			@imagelistview.removeFromSuperview()
 			@imagebase.removeFromSuperview()
 			@_self.removeFromSuperview()
+
+	editImageList:(sender)=>
+		if (sender._buttonTitle == "編集")
+			sender.setButtonTitle("終了")
+			count = 0
+			for img in @_imageList
+				img.removeTapGesture(2)
+				img.delbutton.setHidden(false)
+				img.number = count++
+		else
+			sender.setButtonTitle("編集")
+			for img in @_imageList
+				img.addTapGesture(@tapImage, 2)
+				img.delbutton.setHidden(true)
+			
+	deleteImage:(sender)=>
+		sender._parent.animateWithDuration 0.2, {alpha:0.0}, =>
+			fname = @_imageList[sender._parent.number].imgfname
+			@_imageList.splice(sender._parent.number, 1)
+			sender._parent.removeFromSuperview()
+			$.post "syslibs/library.php",
+				mode: "fileUnlink"
+				fpath: fname
+			xnum = 0
+			ynum = 0
+			hnum = 4
+			pos = new JSPoint()
+			vnum = parseInt(@_imageList.length / hnum)+(@_imageList.length%hnum!=0)
+			count = 0
+			for img in @_imageList
+				pos.x = xnum * (@_thumbnail_width+4)+4
+				pos.y = ynum * (@_thumbnail_height+4)+4
+				frm = JSRectMake(pos.x, pos.y, @_thumbnail_width, @_thumbnail_height)
+				img.setFrame(frm)
+				img.number = count++
+				xnum++
+				if (xnum == hnum)
+					xnum = 0
+					ynum++

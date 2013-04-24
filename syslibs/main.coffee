@@ -26,7 +26,6 @@ $ ->
 	@applicationMain.didFinishLaunching()
 	
 	Array.prototype.indexOfObject = (target) ->
-		JSLog("target="+target)
 		for key, i in @
 			val = @[key]
 			if (target == val)

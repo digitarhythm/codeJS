@@ -70,6 +70,12 @@ switch ($mode) {
 		$ret = thumbnailList($path);
 		echo JSON_encode($ret);
 		break;
+
+	case "fileUnlink":
+		$fpath = $_arg["fpath"];
+		unlink($_HOMEDIR_."/".$fpath);
+		echo $fpath;
+		break;
 }
 
 //##########################################################################################
