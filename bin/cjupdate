@@ -86,7 +86,7 @@ while ($fname = readdir($dir)) {
 	copy($src, $h_syslibs."/".$fname);
 }
 
-// copy system file
+// copy external library file
 system("cp -a ".$p_extjslibs."/codeJS_default ".$h_syslibs."/");
 copy($p_extjslibs."/three.min.js", $h_syslibs."/three.min.js");
 
@@ -95,6 +95,8 @@ copy($p_syslibs."/htaccess", $homedir."/configs/.htaccess");
 copy($p_syslibs."/htaccess", $homedir."/Library/.htaccess");
 copy($p_syslibs."/htaccess", $homedir."/templates/.htaccess");
 
+// copy system file
+system("cp -a ".$p_syslibs."/Picture ".$h_syslibs."/");
 copy($p_syslibs."/htaccess2", $homedir."/.htaccess");
 copy($p_syslibs."/htaccess2", $homedir."/appscode/.htaccess");
 copy($p_syslibs."/htaccess2", $homedir."/usrlibs/.htaccess");

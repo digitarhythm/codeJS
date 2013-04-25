@@ -35,6 +35,7 @@ array_push($createdir_arr, $homedir."/configs");
 array_push($createdir_arr, $homedir."/appscode");
 array_push($createdir_arr, $homedir."/usrlibs");
 array_push($createdir_arr, $homedir."/syslibs");
+array_push($createdir_arr, $homedir."/syslibs/Picture");
 array_push($createdir_arr, $homedir."/templates");
 array_push($createdir_arr, $homedir."/templates_c");
 array_push($createdir_arr, $homedir."/cache");

@@ -91,6 +91,8 @@ JSSearchPathForDirectoriesInDomains = (kind) ->
 			ret = "Documents"
 		when "JSPictureDirectory"
 			ret = "Media/Picture"
+		when "JSSystemDirectory"
+			ret = "syslibs"
 	
 	return ret
 

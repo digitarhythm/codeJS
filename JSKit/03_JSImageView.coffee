@@ -14,7 +14,7 @@ class JSImageView extends JSView
 		if (@_image?)
 			preimg = new Image()
 			preimg.src = @_image._imagepath
-			img = "<img id='"+@_objectID+"_image' src='"+@_image._imagepath+"' style='position:absolute;z-index:1;'>"
+			img = "<img id='"+@_objectID+"_image' src='"+@_image._imagepath+"' style='position:absolute;z-index:1;left:0px;top:0px;width:"+@_frame.size.width+"px;height:"+@_frame.size.heitgh+"px;'>"
 			if ($(@_viewSelector).length)
 				if ($(@_viewSelector+"_image").length)
 					$(@_viewSelector+"_image").remove()
@@ -32,14 +32,6 @@ class JSImageView extends JSView
 		$(@_viewSelector+"_image").css("-webkit-border-radius", radius)
 		$(@_viewSelector+"_image").css("-moz-border-radius", radius)
 
-	setContentMode:(contentMode)->
-		super(contentMode)
-		switch contentMode
-			when "JSViewContentModeScaleAspectFit"
-				$(@_viewSelector).imgLiquid(fill: false)
-			when "JSViewContentModeScaleAspectFill"
-				$(@_viewSelector).imgLiquid()
-	
 	viewDidAppear:->
 		super()
 		@setCornerRadius(@_cornerRadius)

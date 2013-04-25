@@ -25,8 +25,8 @@ $ ->
 	@applicationMain = new applicationMain(@rootView)
 	@applicationMain.didFinishLaunching()
 	
-	Array.prototype.indexOfObject = (target) ->
-		for key, i in @
-			val = @[key]
+	Array.prototype.indexOfObject = (target)->
+		for i in [0...@.length]
+			val = @[i]
 			if (target == val)
 				return i

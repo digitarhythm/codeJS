@@ -4,12 +4,14 @@
 ##########################################
 
 class JSMenuView extends JSScrollView
-	constructor:(@_action = null)->
-		super(JSRectMake(0, 0, 200, 0))
+	constructor:(frame = JSRectMake(0, 0, 200, 0))->
+		super(frame)
 		@_textSize = 10
 		@_backgroundColor = JSColor("clearColor")
 		@_clipToBounds = false
 		@_containment = false
+
+	addTarget:(@_action)->
 	
 	addMenuItem:(@_menuitem)->
 		if (!@_menuitem?)
