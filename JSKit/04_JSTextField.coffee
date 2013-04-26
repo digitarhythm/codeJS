@@ -6,7 +6,7 @@
 class JSTextField extends JSControl
 	constructor: (frame = JSRectMake(0, 0, 120, 24)) ->
 		super(frame)
-		@_textSize =8 
+		@_textSize = 8 
 		@_textColor = JSColor("black")
 		@_bgColor = JSColor("#f0f0f0")
 		@_textAlignment = "JSTextAlignmentCenter"
