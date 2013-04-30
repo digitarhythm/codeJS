@@ -22,7 +22,7 @@ class JSAlertView extends JSView
 			for i in [0...@_param.length]
 				p = @_param[i]
 				@_tag += "<label>"+p+"</labeL>"
-				@_tag += "<input type='text' name='"+@_objectID+"_textfield_"+i+"' id='"+@_objectID+"_textfield_"+i+"' style='width:"+(@_frame.size.width-32)+"px;' />"
+				@_tag += "<input type='text' name='"+@_objectID+"_textfield_"+i+"' id='"+@_objectID+"_textfield_"+i+"' style='width:"+(@_frame.size.width-32)+"px;' /><br>"
 			@_tag += "</fieldset>"
 			@_tag += "</form>"
 		@_tag += "</div>"
@@ -44,7 +44,7 @@ class JSAlertView extends JSView
 					if (@_delegate? && typeof @_delegate.clickedButtonAtIndex == "function")
 						switch @_style
 							when "JSAlertViewStylePlainTextInput"
-								arr = {}
+								arr = []
 								for i in [0...@_param.length]
 									t = $(@_viewSelector+"_textfield_"+i).val()
 									arr.push(t)

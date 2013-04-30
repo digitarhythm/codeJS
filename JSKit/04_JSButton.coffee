@@ -41,16 +41,18 @@ class JSButton extends JSControl
 	viewDidAppear:->
 		super()
 		if ($(@_viewSelector+"_button").length)
+			JSLog("del="+$(@_viewSelector+"_button").val())
 			$(@_viewSelector+"_button").remove()
 		if (@_type == "JSFormButtonTypeNormal")
-			tag = "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;' value='"+@_buttonTitle+"' />"
+			tag = "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;z-index:1;' value='"+@_buttonTitle+"' />"
 			w = @_frame.size.width - 16
 			h = @_frame.size.height - 8
 		else if (@_type == "JSFormButtonTypeFileSelect")
-			tag = "<input id='"+@_objectID+"_button' type='file' name='"+@_objectID+"_button' enctype='multipart/form-data' />"
+			tag = "<input id='"+@_objectID+"_button' type='file' name='"+@_objectID+"_button' style='position:absolute;z-index:1;' enctype='multipart/form-data' />"
 			w = @_frame.size.width
 			h = 18
 		$(@_viewSelector).append(tag)
+		JSLog("add="+$(@_viewSelector+"_button").val())
 		if (@_type == "JSFormButtonTypeFileSelect")
 			$(@_viewSelector+"_button").change =>
 				$(@_viewSelector+"_button").upload "syslibs/library.php",

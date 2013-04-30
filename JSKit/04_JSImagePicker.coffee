@@ -102,16 +102,14 @@ class JSImagePicker extends JSScrollView
 		@closebutton.setButtonTitle("閉じる")
 		@closebutton.addTarget(@closeImagePickerView)
 		@closebutton.setShadow(true)
-		@imagebase.addSubview(@closebutton)
-#		@imagebase.bringSubviewToFront(@closebutton)
+		@imagebase.bringSubviewToFront(@closebutton)
 		@imagectrl.addSubview(@closebutton)
 		
 		@editbutton = new JSButton(JSRectMake(4, 4, 80, 28))
 		@editbutton.setButtonTitle("編集")
 		@editbutton.addTarget(@editImageList)
 		@editbutton.setShadow(true)
-		@imagebase.addSubview(@editbutton)
-#		@imagebase.bringSubviewToFront(@editbutton)
+		@imagebase.bringSubviewToFront(@editbutton)
 		@imagectrl.addSubview(@editbutton)
 		
 		@imagebase.animateWithDuration 0.2, {top:0}
@@ -143,7 +141,6 @@ class JSImagePicker extends JSScrollView
 				img.delbutton.setHidden(true)
 			
 	deleteImage:(sender)=>
-		JSLog("hoge")
 		sender._parent.animateWithDuration 0.2, {alpha:0.0}, =>
 			fname = @_imageList[sender._parent.number].imgfname
 			@_imageList.splice(sender._parent.number, 1)
