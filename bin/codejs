@@ -47,10 +47,10 @@ if [ -z "$opt" ]; then
 	echo "<Usage>"
 	echo "codejs function [option1] [option2]"
 	echo "<function>"
-	echo "new         : create new project(require option1 is package name)"
-	echo "build       : keep watch on a user coffee-script"
-	echo "update      : update system library"
-	echo "inheritance : The class which inherited the specified class is made.(require option1 is new class name, option2 is class to inherit)"
+	echo "new    : create new project(require option1 is package name)"
+	echo "build  : keep watch on a user coffee-script"
+	echo "update : update system library"
+	echo "derive : An inherited class is generated.(require option1 is inheritance class, option2 is new class)"
 	exit
 fi
 
@@ -81,7 +81,7 @@ update)
 	${cwd}/cjupdate
 ;;
 
-inheritance)
+derive)
 	if [ ! -d "./appscode" ]; then
 		echo "Please perform in a package directory."
 		exit
@@ -90,7 +90,7 @@ inheritance)
 		echo "Please specify an option."
 		exit
 	fi
-	${cwd}/cjinheritance $opt2 $opt3
+	${cwd}/cjderive $opt2 $opt3
 ;;
 
 *)

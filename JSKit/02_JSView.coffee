@@ -22,7 +22,6 @@ class JSView extends JSResponder
 		@_hidden = false
 		@_shadow = false
 		@_userInteractionEnabled = true
-		@_contentMode = "JSViewContentModeNormal"
 
 	addSubview: (object) ->
 		if (!object?)
@@ -239,15 +238,6 @@ class JSView extends JSResponder
 		else
 			$(@_viewSelector).css("box-shadow", "none")
 
-	setContentMode:(@_contentMode)->
-		if ($(@_viewSelector).length)
-			switch @_contentMode
-				when "JSViewContentModeScaleAspectFit"
-					$(@_viewSelector).imgLiquid(fill: false)
-				when "JSViewContentModeScaleAspectFill"
-					$(@_viewSelector).imgLiquid()
-	
-  
 	viewDidAppear: ->
 		@setHidden(@_hidden)
 		@setFrame(@_frame)

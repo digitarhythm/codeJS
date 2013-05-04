@@ -32,7 +32,7 @@ class JSButton extends JSControl
 				h = frame.size.height - 8
 				$(@_viewSelector+"_button").width(w+"px")
 				$(@_viewSelector+"_button").height(h+"px")
-			when "JSFormButtonTypeFileSelect"
+			when "JSFormButtonTypeImageUpload"
 				w = @_frame.size.width
 				$(@_viewSelector+"_button").width(w+"px")
 
@@ -41,19 +41,17 @@ class JSButton extends JSControl
 	viewDidAppear:->
 		super()
 		if ($(@_viewSelector+"_button").length)
-			JSLog("del="+$(@_viewSelector+"_button").val())
 			$(@_viewSelector+"_button").remove()
 		if (@_type == "JSFormButtonTypeNormal")
 			tag = "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;z-index:1;' value='"+@_buttonTitle+"' />"
 			w = @_frame.size.width - 16
 			h = @_frame.size.height - 8
-		else if (@_type == "JSFormButtonTypeFileSelect")
+		else if (@_type == "JSFormButtonTypeImageUpload")
 			tag = "<input id='"+@_objectID+"_button' type='file' name='"+@_objectID+"_button' style='position:absolute;z-index:1;' enctype='multipart/form-data' />"
 			w = @_frame.size.width
 			h = 18
 		$(@_viewSelector).append(tag)
-		JSLog("add="+$(@_viewSelector+"_button").val())
-		if (@_type == "JSFormButtonTypeFileSelect")
+		if (@_type == "JSFormButtonTypeImageUpload")
 			$(@_viewSelector+"_button").change =>
 				$(@_viewSelector+"_button").upload "syslibs/library.php",
 					mode: "uploadfile"

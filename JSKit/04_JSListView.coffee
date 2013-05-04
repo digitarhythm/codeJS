@@ -24,13 +24,13 @@ class JSListView extends JSScrollView
 					size = 2
 					@_listData = list
 				else
+					size = 1
 					if (!list?)
 						return
-					size = 1
 					@_listData = new Array()
 					for item in list
 						@_listData.push(item)
-			
+					
 				@_tag = "<select id='"+@_objectID+"_select' size='"+size+"' style='width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;z-index:1;'>"
 				if (!@_listData?)
 					@_listData = new Array()
@@ -62,11 +62,13 @@ class JSListView extends JSScrollView
 						
 			when "JSListStyleTypeSortable"
 				@_tag = "<table style='width:100%;'><tbody id='"+@_objectID+"_select'>"
-				if (!@_listData?)
+				if (!list?)
 					return
+				@_listData = new Array()
+				for item in list
+					@_listData.push(item)
 				for i in [0...@_listData.length]
-					value = @_listData[i]
-					disp = value
+					disp = @_listData[i]
 					@_tag += "<tr id='"+i+"' class='ui-state-default' style='width:100%;z-index:1;'><td>"+disp+"</td></tr>"
 				@_tag += "</tbody></table>"
 				if ($(@_viewSelector+"_select").length)

@@ -9,6 +9,7 @@ class JSImageView extends JSView
 		@_userInteractionEnabled = false
 		@_bgColor = JSColor("clearColor")
 		@_clipToBounds = true
+		@_contentMode = "JSViewContentModeNormal"
 
 	setImage:(@_image)->
 		if (@_image?)
@@ -32,6 +33,14 @@ class JSImageView extends JSView
 		$(@_viewSelector+"_image").css("-webkit-border-radius", radius)
 		$(@_viewSelector+"_image").css("-moz-border-radius", radius)
 
+	setContentMode:(@_contentMode)->
+		if ($(@_viewSelector).length && $(@_viewSelector+"_image").length)
+			switch @_contentMode
+				when "JSViewContentModeScaleAspectFit"
+					$(@_viewSelector).imgLiquid(fill: false)
+				when "JSViewContentModeScaleAspectFill"
+					$(@_viewSelector).imgLiquid()
+  
 	viewDidAppear:->
 		super()
 		@setCornerRadius(@_cornerRadius)
