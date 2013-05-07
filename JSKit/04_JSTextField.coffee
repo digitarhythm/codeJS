@@ -10,7 +10,7 @@ class JSTextField extends JSControl
 		@_textColor = JSColor("black")
 		@_bgColor = JSColor("#f0f0f0")
 		@_textAlignment = "JSTextAlignmentCenter"
-		@_text = "Label"
+		@_text = ""
 		@_editable = true
 		
 	setText: (@_text) ->

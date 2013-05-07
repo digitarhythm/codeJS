@@ -9,7 +9,7 @@ class JSButton extends JSControl
 		@_borderColor = JSColor("clearColor")
 		@_bgColor = JSColor("clearColor")
 		@_buttonTitle = "Button"
-		@_type = "JSFormButtonTypeNormal"
+		@_style = "JSFormButtonStyleNormal"
 		@_textSize = 8
 		
 	setButtonTitle:(title)->
@@ -20,19 +20,19 @@ class JSButton extends JSControl
 	setTextSize:(@_textSize)->
 		$(@_viewSelector+"_button").css('font-size', @_textSize+'pt')
 		
-	setType:(@_type)->
+	setStyle:(@_style)->
 		if ($(@_viewSelector+"_button").length)
 			@viewDidAppear()
 			
 	setFrame:(frame)->
 		super(frame)
-		switch @_type
-			when "JSFormButtonTypeNormal"
+		switch @_style
+			when "JSFormButtonStyleNormal"
 				w = frame.size.width - 16
 				h = frame.size.height - 8
 				$(@_viewSelector+"_button").width(w+"px")
 				$(@_viewSelector+"_button").height(h+"px")
-			when "JSFormButtonTypeImageUpload"
+			when "JSFormButtonStyleImageUpload"
 				w = @_frame.size.width
 				$(@_viewSelector+"_button").width(w+"px")
 
@@ -42,16 +42,16 @@ class JSButton extends JSControl
 		super()
 		if ($(@_viewSelector+"_button").length)
 			$(@_viewSelector+"_button").remove()
-		if (@_type == "JSFormButtonTypeNormal")
+		if (@_style == "JSFormButtonStyleNormal")
 			tag = "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;z-index:1;' value='"+@_buttonTitle+"' />"
 			w = @_frame.size.width - 16
 			h = @_frame.size.height - 8
-		else if (@_type == "JSFormButtonTypeImageUpload")
+		else if (@_style == "JSFormButtonStyleImageUpload")
 			tag = "<input id='"+@_objectID+"_button' type='file' name='"+@_objectID+"_button' style='position:absolute;z-index:1;' enctype='multipart/form-data' />"
 			w = @_frame.size.width
 			h = 18
 		$(@_viewSelector).append(tag)
-		if (@_type == "JSFormButtonTypeImageUpload")
+		if (@_style == "JSFormButtonStyleImageUpload")
 			$(@_viewSelector+"_button").change =>
 				$(@_viewSelector+"_button").upload "syslibs/library.php",
 					mode: "uploadfile"

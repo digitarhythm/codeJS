@@ -8,7 +8,7 @@ class JSListView extends JSScrollView
 		super(frame)
 		@_listData = null
 		@_action = null
-		@_style = "JSListStyleTypeStandard"
+		@_style = "JSListStyleStandard"
 		@_textSize = 10
 		
 	setFrame:(frame)->
@@ -19,8 +19,8 @@ class JSListView extends JSScrollView
 
 	setListData:(list)->
 		switch @_style
-			when "JSListStyleTypeStandard", "JSListStyleTypeDropdown"
-				if (@_style=="JSListStyleTypeStandard")
+			when "JSListStyleStandard", "JSListStyleDropdown"
+				if (@_style=="JSListStyleStandard")
 					size = 2
 					@_listData = list
 				else
@@ -47,7 +47,7 @@ class JSListView extends JSScrollView
 				$(@_viewSelector+"_select").css("border", "0px transparent")
 				$(@_viewSelector+"_select").css("font-size", @_textSize+"pt")
 				
-				if (@_style=="JSListStyleTypeStandard")
+				if (@_style=="JSListStyleStandard")
 					$(@_viewSelector+"_select").click (e) =>
 						e.stopPropagation()
 						select = $(@_viewSelector+"_select option:selected").val()
@@ -60,7 +60,7 @@ class JSListView extends JSScrollView
 						if (@_action? && select?)
 							@_action(select)
 						
-			when "JSListStyleTypeSortable"
+			when "JSListStyleSortable"
 				@_tag = "<table style='width:100%;'><tbody id='"+@_objectID+"_select'>"
 				if (!list?)
 					return
@@ -103,7 +103,7 @@ class JSListView extends JSScrollView
 		$(@_viewSelector+"_select").val(select)
 	
 	sortReflection:->
-		if (@_style == "JSListStyleTypeSortable")
+		if (@_style == "JSListStyleSortable")
 			arr = $(@_viewSelector+"_select").sortable("toArray")
 			ret = new Array()
 			for key, i in arr
