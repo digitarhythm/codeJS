@@ -51,8 +51,6 @@ class JSTextField extends JSControl
 			
 		#/////////////////////////////////////////////////////////////////
 		if (@_editable == true)
-			if(@_text == "")
-				return
 			disp = @_text
 			@_text = ""
 			tag = "<input id='"+@_objectID+"_text' style='position:absolute;z-index:1;' />"
