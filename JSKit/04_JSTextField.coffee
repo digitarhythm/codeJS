@@ -15,7 +15,7 @@ class JSTextField extends JSControl
 		
 	setText: (@_text) ->
 		if ($(@_viewSelector+"_text").length)
-			$(@_viewSelector+"_text").html(@_text)
+			$(@_viewSelector+"_text").val(@_text)
 
 	setTextSize: (@_textSize) ->
 		if ($(@_viewSelector+"_text").length)
