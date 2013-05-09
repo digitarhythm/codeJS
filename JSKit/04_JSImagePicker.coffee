@@ -146,7 +146,8 @@ class JSImagePicker extends JSScrollView
 				fpath: fname
 			xnum = 0
 			ynum = 0
-			hnum = 4
+			#hnum = 4
+			hnum = parseInt(@_frame.size.width / @_thumbnail_width) - 1
 			pos = new JSPoint()
 			vnum = parseInt(@_imageList.length / hnum)+(@_imageList.length%hnum!=0)
 			count = 0
