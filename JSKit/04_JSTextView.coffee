@@ -19,6 +19,14 @@ class JSTextView extends JSScrollView
 		
 	setWritingMode:(@_writingMode)->
 
+	getText:->
+		if (@_editable == false)
+			text = $(@_viewSelector+"_textarea").html()
+		else
+			text = $(@_viewSelector+"_textarea").val()
+		text = text.replace(/<br>/g, "\n")
+		return text
+
 	setText:(text)->
 		###
 		@_text = text.replace(/\n/gi, "[br]")
@@ -28,7 +36,16 @@ class JSTextView extends JSScrollView
 		###
 		@_text = text.replace(/<br>/g, "\n")
 		if ($(@_viewSelector+"_textarea").length)
-			@setEditable(@_editable)
+			if (@_writingMode == 0)
+				writingmode = "horizontal-tb"
+			else
+				writingmode = "vertical-rl"
+			$(@_viewSelector+"_textarea").css("-webkit-writing-mode", writingmode)
+			if (@_editable == true)
+				$(@_viewSelector+"_textarea").val(@_text)
+			else
+				disp = @_text.replace(/\n/g, "<br>")
+				$(@_viewSelector+"_textarea").html(disp)
 		
 	setTextSize: (@_textSize) ->
 		if ($(@_viewSelector+"_textarea").length)
@@ -51,9 +68,6 @@ class JSTextView extends JSScrollView
 			@_editable = editable
 			return
 			
-		if (!@_text?)
-			@_text = ""
-			
 		if (editable == true)
 			if (!$(@_viewSelector+"_textarea").length)
 				@_text = ""
@@ -69,11 +83,12 @@ class JSTextView extends JSScrollView
 			y = -2
 		else
 			if (!$(@_viewSelector+"_textarea").length)
-				@_text = ""
+				disp = ""
 			else
-				disp = $(@_viewSelector+"_textarea").val()
-				@_text = disp.replace(/<br>/g, "\n")
-				disp = disp.replace(/\n/g, "<br>")
+				if (@_editable == true)
+					disp = $(@_viewSelector+"_textarea").val()
+				else
+					disp = @_text.replace(/\n/g, "<br>")
 			tag = "<div id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;z-index:1;'>"+disp+"</div>"
 			x = 0
 			y = 0
