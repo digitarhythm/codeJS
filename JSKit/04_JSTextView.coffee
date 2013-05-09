@@ -19,9 +19,14 @@ class JSTextView extends JSScrollView
 		
 	setWritingMode:(@_writingMode)->
 
-	setText: (text) ->
+	setText:(text)->
+		###
 		@_text = text.replace(/\n/gi, "[br]")
 		@_text = @_text.replace(/<br>/gi, "[br]")
+		if ($(@_viewSelector+"_textarea").length)
+			@setEditable(@_editable)
+		###
+		@_text = text.replace(/<br>/g, "\n")
 		if ($(@_viewSelector+"_textarea").length)
 			@setEditable(@_editable)
 		
@@ -41,28 +46,39 @@ class JSTextView extends JSScrollView
 		
 	setUserInteraction: (@_userInteraction) ->
 		
-	setEditable: (@_editable) ->
+	setEditable:(editable)->
 		if (!$(@_viewSelector).length)
+			@_editable = editable
 			return
 			
 		if (!@_text?)
 			@_text = ""
 			
-		if (@_editable == true)
-			disp = @_text.replace(/\[br\]/g, "\n")
-			@_text = ""
-			tag = "<textarea id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;z-index:1;'></textarea>"
+		if (editable == true)
+			if (!$(@_viewSelector+"_textarea").length)
+				@_text = ""
+			else
+				if (@_editable == false)
+					text = $(@_viewSelector+"_textarea").html()
+				else
+					text = $(@_viewSelector+"_textarea").val()
+				@_text = text.replace(/<br>/g, "\n")
+			
+			tag = "<textarea id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;z-index:1;'>"+@_text+"</textarea>"
 			x = -2
 			y = -2
 		else
-			if (@_text == "" && $(@_viewSelector+"_textarea").length)
-				@_text = $(@_viewSelector+"_textarea").val()
-				@_text = @_text.replace(/\n/g, "[br]")
-			disp = @_text.replace(/\[br\]/g, "<br>")
-			tag = "<div id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;z-index:1;'></div>"
+			if (!$(@_viewSelector+"_textarea").length)
+				@_text = ""
+			else
+				disp = $(@_viewSelector+"_textarea").val()
+				@_text = disp.replace(/<br>/g, "\n")
+				disp = disp.replace(/\n/g, "<br>")
+			tag = "<div id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;z-index:1;'>"+disp+"</div>"
 			x = 0
 			y = 0
-			
+		@_editable = editable
+		
 		if ($(@_viewSelector+"_textarea").length)
 			$(@_viewSelector+"_textarea").remove()
 		$(@_viewSelector).append(tag)

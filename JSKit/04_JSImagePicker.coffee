@@ -4,7 +4,7 @@
 ##########################################
 
 class JSImagePicker extends JSScrollView
-	constructor:(frame)->
+	constructor:->
 		super()
 		@_thumbnail_width = 120
 		@_thumbnail_height = 120
@@ -29,33 +29,30 @@ class JSImagePicker extends JSScrollView
 				@dispImageList(filelist)
 
 	dispImageList:(_filelist)->
+		if (!$(@_viewSelector).length)
+			return
 		filelist = JSON.parse(_filelist)
 		imagelist = filelist['file']
-#		hnum = parseInt(@_frame.size.width / (@_thumbnail_width + 4))
-		hnum = 4
+		hnum = parseInt(@_frame.size.width / @_thumbnail_width) - 1
+		w = hnum * (@_thumbnail_width+4)+4
 		vnum = parseInt(imagelist.length / hnum)+(imagelist.length%hnum!=0)
 		if (vnum > 4)
 			vnum = 4
 		vnum2 = parseInt(@_frame.size.height / (@_thumbnail_height + 4))
-		w = hnum * (@_thumbnail_width+4)+4
 		h = vnum * (@_thumbnail_height+4)+4
 		h2 = vnum2 * (@_thumbnail_height+4)+4
 		x = parseInt(@_frame.size.width / 2 - (w / 2))
-		y = -h
-		@imagebase = new JSScrollView(JSRectMake(x, y, w, h2 + 36))
+		y = -h2
+		@imagebase = new JSScrollView(JSRectMake(x, y, w, h + 36))
 		@imagebase.setShadow(true)
 		@imagebase.setBackgroundColor(JSColor("black"))
 		@_self.addSubview(@imagebase)
 		
-		@listbase = new JSScrollView(JSRectMake(0, 0, w, h2 + 36))
+		@listbase = new JSScrollView(JSRectMake(0, 0, w, h + 36))
 		@listbase.setClipToBounds(true)
 		@listbase.setScroll(true)
 		@listbase.setBackgroundColor(JSColor("clearColor"))
 		@imagebase.addSubview(@listbase)
-		
-#		@imagelistview = new JSView(JSRectMake(0, 0, w, h))
-#		@imagelistview.setBackgroundColor(JSColor("red"))
-#		@listbase.addSubview(@imagelistview)
 		
 		xnum = 0
 		ynum = 0
@@ -93,7 +90,7 @@ class JSImagePicker extends JSScrollView
 				xnum = 0
 				ynum++
 		
-		@imagectrl = new JSView(JSRectMake(0, h2, w, 36))
+		@imagectrl = new JSView(JSRectMake(0, h, w, 36))
 		@imagectrl.setBackgroundColor(JSColor("white"))
 		@imagectrl.setAlpha(0.9)
 		@imagebase.addSubview(@imagectrl)
@@ -122,7 +119,6 @@ class JSImagePicker extends JSScrollView
 	closeImagePickerView:=>
 		@imagebase.animateWithDuration 0.2, {top:-@_frame.size.height}, =>
 			@_self.animateWithDuration 0.2, {alpha:0.0}, =>
-#				@imagelistview.removeFromSuperview()
 				@imagebase.removeFromSuperview()
 				@_self.removeFromSuperview()
 
