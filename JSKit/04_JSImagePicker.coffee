@@ -23,6 +23,7 @@ class JSImagePicker extends JSScrollView
 		frm.origin.y = 0
 		@_self.setFrame(frm)
 		fm = new JSFileManager()
+		fm._delegate = fm
 		path = JSSearchPathForDirectoriesInDomains("JSPictureDirectory")
 		fm.thumbnailList path, (filelist)=>
 			@_self.animateWithDuration 0.2, {alpha:0.9}, =>
