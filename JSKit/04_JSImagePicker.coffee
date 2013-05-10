@@ -8,7 +8,7 @@ class JSImagePicker extends JSScrollView
 		super()
 		@_thumbnail_width = 120
 		@_thumbnail_height = 120
-		@_delegate = null
+		@delegate = null
 		@_clipToBounds = true
 		@_imageList = new Array()
 
@@ -23,7 +23,7 @@ class JSImagePicker extends JSScrollView
 		frm.origin.y = 0
 		@_self.setFrame(frm)
 		fm = new JSFileManager()
-		fm._delegate = fm
+		fm.delegate = fm
 		path = JSSearchPathForDirectoriesInDomains("JSPictureDirectory")
 		fm.thumbnailList path, (filelist)=>
 			@_self.animateWithDuration 0.2, {alpha:0.9}, =>
@@ -114,8 +114,8 @@ class JSImagePicker extends JSScrollView
 
 	tapImage:(sender)=>
 		@closeImagePickerView()
-		if (@_delegate?)
-			@_delegate.didPickedImage(sender.imgfname)
+		if (@delegate?)
+			@delegate.didPickedImage(sender.imgfname)
 
 	closeImagePickerView:=>
 		@imagebase.animateWithDuration 0.2, {top:-@_frame.size.height}, =>

@@ -4,10 +4,11 @@
 ##########################################
 
 class JSAlertView extends JSView
-	constructor:(@_title, @_message, @_delegate = null, @_param = null)->
+	constructor:(@_title, @_message, @_param = null)->
 		super()
 		@_bgColor = JSColor("clearColor")
 		@_style = "JSAlertViewStyleDefault"
+		@delegate = null
 
 	setAlertViewStyle:(@_style)->
 	
@@ -48,7 +49,7 @@ class JSAlertView extends JSView
 			modal: true
 			buttons:
 				"OK":=>
-					if (@_delegate? && typeof @_delegate.clickedButtonAtIndex == "function")
+					if (@delegate? && typeof @delegate.clickedButtonAtIndex == "function")
 						switch @_style
 							when "JSAlertViewStylePlainTextInput"
 								arr = []
@@ -56,14 +57,14 @@ class JSAlertView extends JSView
 									t = $(@_viewSelector+"_textfield_"+i).val()
 									arr.push(t)
 								text = JSON.stringify(arr)
-								@_delegate.clickedButtonAtIndex(text)
+								@delegate.clickedButtonAtIndex(text)
 							when "JSAlertViewStyleDefault"
-								@_delegate.clickedButtonAtIndex(1)
+								@delegate.clickedButtonAtIndex(1)
 					$(@_viewSelector+"_form").dialog("close")
 					@_self.removeFromSuperview()
 				Cancel:=>
-					if (@_delegate? && typeof @_delegate.clickedButtonAtIndex == "function")
-						@_delegate.clickedButtonAtIndex(0)
+					if (@delegate? && typeof @delegate.clickedButtonAtIndex == "function")
+						@delegate.clickedButtonAtIndex(0)
 					$(@_viewSelector+"_form").dialog("close")
 					@_self.removeFromSuperview()
 			close:=>

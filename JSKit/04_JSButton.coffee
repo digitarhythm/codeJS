@@ -11,7 +11,7 @@ class JSButton extends JSControl
 		@_buttonTitle = "Button"
 		@_style = "JSFormButtonStyleNormal"
 		@_textSize = 8
-		@_delegate = null
+		@delegate = null
 		
 	setButtonTitle:(title)->
 		@_buttonTitle = title
@@ -61,8 +61,8 @@ class JSButton extends JSControl
 						mode:"createThumbnail"
 						path:"Media/Picture"
 					, =>
-						if (@_delegate?)
-							@_delegate.didImageUpload(res)
+						if (@delegate?)
+							@delegate.didImageUpload(res)
 				, "json"
 		$(@_viewSelector).css("overflow", "visible")
 		$(@_viewSelector+"_button").css("overflow", "hidden")
