@@ -11,21 +11,11 @@ class JSAlertView extends JSView
 		@delegate = null
 
 	setAlertViewStyle:(@_style)->
-	
-	setData:(@_data)->
-		if ($(@_viewSelector+"_form").length)
-			for i in [0...@_data.length]
-				value = @_data[i]
-				$(@_viewSelector+"_textfield_"+i).val(value)
-
-	show:->
-		$(@_viewSelector+"_form").dialog("open")
-	
-	viewDidAppear:->
 		@_tag  = "<div id='"+@_objectID+"_form' title='"+@_title+"'>"
 		@_tag += "<style>body{font-size:60%;}</style>"
 		@_tag += "<p class='validateTips'>"+@_message+"</p>"
 		if (@_style == "JSAlertViewStylePlainTextInput" && @_param?)
+			dialogHeight = 140+(48*@_param.length)
 			@_tag += "<form onSubmit='return false;'>"
 			@_tag += "<fieldset>"
 			for i in [0...@_param.length]
@@ -39,13 +29,17 @@ class JSAlertView extends JSView
 				@_tag += addtag
 			@_tag += "</fieldset>"
 			@_tag += "</form>"
+		else
+			dialogHeight = 160
 		@_tag += "</div>"
 		@_tag += "<!--null-->"
+		if ($(@_viewSelector+"_form").length)
+			$(@_viewSelector+"_form").remove()
 		$(@_viewSelector).append(@_tag)
 		$(@_viewSelector+"_form").dialog
 			autoOpen: false
-			height: 300
 			width: 350
+			height: dialogHeight
 			modal: true
 			buttons:
 				"OK":=>
@@ -70,4 +64,15 @@ class JSAlertView extends JSView
 			close:=>
 				$(@_viewSelector+"_form").dialog("close")
 				@_self.removeFromSuperview()
+	
+	setData:(@_data)->
+		if ($(@_viewSelector+"_form").length)
+			for i in [0...@_data.length]
+				value = @_data[i]
+				$(@_viewSelector+"_textfield_"+i).val(value)
 
+	show:->
+		$(@_viewSelector+"_form").dialog("open")
+	
+	viewDidAppear:->
+		@setAlertViewStyle(@_style)

@@ -14,7 +14,7 @@ class JSImagePicker extends JSScrollView
 
 	viewDidAppear:->
 		super()
-		@_self.setBackgroundColor(JSColor("gray"))
+		@_self.setBackgroundColor(JSColor("clearColor"))
 		@_self.setAlpha(0.0)
 		@_self.setClipToBounds(true)
 		@_self.addTapGesture(@closeImagePickerView)
@@ -26,7 +26,7 @@ class JSImagePicker extends JSScrollView
 		fm.delegate = fm
 		path = JSSearchPathForDirectoriesInDomains("JSPictureDirectory")
 		fm.thumbnailList path, (filelist)=>
-			@_self.animateWithDuration 0.2, {alpha:0.9}, =>
+			@_self.animateWithDuration 0.2, {alpha:1.0}, =>
 				@dispImageList(filelist)
 
 	dispImageList:(_filelist)->
