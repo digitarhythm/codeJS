@@ -12,10 +12,13 @@ class JSAlertView extends JSView
 
 	setAlertViewStyle:(@_style)->
 		@_tag  = "<div id='"+@_objectID+"_form' title='"+@_title+"'>"
-		@_tag += "<style>body{font-size:60%;}</style>"
+		@_tag += "<style>"
+		@_tag += "body{font-size:60%;}"
+		@_tag += "label{vertical-align:bottom;}"
+		@_tag += "</style>"
 		@_tag += "<p class='validateTips'>"+@_message+"</p>"
 		if (@_style == "JSAlertViewStylePlainTextInput" && @_param?)
-			dialogHeight = 140+(48*@_param.length)
+			dialogHeight = 144+(36*@_param.length)
 			@_tag += "<form onSubmit='return false;'>"
 			@_tag += "<fieldset>"
 			for i in [0...@_param.length]
