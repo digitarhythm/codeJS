@@ -6,7 +6,6 @@
 class JSFileManager extends JSObject
 	constructor:->
 		super()
-		@delegate = null
 
 	escapeHTML:(s) ->
 	  s.replace /[&"<>]/g, (c) ->
@@ -28,14 +27,14 @@ class JSFileManager extends JSObject
 				if (@readaction?)
 					@readaction(data)
   
-	writeToFile:(fpath, string, encoding, @saveaction)->
+	writeToFile:(fpath, string, @saveaction)->
 		$.post 'syslibs/library.php',
 			mode: 'writeToFile'
 			fname: fpath
 			data: string
-			, (data) =>
+			, (ret) =>
 				if (@saveaction?)
-					@saveaction()
+					@saveaction(parseInt(ret))
 
 	fileList:(fpath, type, @listaction)->
 		$.post "syslibs/library.php",
@@ -53,3 +52,11 @@ class JSFileManager extends JSObject
 		,(filelist) =>
 			if (@imagelistaction?)
 					@imagelistaction(filelist)
+
+	createDirectoryAtPath:(path, @creatediraction)->
+		$.post 'syslibs/library.php',
+			mode: 'createDirectoryAtPath'
+			fname: path
+			, (ret) =>
+				if (@creatediraction?)
+					@creatediraction(parseInt(ret))

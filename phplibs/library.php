@@ -10,11 +10,11 @@ foreach ($_REQUEST as $key => $val) {
 	if (is_array($val) == true) {
 		$arr = array();
 		foreach ($val as $val2) {
-			$arr[] = htmlspecialchars($val2);
+			$arr[] = strip_tags($val2);
 		}
 		$_arg[$key] = $arr;
 	} else {
-		$_arg[$key] = htmlspecialchars($val);
+		$_arg[$key] = strip_tags($val);
 	}
 }
 
@@ -95,11 +95,14 @@ function stringWithContentsOfFile($fname) {
 // 渡されたデータを指定されたファイル名で保存する
 //##########################################################################################
 function writeToFile($data, $fname) {
-	$fp = fopen($fname, "w");
+	global $_HOMEDIR_;
+	
+	$fpath = $_HOMEDIR_."/".$fname;
+	$fp = fopen($fpath, "w");
 	if ($fp == null) {
 		return "0";
 	}
-	fputs ($data, $fp);
+	fputs($fp, $data);
 	fclose($fp);
 	return "1";
 }

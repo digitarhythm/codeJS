@@ -192,10 +192,10 @@ class JSView extends JSResponder
 		switch tapnum
 			when 1
 				$(@_viewSelector).unbind("click").bind "click", (event) =>
-					event.stopPropagation()
+#					event.stopPropagation()
 			when 2
 				$(@_viewSelector).unbind("dblclick").bind "dblclick", (event) =>
-					event.stopPropagation()
+#					event.stopPropagation()
 
 	addTapGesture:(tapAction, tapnum = 1)=>
 		if (tapnum == 1)
