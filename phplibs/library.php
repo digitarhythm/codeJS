@@ -97,8 +97,12 @@ function stringWithContentsOfFile($fname) {
 function writeToFile($data, $fname) {
 	global $_HOMEDIR_;
 	
-	$fpath = $_HOMEDIR_."/".$fname;
-	$fp = fopen($fpath, "w");
+	$fullpath = $_HOMEDIR_."/".$fname;
+	$path = pathinfo($fullpath, PATHINFO_DIRNAME);
+	if (is_dir($path) == false) {
+		mkdir($path, 0775, true);
+	}
+	$fp = fopen($fullpath, "w");
 	if ($fp == null) {
 		return "0";
 	}
