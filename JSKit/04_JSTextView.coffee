@@ -1,13 +1,12 @@
-##########################################
+#*****************************************
 # JSTextView - User Interactive Text View
 # Coded by kouichi.sakazaki 2013.03.26
-##########################################
+#*****************************************
 
 class JSTextView extends JSScrollView
 	constructor: (frame) ->
 		super(frame)
 		@_editable = true
-		@_userInteractive = true
 		@_textSize = 8 
 		@_textColor = JSColor("black")
 		@_bgColor = JSColor("white")
@@ -61,8 +60,6 @@ class JSTextView extends JSScrollView
 			$(@_viewSelector+"_textarea").width(frame.size.width)
 			$(@_viewSelector+"_textarea").height(frame.size.height)
 		
-	setUserInteraction: (@_userInteraction) ->
-		
 	setEditable:(editable)->
 		if (!$(@_viewSelector).length)
 			@_editable = editable
@@ -113,7 +110,6 @@ class JSTextView extends JSScrollView
 		@setTextSize(@_textSize)
 		@setTextColor(@_textColor)
 		@setTextAlignment(@_textAlignment)
-		@setUserInteraction(@_userInteraction)	
 		$(@_viewSelector+"_textarea").css("left", x)
 		$(@_viewSelector+"_textarea").css("top", y)
 		$(@_viewSelector+"_textarea").html(disp)
@@ -138,7 +134,6 @@ class JSTextView extends JSScrollView
 		@setTextSize(@_textSize)
 		@setTextColor(@_textColor)
 		@setTextAlignment(@_textAlignment)
-		@setUserInteraction(@_userInteraction)	
 		$(@_viewSelector+"_textarea").width(@_frame.size.width)
 		$(@_viewSelector+"_textarea").height(@_frame.size.height)
 		if (@_editable == true)

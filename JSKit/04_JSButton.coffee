@@ -1,7 +1,7 @@
-##########################################
+#*****************************************
 # JSButton - Button Object
 # Coded by kouichi.sakazaki 2013.03.25
-##########################################
+#*****************************************
 
 class JSButton extends JSControl
 	constructor:(frame = JSRectMake(4, 4, 64, 24))->

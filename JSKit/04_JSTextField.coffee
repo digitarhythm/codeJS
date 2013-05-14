@@ -1,7 +1,7 @@
-##########################################
+#*****************************************
 # JSTextField - One line text object
 # Coded by kouichi.sakazaki 2013.03.25
-##########################################
+#*****************************************
 
 class JSTextField extends JSControl
 	constructor: (frame = JSRectMake(0, 0, 120, 24)) ->

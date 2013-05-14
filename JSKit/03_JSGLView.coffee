@@ -1,7 +1,7 @@
-##########################################
+#*****************************************
 # JSGLView - WebGL view class
 # Coded by kouichi.sakazaki 2013.04.05
-##########################################
+#*****************************************
 
 class JSGLView extends JSView
 	constructor:(frame = JSRectMake(0, 0, 320, 240), @_bgColor = "#f0f0f0", @_alpha = 1.0, @_antialias = true)->

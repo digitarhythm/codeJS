@@ -1,7 +1,7 @@
-##########################################
+#*****************************************
 # JSAlertView - Dialog control class
 # Coded by kouichi.sakazaki 2013.04.25
-##########################################
+#*****************************************
 
 class JSAlertView extends JSView
 	constructor:(@_title, @_message, @_param = null)->

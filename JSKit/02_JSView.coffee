@@ -1,7 +1,7 @@
-##########################################
+#*****************************************
 # JSView - base class of all view object
 # Coded by kouichi.sakazaki 2013.03.25
-##########################################
+#*****************************************
 
 class JSView extends JSResponder
 	constructor: (@_frame = JSRectMake(0, 0, 320, 240))->

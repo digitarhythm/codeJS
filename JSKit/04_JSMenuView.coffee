@@ -1,7 +1,7 @@
-##########################################
+#*****************************************
 # JSMenuView - Menu control class
 # Coded by kouichi.sakazaki 2013.04.04
-##########################################
+#*****************************************
 
 class JSMenuView extends JSScrollView
 	constructor:(frame = JSRectMake(0, 0, 200, 0))->

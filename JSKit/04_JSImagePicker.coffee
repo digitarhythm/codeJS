@@ -1,33 +1,16 @@
-##########################################
+#*****************************************
 # JSImagePicker - Image select control class
 # Coded by kouichi.sakazaki 2013.04.23
-##########################################
+#*****************************************
 
 class JSImagePicker extends JSScrollView
 	constructor:->
 		super()
 		@_thumbnail_width = 120
 		@_thumbnail_height = 120
-		@delegate = null
 		@_clipToBounds = true
 		@_imageList = new Array()
-
-	viewDidAppear:->
-		super()
-		@_self.setBackgroundColor(JSColor("clearColor"))
-		@_self.setAlpha(0.0)
-		@_self.setClipToBounds(true)
-		@_self.addTapGesture(@closeImagePickerView)
-		frm = @_parent._frame
-		frm.origin.x = 0
-		frm.origin.y = 0
-		@_self.setFrame(frm)
-		fm = new JSFileManager()
-		fm.delegate = fm
-		path = JSSearchPathForDirectoriesInDomains("JSPictureDirectory")
-		fm.thumbnailList path, (filelist)=>
-			@_self.animateWithDuration 0.2, {alpha:1.0}, =>
-				@dispImageList(filelist)
+		@delegate = null
 
 	dispImageList:(_filelist)->
 		if (!$(@_viewSelector).length)
@@ -44,6 +27,7 @@ class JSImagePicker extends JSScrollView
 		h2 = vnum2 * (@_thumbnail_height+4)+4
 		x = parseInt(@_frame.size.width / 2 - (w / 2))
 		y = -h2
+		
 		@imagebase = new JSScrollView(JSRectMake(x, y, w, h + 36))
 		@imagebase.setShadow(true)
 		@imagebase.setBackgroundColor(JSColor("black"))
@@ -52,7 +36,7 @@ class JSImagePicker extends JSScrollView
 		@listbase = new JSScrollView(JSRectMake(0, 0, w, h + 36))
 		@listbase.setClipToBounds(true)
 		@listbase.setScroll(true)
-		@listbase.setBackgroundColor(JSColor("clearColor"))
+		@listbase.setBackgroundColor(JSColor("black"))
 		@imagebase.addSubview(@listbase)
 		
 		xnum = 0
@@ -162,3 +146,26 @@ class JSImagePicker extends JSScrollView
 				if (xnum == hnum)
 					xnum = 0
 					ynum++
+
+	viewDidAppear:->
+		super()
+		@_self.setBackgroundColor(JSColor("clearColor"))
+		@_self.setAlpha(1.0)
+		@_self.setClipToBounds(true)
+		frm = @_parent._frame
+		frm.origin.x = 0
+		frm.origin.y = 0
+		@_self.setFrame(frm)
+		
+		@windowbase = new JSView(frm)
+		@windowbase.setBackgroundColor(JSColor("black"))
+		@windowbase.setAlpha(0.0)
+		@windowbase.addTapGesture(@closeImagePickerView)
+		@_self.addSubview(@windowbase)
+		
+		fm = new JSFileManager()
+		fm.delegate = fm
+		path = JSSearchPathForDirectoriesInDomains("JSPictureDirectory")
+		fm.thumbnailList path, (filelist)=>
+			@windowbase.animateWithDuration 0.2, {alpha:0.7}, =>
+				@dispImageList(filelist)

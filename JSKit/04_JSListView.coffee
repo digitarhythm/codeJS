@@ -1,7 +1,7 @@
-##########################################
+#*****************************************
 # JSListView list view manage class
 # Coded by kouichi.sakazaki 2013.04.02
-##########################################
+#*****************************************
 
 class JSListView extends JSScrollView
 	constructor:(frame)->
