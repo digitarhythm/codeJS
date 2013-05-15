@@ -217,7 +217,6 @@ class JSView extends JSResponder
 		if (tapnum == 1)
 			$(@_viewSelector).unbind("click").bind "click", (event) =>
 				if (@_tapAction? && @_userInteractionEnabled == true)
-					JSLog("click")
 					@_tapAction(@_self, event)
 #				event.stopPropagation()
 					
