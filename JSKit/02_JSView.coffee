@@ -191,11 +191,18 @@ class JSView extends JSResponder
 	removeTapGesture:(tapnum)->
 		switch tapnum
 			when 1
-				$(@_viewSelector).unbind("click").bind "click", (event) =>
-#					event.stopPropagation()
+				if (@_userInteractionEnabled == true)
+					$(@_viewSelector).unbind("click").bind "click", (event) =>
+						event.stopPropagation()
+				else
+					$(@_viewSelector).unbind("click")
+					
 			when 2
-				$(@_viewSelector).unbind("dblclick").bind "dblclick", (event) =>
-#					event.stopPropagation()
+				if (@_userInteractionEnabled == true)
+					$(@_viewSelector).unbind("dblclick").bind "dblclick", (event) =>
+						event.stopPropagation()
+				else
+					$(@_viewSelector).unbind("dblclick")
 
 	addTapGesture:(tapAction, tapnum = 1)=>
 		if (tapnum == 1)
@@ -210,13 +217,14 @@ class JSView extends JSResponder
 		if (tapnum == 1)
 			$(@_viewSelector).unbind("click").bind "click", (event) =>
 				if (@_tapAction? && @_userInteractionEnabled == true)
-					@_tapAction(@_self)
+					JSLog("click")
+					@_tapAction(@_self, event)
 #				event.stopPropagation()
 					
 		if (tapnum == 2)
 			$(@_viewSelector).unbind("dblclick").bind "dblclick", (event) =>
 				if (@_tapAction2? && @_userInteractionEnabled == true)
-					@_tapAction2(@_self)
+					@_tapAction2(@_self, event)
 #				event.stopPropagation()
 				
 	animateWithDuration:(duration, animations, completion = null)=>

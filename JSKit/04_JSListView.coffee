@@ -7,7 +7,8 @@ class JSListView extends JSScrollView
 	constructor:(frame)->
 		super(frame)
 		@_listData = null
-		@_action = null
+		@_clickaction = null
+		@_dblclickaction = null
 		@_style = "JSListStyleStandard"
 		@_textSize = 10
 		
@@ -51,14 +52,19 @@ class JSListView extends JSScrollView
 					$(@_viewSelector+"_select").click (e) =>
 						e.stopPropagation()
 						select = $(@_viewSelector+"_select option:selected").val()
-						if (@_action? && select?)
-							@_action(select)
+						if (@_clickaction? && select?)
+							@_clickaction(select)
+					$(@_viewSelector+"_select").dblclick (e) =>
+						e.stopPropagation()
+						select = $(@_viewSelector+"_select option:selected").val()
+						if (@_dblclickaction? && select?)
+							@_dblclickaction(select)
 				else
 					$(@_viewSelector+"_select").change (e) =>
 						e.stopPropagation()
 						select = $(@_viewSelector+"_select option:selected").val()
-						if (@_action? && select?)
-							@_action(select)
+						if (@_clickaction? && select?)
+							@_clickaction(select)
 						
 			when "JSListStyleSortable"
 				@_tag = "<table style='width:100%;'><tbody id='"+@_objectID+"_select'>"
@@ -114,7 +120,11 @@ class JSListView extends JSScrollView
 		if (@_listData?)
 			@setListData(@_listData)
 		
-	addTarget:(@_action)->
+	addTarget:(action, tap = 1)->
+		if (tap == 1)
+			@_clickaction = action
+		else
+			@_dblclickaction = action
 	
 	setStyle:(@_style)->
 		@setListData(@_listData)
