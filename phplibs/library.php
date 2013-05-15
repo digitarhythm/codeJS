@@ -76,6 +76,26 @@ switch ($mode) {
 		unlink($_HOMEDIR_."/".$fpath);
 		echo $fpath;
 		break;
+	
+	case "savePicture":
+		$imagepath = $_arg['imagepath'];
+		$fpath = $_arg['fpath'];
+		$ret = savePicture($imagepath, $fpath);
+		echo $ret;
+		break;
+	
+	case "removeFile":
+		$path = $_arg['path'];
+		$ret = removeFile($path);
+		echo $ret;
+		break;
+	
+	case "moveFile":
+		$file = $_arg['file'];
+		$toPath = $_arg['toPath'];
+		$ret = moveFile($file, $toPath);
+		echo $ret;
+		break;
 }
 
 //##########################################################################################
@@ -219,7 +239,7 @@ function createThumbnail($path)
 	$imgdir = $_HOMEDIR_."/$path";
 	$thumbdir = $_HOMEDIR_."/$path/.thumb";
 	if (is_dir($thumbdir) == false) {
-		return;
+		return 0;
 	}
 	$extarray = array("png", "jpg", "jpeg", "gif");
 	$dir = opendir($_HOMEDIR_."/".$path);
@@ -242,7 +262,7 @@ function deleteAloneThumb($path)
 	$imgdir = $_HOMEDIR_."/$path";
 	$thumbdir = $_HOMEDIR_."/$path/.thumb";
 	if (is_dir($thumbdir) == false) {
-		return;
+		return 0;
 	}
 	$dir = opendir($thumbdir);
 	while ($fname = readdir($dir)) {
@@ -256,5 +276,66 @@ function deleteAloneThumb($path)
 			unlink($thumbdir."/".$fname);
 		}
 	}
+}
+
+//##########################################################################################
+// 指定された画像ファイルを指定されたパスにコピーする
+//##########################################################################################
+function savePicture($imagepath, $path)
+{
+	global $_HOMEDIR_;
+	
+	if (is_file($_HOMEDIR_."/".$imagepath) == false) {
+		return $imagepath;
+	}
+	
+	$ret = copy($_HOMEDIR_."/".$imagepath, $_HOMEDIR_."/".$path);
+	
+	return $ret;
+}
+
+//##########################################################################################
+// 指定されたファイルを削除する
+//##########################################################################################
+function removeFile($path)
+{
+	global $_HOMEDIR_;
+	
+	$fullpath = $_HOMEDIR_."/".$path;
+	if (is_file($fullpath) || is_dir($fullpath)) {
+		$err = system("rm -rf ".$fullpath);
+		if ($err == false) {
+			$ret = 0;
+		} else {
+			$ret = 1;
+		}
+	} else {
+		$ret = 1;
+	}
+	
+	return $ret2;
+}
+
+//##########################################################################################
+// 指定されたファイルを移動する
+//##########################################################################################
+function moveFile($file, $toPath)
+{
+	global $_HOMEDIR_;
+	
+	$orgFullPath = $_HOMEDIR_."/".$file;
+	$toFullPath = $_HOMEDIR_."/".$toPath;
+	if (is_file($orgFullPath)) {
+		$err = system("mv -f ".$orgFullPath." ".$toFullPath."/");
+		if ($err == false) {
+			$ret = 0;
+		} else {
+			$ret = 1;
+		}
+	} else {
+		$ret = 0;
+	}
+	
+	return $ret;
 }
 ?>

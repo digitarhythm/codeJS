@@ -10,3 +10,13 @@ class JSImage extends JSObject
 			@imageNamed(imagename)
 	
 	imageNamed: (@_imagepath) ->
+
+	imageWriteToSavedPicture:(fname, action)->
+		$.post "syslibs/library.php",
+		mode: "savePicture"
+		imagepath: @_imagepath
+		fpath: fname
+		,(ret)=>
+			JSLog(ret)
+			if (action?)
+				action(ret)

@@ -9,6 +9,7 @@ class JSAlertView extends JSView
 		@_bgColor = JSColor("clearColor")
 		@_style = "JSAlertViewStyleDefault"
 		@delegate = null
+		@cancel = false
 
 	setAlertViewStyle:(@_style)->
 		@_tag  = "<div id='"+@_objectID+"_form' title='"+@_title+"'>"
@@ -39,34 +40,40 @@ class JSAlertView extends JSView
 		if ($(@_viewSelector+"_form").length)
 			$(@_viewSelector+"_form").remove()
 		$(@_viewSelector).append(@_tag)
-		$(@_viewSelector+"_form").dialog
-			autoOpen: false
-			width: 350
-			height: dialogHeight
-			modal: true
-			buttons:
-				"OK":=>
-					if (@delegate? && typeof @delegate.clickedButtonAtIndex == "function")
-						switch @_style
-							when "JSAlertViewStylePlainTextInput"
-								arr = []
-								for i in [0...@_param.length]
-									t = $(@_viewSelector+"_textfield_"+i).val()
-									arr.push(t)
-								text = JSON.stringify(arr)
-								@delegate.clickedButtonAtIndex(text)
-							when "JSAlertViewStyleDefault"
-								@delegate.clickedButtonAtIndex(1)
-					$(@_viewSelector+"_form").dialog("close")
-					@_self.removeFromSuperview()
+		buttonhash = 
+			OK:=>
+				if (@delegate? && typeof @delegate.clickedButtonAtIndex == "function")
+					switch @_style
+						when "JSAlertViewStylePlainTextInput"
+							arr = []
+							for i in [0...@_param.length]
+								t = $(@_viewSelector+"_textfield_"+i).val()
+								arr.push(t)
+							text = JSON.stringify(arr)
+							@delegate.clickedButtonAtIndex(text)
+						when "JSAlertViewStyleDefault"
+							@delegate.clickedButtonAtIndex(1)
+				$(@_viewSelector+"_form").dialog("close")
+				@_self.removeFromSuperview()
+		if (@cancel == true)
+			cancelmethod =
 				Cancel:=>
 					if (@delegate? && typeof @delegate.clickedButtonAtIndex == "function")
 						@delegate.clickedButtonAtIndex(0)
 					$(@_viewSelector+"_form").dialog("close")
 					@_self.removeFromSuperview()
+			buttonhash['Cancel'] = cancelmethod['Cancel']
+		alerthash =
+			autoOpen: false
+			width: 350
+			height: dialogHeight
+			modal: true
+			closeOnEscape: true
 			close:=>
 				$(@_viewSelector+"_form").dialog("close")
 				@_self.removeFromSuperview()
+		alerthash["buttons"] = buttonhash
+		$(@_viewSelector+"_form").dialog(alerthash)
 	
 	setData:(@_data)->
 		if ($(@_viewSelector+"_form").length)

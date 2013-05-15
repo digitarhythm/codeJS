@@ -270,7 +270,4 @@ class JSView extends JSResponder
 					$(@_viewSelector).append(o._div)
 					o.setDraggable(o._draggable)
 					o.viewDidAppear()
-					
-			
-			
-		
+
