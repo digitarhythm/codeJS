@@ -38,7 +38,7 @@ class JSImagePicker extends JSScrollView
 		@listbase = new JSScrollView(JSRectMake(0, 0, w, h + 36))
 		@listbase.setClipToBounds(true)
 		@listbase.setScroll(true)
-		@listbase.setAlpha(0.0)
+		@listbase.setAlpha(0.8)
 		@listbase.setBackgroundColor(JSColor("black"))
 		@listbase.addTapGesture =>
 			if (@hilight?)
@@ -115,8 +115,7 @@ class JSImagePicker extends JSScrollView
 				if (xnum == hnum)
 					xnum = 0
 					ynum++
-			@listbase.animateWithDuration 0.2, {alpha:1.0}
-			
+		
 	tapImage:(sender)=>
 		@closeImagePickerView()
 		if (@delegate?)

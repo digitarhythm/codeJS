@@ -66,7 +66,6 @@ class JSFileManager extends JSObject
 			mode: "removeFile"
 			path: path
 		, (ret) =>
-			JSLog(ret)
 			if (@removeaction?)
 				@removeaction(parseInt(ret))
 

@@ -17,6 +17,5 @@ class JSImage extends JSObject
 		imagepath: @_imagepath
 		fpath: fname
 		,(ret)=>
-			JSLog(ret)
 			if (action?)
 				action(ret)
