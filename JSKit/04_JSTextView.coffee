@@ -17,6 +17,7 @@ class JSTextView extends JSScrollView
 		@_writingMode = 0
 		
 	setWritingMode:(@_writingMode)->
+		@setEditable(@_editable)
 
 	getText:->
 		if (@_editable == false)
@@ -27,12 +28,6 @@ class JSTextView extends JSScrollView
 		return text
 
 	setText:(text)->
-		###
-		@_text = text.replace(/\n/gi, "[br]")
-		@_text = @_text.replace(/<br>/gi, "[br]")
-		if ($(@_viewSelector+"_textarea").length)
-			@setEditable(@_editable)
-		###
 		@_text = text.replace(/<br>/g, "\n")
 		if ($(@_viewSelector+"_textarea").length)
 			if (@_writingMode == 0)
@@ -64,11 +59,9 @@ class JSTextView extends JSScrollView
 		if (!$(@_viewSelector).length)
 			@_editable = editable
 			return
-			
-		if (editable == true)
-			if (!$(@_viewSelector+"_textarea").length)
-				@_text = ""
-			else
+		
+		if (editable == true) # 編集可能モード
+			if ($(@_viewSelector+"_textarea").length) # addSubview()する前
 				if (@_editable == false)
 					text = $(@_viewSelector+"_textarea").html()
 				else
@@ -78,14 +71,16 @@ class JSTextView extends JSScrollView
 			tag = "<textarea id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;z-index:1;'>"+@_text+"</textarea>"
 			x = -2
 			y = -2
-		else
-			if (!$(@_viewSelector+"_textarea").length)
-				disp = ""
+		else # 編集不可モード
+			if (!$(@_viewSelector+"_textarea").length) # addSubview()する前
+				disp = @_text
 			else
 				if (@_editable == true)
-					disp = $(@_viewSelector+"_textarea").val()
+					#disp = $(@_viewSelector+"_textarea").val()
+					disp = @_text
 				else
 					disp = @_text.replace(/\n/g, "<br>")
+					
 			tag = "<div id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;z-index:1;'>"+disp+"</div>"
 			x = 0
 			y = 0
