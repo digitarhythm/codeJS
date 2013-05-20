@@ -12,11 +12,9 @@ class JSAlertView extends JSView
 		@cancel = false
 
 	setAlertViewStyle:(@_style)->
+		$("body").css
+			"font-size": "60%"
 		@_tag  = "<div id='"+@_objectID+"_form' title='"+@_title+"'>"
-		@_tag += "<style>"
-		@_tag += "body{font-size:60%;}"
-		@_tag += "label{vertical-align:bottom;}"
-		@_tag += "</style>"
 		@_tag += "<p class='validateTips'>"+@_message+"</p>"
 		if (@_style == "JSAlertViewStylePlainTextInput" && @_param?)
 			dialogHeight = 144+(36*@_param.length)
@@ -28,7 +26,7 @@ class JSAlertView extends JSView
 					value = @_data[i]
 				else
 					value = ""
-				@_tag += "<label>"+p+"</labeL>"
+				@_tag += "<label style='vertical-align:bottom;'>"+p+"</labeL>"
 				addtag = "<input type='text' name='"+@_objectID+"_textfield_"+i+"' id='"+@_objectID+"_textfield_"+i+"' style='width:"+(@_frame.size.width-32)+"px;' value='"+value+"' /><br>"
 				@_tag += addtag
 			@_tag += "</fieldset>"
@@ -36,7 +34,6 @@ class JSAlertView extends JSView
 		else
 			dialogHeight = 160
 		@_tag += "</div>"
-		@_tag += "<!--null-->"
 		if ($(@_viewSelector+"_form").length)
 			$(@_viewSelector+"_form").remove()
 		$(@_viewSelector).append(@_tag)

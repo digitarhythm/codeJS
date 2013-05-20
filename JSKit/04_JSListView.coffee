@@ -10,7 +10,7 @@ class JSListView extends JSScrollView
 		@_clickaction = null
 		@_dblclickaction = null
 		@_style = "JSListStyleStandard"
-		@_textSize = 10
+		@_textSize = 12
 		
 	setFrame:(frame)->
 		super(frame)
