@@ -28,7 +28,7 @@ class JSTextField extends JSControl
 	setTextColor: (@_textColor) ->
 		if ($(@_viewSelector+"_text").length)
 			$(@_viewSelector).css("color", @_textColor)
-		
+
 	setTextAlignment: (@_textAlignment) ->
 		switch @_textAlignment
 			when "JSTextAlignmentCenter"

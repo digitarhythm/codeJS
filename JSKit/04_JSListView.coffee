@@ -135,7 +135,3 @@ class JSListView extends JSScrollView
 	viewDidAppear:->
 		super()
 		@setListData(@_listData)
-			
-
-
-
