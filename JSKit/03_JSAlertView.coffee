@@ -47,16 +47,16 @@ class JSAlertView extends JSView
 								t = $(@_viewSelector+"_textfield_"+i).val()
 								arr.push(t)
 							text = JSON.stringify(arr)
-							@delegate.clickedButtonAtIndex(text)
+							@delegate.clickedButtonAtIndex(text, @_self)
 						when "JSAlertViewStyleDefault"
-							@delegate.clickedButtonAtIndex(1)
+							@delegate.clickedButtonAtIndex(1, @_self)
 				$(@_viewSelector+"_form").dialog("close")
 				@_self.removeFromSuperview()
 		if (@cancel == true)
 			cancelmethod =
 				Cancel:=>
 					if (@delegate? && typeof @delegate.clickedButtonAtIndex == "function")
-						@delegate.clickedButtonAtIndex(0)
+						@delegate.clickedButtonAtIndex(0, @_self)
 					$(@_viewSelector+"_form").dialog("close")
 					@_self.removeFromSuperview()
 			buttonhash['Cancel'] = cancelmethod['Cancel']

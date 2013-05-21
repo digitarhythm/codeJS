@@ -6,7 +6,7 @@
 class JSTextField extends JSControl
 	constructor: (frame = JSRectMake(0, 0, 120, 24)) ->
 		super(frame)
-		@_textSize = 12
+		@_textSize = 10
 		@_textColor = JSColor("black")
 		@_bgColor = JSColor("#f0f0f0")
 		@_textAlignment = "JSTextAlignmentCenter"
@@ -57,17 +57,19 @@ class JSTextField extends JSControl
 				else
 					@_text = $(@_viewSelector+"_text").val()
 			
-			tag = "<input type='text' id='"+@_objectID+"_text' style='position:absolute;z-index:1;' value='"+@_text+"' />"
+			tag = "<input type='text' id='"+@_objectID+"_text' style='position:absolute;z-index:1;height:"+@_frame.size.height+"px;' value='"+@_text+"' />"
 			x = -4
 			y = -4
 		else
+			text = JSEscape(@_text)
 			if (!$(@_viewSelector+"_text").length)
-				disp = @_text
+				disp = text
 			else
 				if (@_editable == true)
-					disp = $(@_viewSelector+"_text").val()
+					text = $(@_viewSelector+"_text").val()
+					disp = JSEscape(text)
 				else
-					disp = @_text
+					disp = text
 			tag = "<div id='"+@_objectID+"_text' style='position:absolute;z-index:1;'>"+disp+"</div>"
 			x = 0
 			y = 0

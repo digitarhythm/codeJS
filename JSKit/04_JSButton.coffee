@@ -37,6 +37,16 @@ class JSButton extends JSControl
 				w = @_frame.size.width
 				$(@_viewSelector+"_button").width(w+"px")
 
+#	setEnable:(enable)->
+#		super(enable)
+#		if ($(@_viewSelector+"_button").length)
+#			isDisabled = $(@_viewSelector+"_button").button("option", "disabled")
+#			alert(isDisabled)
+#			if (enable == true)
+#				$(@_viewSelector+"_button").button("enable")
+#			else
+#				$(@_viewSelector+"_button").button("disable")
+
 	viewDidAppear:->
 		super()
 		if ($(@_viewSelector+"_button").length)

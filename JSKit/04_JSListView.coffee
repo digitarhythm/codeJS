@@ -46,7 +46,7 @@ class JSListView extends JSScrollView
 				
 				$(@_viewSelector+"_select").css("background-color", "transparent")
 				$(@_viewSelector+"_select").css("border", "0px transparent")
-				$(@_viewSelector+"_select").css("font-size", @_textSize+"pt")
+				$(@_viewSelector+"_select").css("font-size", @_textSize)
 				
 				if (@_style=="JSListStyleStandard")
 					$(@_viewSelector+"_select").click (e) =>
