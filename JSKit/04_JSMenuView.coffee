@@ -39,7 +39,7 @@ class JSMenuView extends JSScrollView
 				item = ui.item.context.textContent
 				@selectMenuItem(item)
 				@closeMenu()
-				
+
 	selectMenuItem:(item)->
 		if (@_action?)
 			for o, i in @_menuitem
@@ -47,11 +47,11 @@ class JSMenuView extends JSScrollView
 					ret = i
 					break
 			@_action(ret)
-		
+
 	closeMenu:->
 		$(@_viewSelector+"_menu").remove()
 		event.stopPropagation()
-		
+
 	viewDidAppear:->
 		super()
 		if (!$(@_viewSelector+"_menu").length)
