@@ -72,6 +72,7 @@ class JSTextView extends JSScrollView
 			x = -2
 			y = -2
 		else # 編集不可モード
+			JSLog("edit false")
 			text = JSEscape(@_text)
 			disp = text.replace(/\n/g, "<br>")
 			tag = "<div id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;z-index:1;'>"+disp+"</div>"

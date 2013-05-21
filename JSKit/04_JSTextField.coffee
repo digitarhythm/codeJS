@@ -12,7 +12,14 @@ class JSTextField extends JSControl
 		@_textAlignment = "JSTextAlignmentCenter"
 		@_text = ""
 		@_editable = true
-		
+
+	getText:->
+		if (@_editable == false)
+			text = $(@_viewSelector+"_text").html()
+		else
+			text = $(@_viewSelector+"_text").val()
+		return text
+
 	setText: (@_text) ->
 		if ($(@_viewSelector+"_text").length)
 			if (@_editable == true)
