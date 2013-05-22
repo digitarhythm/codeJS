@@ -14,10 +14,11 @@ class JSTextField extends JSControl
 		@_editable = true
 
 	getText:->
-		if (@_editable == false)
-			text = $(@_viewSelector+"_text").html()
-		else
+		if (@_editable == true)
 			text = $(@_viewSelector+"_text").val()
+		else
+			text = @_text
+			
 		return text
 
 	setText: (@_text) ->
@@ -25,8 +26,8 @@ class JSTextField extends JSControl
 			if (@_editable == true)
 				$(@_viewSelector+"_text").val(@_text)
 			else
-				$(@_viewSelector+"_text").html(@_text)
-		else
+				disp = JSEscape(@_text)
+				$(@_viewSelector+"_text").html(disp)
 
 	setTextSize: (@_textSize) ->
 		if ($(@_viewSelector+"_text").length)
@@ -56,30 +57,43 @@ class JSTextField extends JSControl
 		if (!$(@_viewSelector).length)
 			@_editable = editable
 			return
+		
+		if (editable == true) # 編集可能モード
 			
-		if (editable == true)
-			if ($(@_viewSelector+"_text").length)
-				if (@_editable == false)
-					@_text = $(@_viewSelector+"_text").html()
+			if (@_editable == true) # モード変更前が編集可能モード
+				
+				if (!$(@_viewSelector+"_text").length)
+					tag = "<input type='text' id='"+@_objectID+"_text' style='position:absolute;z-index:1;height:"+@_frame.size.height+"px;' value='"+@_text+"' />"
 				else
 					@_text = $(@_viewSelector+"_text").val()
+					return
 			
-			tag = "<input type='text' id='"+@_objectID+"_text' style='position:absolute;z-index:1;height:"+@_frame.size.height+"px;' value='"+@_text+"' />"
-			x = -4
-			y = -4
-		else
-			text = JSEscape(@_text)
-			if (!$(@_viewSelector+"_text").length)
-				disp = text
-			else
-				if (@_editable == true)
-					text = $(@_viewSelector+"_text").val()
-					disp = JSEscape(text)
-				else
-					disp = text
-			tag = "<div id='"+@_objectID+"_text' style='position:absolute;z-index:1;'>"+disp+"</div>"
+			else # モード変更前が編集不可モード
+				
+				disp = JSEscape(@_text)
+				tag = "<input type='text' id='"+@_objectID+"_text' style='position:absolute;z-index:1;height:"+@_frame.size.height+"px;' value='"+disp+"' />"
+				
+			x = -2
+			y = -2
+			
+		else # 編集不可モード
+			
+			if (@_editable == true) # モード変更前が編集可能モード
+				
+				@_text = $(@_viewSelector+"_text").val()
+				text = JSEscape(@_text)
+				disp = text.replace(/\n/g, "<br>")
+				tag = "<div id='"+@_objectID+"_text' style='position:absolute;z-index:1;overflow:hidden;'>"+disp+"</div>"
+			
+			else # モード変更前が編集不可モード
+			
+				text = JSEscape(@_text)
+				disp = text.replace(/\n/g, "<br>")
+				tag = "<div id='"+@_objectID+"_text' style='position:absolute;z-index:1;overflow:hidden;'>"+disp+"</div>"
+				
 			x = 0
 			y = 0
+			
 		@_editable = editable
 		
 		if ($(@_viewSelector+"_text").length)
@@ -97,12 +111,6 @@ class JSTextField extends JSControl
 		@setTextAlignment(@_textAlignment)
 		$(@_viewSelector+"_text").css("left", x)
 		$(@_viewSelector+"_text").css("top", y)
-		$(@_viewSelector+"_text").html(disp)
-		
-		#if (@_editable == true)
-		#	$(@_viewSelector+"_text").val(disp)
-		#else
-		#	$(@_viewSelector+"_text").html(disp)
 		
 		$(@_viewSelector+"_text").width(@_frame.size.width)
 		$(@_viewSelector+"_text").height(@_frame.size.height)

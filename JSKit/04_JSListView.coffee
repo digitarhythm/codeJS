@@ -37,7 +37,7 @@ class JSListView extends JSScrollView
 					@_listData = new Array()
 				for i in [0...@_listData.length]
 					value = @_listData[i]
-					disp = value
+					disp = JSEscape(value)
 					@_tag += "<option id='"+i+"' value='"+i+"'>"+disp+"</option>"
 				@_tag += "</select>"
 				if ($(@_viewSelector+"_select").length)
@@ -74,7 +74,7 @@ class JSListView extends JSScrollView
 				for item in list
 					@_listData.push(item)
 				for i in [0...@_listData.length]
-					disp = @_listData[i]
+					disp = JSEscape(@_listData[i])
 					@_tag += "<tr id='"+i+"' class='ui-state-default' style='width:100%;z-index:1;'><td>"+disp+"</td></tr>"
 				@_tag += "</tbody></table>"
 				if ($(@_viewSelector+"_select").length)
