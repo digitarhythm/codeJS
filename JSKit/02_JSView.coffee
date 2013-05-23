@@ -230,7 +230,6 @@ class JSView extends JSResponder
 		$(@_viewSelector).css("cursor", "pointer")
 		if (tapnum == 1)
 			$(@_viewSelector).unbind("click").bind "click", (event) =>
-				JSLog("1")
 				if (@_tapAction? && @_userInteractionEnabled == true && @_alpha > 0.0)
 					@_tapAction(@_self, event)
 					
