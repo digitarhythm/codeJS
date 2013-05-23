@@ -78,6 +78,18 @@ class JSView extends JSResponder
 				$(@_viewSelector).css("overflow", "hidden")
 				
 	setUserInteractionEnabled:(@_userInteractionEnabled)->
+		if (@_userInteractionEnabled == true)
+			$(@_viewSelector).unbind("click").bind "click", (event) =>
+				if (@_tapAction? && @_alpha > 0.0)
+					@_tapAction(@_self, event)
+					event.stopPropagation()
+			$(@_viewSelector).unbind("dblclick").bind "dblclick", (event) =>
+				if (@_tapAction2? && @_alpha > 0.0)
+					@_tapAction2(@_self, event)
+					event.stopPropagation()
+		else
+			$(@_viewSelector).unbind("click")
+			$(@_viewSelector).unbind("dblclick")
 			
 	setDraggable: (@_draggable) ->
 		if (@_parent?)
@@ -195,6 +207,7 @@ class JSView extends JSResponder
 					$(@_viewSelector).unbind("click").bind "click", (event) =>
 						event.stopPropagation()
 				else
+					@_tapAction = null
 					$(@_viewSelector).unbind("click")
 					
 			when 2
@@ -202,6 +215,7 @@ class JSView extends JSResponder
 					$(@_viewSelector).unbind("dblclick").bind "dblclick", (event) =>
 						event.stopPropagation()
 				else
+					@_tapAction2 = null
 					$(@_viewSelector).unbind("dblclick")
 
 	addTapGesture:(tapAction, tapnum = 1)=>
@@ -216,15 +230,14 @@ class JSView extends JSResponder
 		$(@_viewSelector).css("cursor", "pointer")
 		if (tapnum == 1)
 			$(@_viewSelector).unbind("click").bind "click", (event) =>
-				if (@_tapAction? && @_userInteractionEnabled == true)
+				JSLog("1")
+				if (@_tapAction? && @_userInteractionEnabled == true && @_alpha > 0.0)
 					@_tapAction(@_self, event)
-#				event.stopPropagation()
 					
 		if (tapnum == 2)
 			$(@_viewSelector).unbind("dblclick").bind "dblclick", (event) =>
-				if (@_tapAction2? && @_userInteractionEnabled == true)
+				if (@_tapAction2? && @_userInteractionEnabled == true && @_alpha > 0.0)
 					@_tapAction2(@_self, event)
-#				event.stopPropagation()
 				
 	animateWithDuration:(duration, animations, completion = null)=>
 		duration *= 1000
@@ -235,9 +248,38 @@ class JSView extends JSResponder
 			animobj[key] = value
 				
 		if (completion?)
-			$(@_viewSelector).animate animobj, duration, => completion(@_self)
+			$(@_viewSelector).animate animobj, duration, =>
+				for key, value of animations
+					switch key
+						when "top"
+							@_frame.origin.y = value
+						when "left"
+							@_frame.origin.x = value
+						when "alpha"
+							@_alpha = value
+						when "background-color"
+							@_bgColor = value
+						when "border-color"
+							@_borderColor = value
+						when "border-width"
+							@_borderWidth = value
+				completion(@_self)
 		else
-			$(@_viewSelector).animate animobj, duration
+			$(@_viewSelector).animate animobj, duration, =>
+				for key, value of animations
+					switch key
+						when "top"
+							@_frame.origin.y = value
+						when "left"
+							@_frame.origin.x = value
+						when "alpha"
+							@_alpha = value
+						when "background-color"
+							@_bgColor = value
+						when "border-color"
+							@_borderColor = value
+						when "border-width"
+							@_borderWidth = value
 			
 	setShadow:(@_shadow)->
 		if (@_shadow == true)
@@ -268,6 +310,5 @@ class JSView extends JSResponder
 				o = @_objlist[i]
 				if (!$(o._viewSelector).length)
 					$(@_viewSelector).append(o._div)
-					o.setDraggable(o._draggable)
 					o.viewDidAppear()
 
