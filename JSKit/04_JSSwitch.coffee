@@ -27,8 +27,8 @@ class JSSwitch extends JSControl
 	viewDidAppear:->
 		super()
 		tag  = "<div id='"+@_objectID+"_switch' style='position:absolute;z-index:1;font-size:8pt; margin:0;float:left;width:"+@_frame.size.width+"px;'>"
-		tag += "<input type='radio' id='"+@_objectID+"_off' name='"+@_objectID+"_radio' value='off'><label for='"+@_objectID+"_off'>OFF</label>"
-		tag += "<input type='radio' id='"+@_objectID+"_on'  name='"+@_objectID+"_radio' value='on'><label for='"+@_objectID+"_on'>ON</label>"
+		tag += "<input type='radio' id='"+@_objectID+"_off' name='"+@_objectID+"_radio' value='off' style='height:20px;'><label for='"+@_objectID+"_off'>OFF</label>"
+		tag += "<input type='radio' id='"+@_objectID+"_on'  name='"+@_objectID+"_radio' value='on' style='height:20px;'><label for='"+@_objectID+"_on'>ON</label>"
 		tag += "</div>"
 		if ($(@_viewSelector+"_switch").length)
 			$(@_viewSelector+"switch").remove()

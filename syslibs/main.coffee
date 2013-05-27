@@ -5,7 +5,6 @@ $ ->
 
 	frame = JSRectMake(0, 0, width, height)
 	@rootView = new JSWindow(frame)
-	@rootView._self = @rootView
 	@rootView.setBackgroundColor(JSColor("white"))
 	@rootView.setClipToBounds(true)
 	@rootView.setBackgroundColor(JSColor("clearColor"))
