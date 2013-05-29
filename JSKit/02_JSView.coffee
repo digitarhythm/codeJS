@@ -172,9 +172,9 @@ class JSView extends JSResponder
 	setHidden:(@_hidden)->
 		if ($(@_viewSelector).length)
 			if (@_hidden == true)
-				$(@_viewSelector).css("visibility", "hidden")
+				$(@_viewSelector).css("display", "none")
 			else
-				$(@_viewSelector).css("visibility", "visible")
+				$(@_viewSelector).css("display", "inline-block")
 			
 	setContainment:(@_containment) ->
 		for obj in @_objlist
