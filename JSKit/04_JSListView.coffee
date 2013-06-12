@@ -109,8 +109,8 @@ class JSListView extends JSScrollView
 	getSelect:->
 		return @_select
 
-	setSelect:(select)->
-		$(@_viewSelector+"_select").val(select)
+	setSelect:(@_select)->
+		$(@_viewSelector+"_select").val(@_select)
 	
 	sortReflection:->
 		if (@_style == "JSListStyleSortable")
