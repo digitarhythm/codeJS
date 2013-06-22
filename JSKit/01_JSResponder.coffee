@@ -6,3 +6,7 @@
 class JSResponder extends JSObject
 	constructor: ->
 		super()
+
+	didBrowserResize:->
+		for o in @_objlist
+			o.didBrowserResize()

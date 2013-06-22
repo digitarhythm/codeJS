@@ -14,13 +14,15 @@ $ ->
 	
 	rootID = @rootView._objectID
 	
-	$(window).resize ->
+	$(window).resize =>
 		frame = getBounds()
 		width = frame.size.width
 		height = frame.size.height
 		$("#"+rootID).width(width)
 		$("#"+rootID).height(height)
-		
+		for o in @rootView._objlist
+			o.didBrowserResize()
+	
 	@applicationMain = new applicationMain(@rootView)
 	@applicationMain.didFinishLaunching()
 	
