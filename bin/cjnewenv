@@ -45,6 +45,7 @@ array_push($createdir_arr, $homedir."/Media/Picture/.thumb");
 array_push($createdir_arr, $homedir."/Media/Music");
 array_push($createdir_arr, $homedir."/Media/Movie");
 array_push($createdir_arr, $homedir."/Documents");
+array_push($createdir_arr, $homedir."/Plugins");
 
 foreach($createdir_arr as $path) {
 	mkdir($path, 0775, true);

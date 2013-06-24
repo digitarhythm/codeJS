@@ -310,4 +310,5 @@ class JSView extends JSResponder
 				if (!$(o._viewSelector).length)
 					$(@_viewSelector).append(o._div)
 					o.viewDidAppear()
+		@initResponder()
 
