@@ -93,7 +93,6 @@ class JSView extends JSResponder
 			$(@_viewSelector).unbind("dblclick")
 			
 	setDraggable: (@_draggable, @_axis = false, @_dragopacity = 0.5) ->
-		JSLog(@_dragopacity)
 		if (@_parent?)
 			containment = @_parent._containment
 		else
