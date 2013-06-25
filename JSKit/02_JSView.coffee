@@ -22,6 +22,7 @@ class JSView extends JSResponder
 		@_hidden = false
 		@_shadow = false
 		@_userInteractionEnabled = true
+		@_axis = false
 
 	addSubview: (object) ->
 		if (!object?)
@@ -32,8 +33,8 @@ class JSView extends JSResponder
 			
 		if ($(@_viewSelector).length)
 			$(@_viewSelector).append(object._div)
-			object.setDraggable(object._draggable)
-			object.setResizable(object._resizable)
+			object.setDraggable(object._draggable, object._axis, object._dragopacity)
+			object.setResizable(object._resizable, object._resizeAction, object._resizeopacity)
 			object.viewDidAppear()
 		
 	setFrame: (@_frame) ->
@@ -91,7 +92,8 @@ class JSView extends JSResponder
 			$(@_viewSelector).unbind("click")
 			$(@_viewSelector).unbind("dblclick")
 			
-	setDraggable: (@_draggable) ->
+	setDraggable: (@_draggable, @_axis = false, @_dragopacity = 0.5) ->
+		JSLog(@_dragopacity)
 		if (@_parent?)
 			containment = @_parent._containment
 		else
@@ -105,7 +107,8 @@ class JSView extends JSResponder
 			if (containment == true)
 				$(@_viewSelector).draggable
 					containment:"parent"
-					opacity:0.5
+					axis: @_axis
+					opacity:@_dragopacity
 					disabled: false
 					drag: (event, ui) =>
 						frame = @_self._frame
@@ -113,10 +116,11 @@ class JSView extends JSResponder
 						frame.origin.y = $(@_viewSelector).css("top")
 						@_self.setFrame(frame)
 			else
-				$(@_viewSelector).draggable({opacity:0.5, disabled: false})
+				$(@_viewSelector).draggable({opacity:@_dragopacity, disabled: false})
 				$(@_viewSelector).draggable("destroy")
 				$(@_viewSelector).draggable
-					opacity:0.5
+					opacity:@_dragopacity
+					axis: @_axis
 					disabled: false
 					drag: (event, ui) =>
 						frame = @_self._frame
@@ -127,7 +131,7 @@ class JSView extends JSResponder
 			$(@_viewSelector).css("cursor", "auto")
 			$(@_viewSelector).draggable({disabled: true})
 			
-	setResizable: (@_resizable, @_resizeAction = null, minWidth = 0, minHeight = 0, maxWidth = 16777216, maxHeight = 16777216) ->
+	setResizable: (@_resizable, @_resizeAction = null, @_resizeopacity = 0.5, minWidth = 0, minHeight = 0, maxWidth = 16777216, maxHeight = 16777216) ->
 		if (@_parent?)
 			containment = @_parent._containment
 		else
@@ -152,7 +156,7 @@ class JSView extends JSResponder
 						@_resizeAction()
 			else
 				$(@_viewSelector).resizable
-					opacity:0.5
+					opacity:@_resizeopacity
 					disabled: false
 				$(@_viewSelector).resizable("destroy")
 				$(@_viewSelector).resizable
@@ -160,7 +164,7 @@ class JSView extends JSResponder
 					minHeight:minHeight
 					maxWidth:maxWidth
 					maxHeight:maxHeight
-					opacity:0.5
+					opacity:@_resizeopacity
 					disabled: false
 					resize: (event, ui) =>
 						frame = @_self._frame
@@ -178,7 +182,7 @@ class JSView extends JSResponder
 			
 	setContainment:(@_containment) ->
 		for obj in @_objlist
-			obj.setDraggable(obj._draggable)
+			obj.setDraggable(obj._draggable, obj._axis, obj._dragopacity)
 			
 	bringSubviewToFront:(obj)->
 		id = obj._objectID
@@ -296,7 +300,8 @@ class JSView extends JSResponder
 		@setBorderWidth(@_borderWidth)
 		@setShadow(@_shadow)
 		@setClipToBounds(@_clipToBounds)
-		@setDraggable(@_draggable)
+		@setDraggable(@_draggable, @_axis, @_dragopacity)
+		@setResizable(@_resizable, @_resizeAction, @_resizeopacity)
 		@removeTapGesture(1)
 		@removeTapGesture(2)
 		if (@_tapAction?)
