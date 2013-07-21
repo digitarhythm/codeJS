@@ -81,8 +81,10 @@ copy($syscode."/applicationMain.coffee", $usrcode."/applicationMain.coffee");
 system("coffee -b -o ".$usrlibs." -c ".$usrcode);
 
 // create database file
-$db = new SQLite3($homedir."/Library/userdefaults.sqlite3");
+$db = new SQLite3($homedir."/Library/sqlite3.db");
 $db->close();
+$dbh = new PDO('sqlite:'.$homedir.'/Library/sqlite3.db');
+$sth = $dbh->query("CREATE TABLE user_default (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, key TEXT NOT NULL, value TEXT NOT NULL);");
 
 echo "New Project Create Done.\n";
 ?>
