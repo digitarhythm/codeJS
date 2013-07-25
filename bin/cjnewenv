@@ -84,7 +84,8 @@ system("coffee -b -o ".$usrlibs." -c ".$usrcode);
 $db = new SQLite3($homedir."/Library/sqlite3.db");
 $db->close();
 $dbh = new PDO('sqlite:'.$homedir.'/Library/sqlite3.db');
-$sth = $dbh->query("CREATE TABLE user_default (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, key TEXT NOT NULL, value TEXT NOT NULL);");
+$sth = $dbh->query("CREATE TABLE user_defaults (forKey TEXT PRIMARY KEY NOT NULL, value TEXT NOT NULL);");
+chmod($homedir."/Library/sqlite3.db", 0664);
 
 echo "New Project Create Done.\n";
 ?>

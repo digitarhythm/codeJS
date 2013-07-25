@@ -96,6 +96,25 @@ switch ($mode) {
 		$ret = moveFile($file, $toPath);
 		echo $ret;
 		break;
+
+	case "setUserDefaults":
+		$value = $_arg['value'];
+		$forKey = $_arg['forKey'];
+		$ret = setUserDefaults($value, $forKey);
+		echo $ret;
+		break;
+	
+	case "getUserDefaults":
+		$forKey = $_arg['forKey'];
+		$ret = getUserDefaults($forKey);
+		echo $ret;
+		break;
+	
+	case "removeUserDefaults":
+		$forKey = $_arg['forKey'];
+		$ret = removeUserDefaults($forKey);
+		echo $ret;
+		break;
 }
 
 //##########################################################################################
@@ -336,6 +355,85 @@ function moveFile($file, $toPath)
 		$ret = 0;
 	}
 	
+	return $ret;
+}
+
+//##########################################################################################
+// 指定されたユーザーデフォルト値を保存する
+//##########################################################################################
+function setUserDefaults($value, $forKey)
+{
+	global $_HOMEDIR_;
+	
+	try {
+		$dbh = new PDO('sqlite:'.$_HOMEDIR_.'/Library/sqlite3.db');
+		$sth = $dbh->prepare('SELECT forKey,value FROM user_defaults WHERE forKey=?');
+		$sth->execute(array($forKey));
+		$result = $sth->fetchAll();
+		$sth->closeCursor();
+		
+		$dbh = new PDO('sqlite:'.$_HOMEDIR_.'/Library/sqlite3.db');
+		if (isset($result[0]['forKey'])) {
+			$sth = $dbh->prepare('UPDATE user_defaults SET value=? WHERE forKey=?');
+			$sth->execute(array($value, $forKey));
+		} else {
+			$sth = $dbh->prepare('INSERT INTO user_defaults(forkey, value) VALUES(?, ?)');
+			$sth->execute(array($forKey, $value));
+		}
+		$sth->closeCursor();
+		
+		$ret = "1";
+	} catch( PDOException $e ) {
+		 $ret = "-1";
+	}
+	
+	return $ret;
+}
+
+//##########################################################################################
+// 指定されたキーのユーザーデフォルト値を返す
+//##########################################################################################
+function getUserDefaults($forKey)
+{
+	global $_HOMEDIR_;
+	
+	try {
+		$dbh = new PDO('sqlite:'.$_HOMEDIR_.'/Library/sqlite3.db');
+		$sth = $dbh->prepare('SELECT value FROM user_defaults WHERE forKey=?');
+		$sth->execute(array($forKey));
+		$result = $sth->fetchAll();
+		$sth->closeCursor();
+		
+		if (isset($result[0]['value'])) {
+			$ret = $result[0]['value'];
+		} else {
+			$ret = "";
+		}
+	} catch( PDOException $e ) {
+		 $ret = "";
+	}
+	
+	return $ret;
+}
+
+//##########################################################################################
+// 指定されたキーのユーザーデフォルト値を消す
+//##########################################################################################
+function removeUserDefaults($forKey)
+{
+	global $_HOMEDIR_;
+	
+	try {
+		$dbh = new PDO('sqlite:'.$_HOMEDIR_.'/Library/sqlite3.db');
+		$sth = $dbh->prepare('DELETE FROM user_defaults WHERE forKey=?');
+		$sth->execute(array($forKey));
+		$sth->closeCursor();
+		$ret = "1";
+	} catch( PDOException $e ) {
+		 $ret = "-1";
+	}
+	
+	$ret = "hoge";
 	return $ret;
 }
 ?>
