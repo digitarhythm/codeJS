@@ -11,18 +11,20 @@ class JSUserDefaults extends JSObject
 		$.post "syslibs/library.php",
 			"mode": "setUserDefaults"
 			"forKey": forKey
-			"value": value
+			"value": JSON.stringify(value)
 
 	stringForKey:(forKey, action)->
 		$.post "syslibs/library.php",
 			"mode": "getUserDefaults"
 			"forKey": forKey
 		, (data)=>
-			action(data)
+			if (typeof(data) == "object")
+				data2 = JSON.parse(data)
+			else
+				data2 = data
+			action(data2)
 
 	removeObjectForKey:(forKey)->
 		$.post "syslibs/library.php",
 			"mode": "removeUserDefaults"
 			"forKey": forKey
-		, (data)=>
-			alert(data)
