@@ -14,17 +14,18 @@ $ ->
 	
 	rootID = @rootView._objectID
 	
+	@applicationMain = new applicationMain(@rootView)
+	@applicationMain.didFinishLaunching()
+	
 	$(window).resize =>
 		frame = getBounds()
 		width = frame.size.width
 		height = frame.size.height
 		$("#"+rootID).width(width)
 		$("#"+rootID).height(height)
+		@applicationMain.didBrowserResize()
 		for o in @rootView._objlist
 			o.didBrowserResize()
-	
-	@applicationMain = new applicationMain(@rootView)
-	@applicationMain.didFinishLaunching()
 	
 	Array.prototype.indexOfObject = (target)->
 		for i in [0...@.length]
