@@ -42,6 +42,7 @@ $smarty->left_delimiter = "[{";
 $smarty->right_delimiter = "}]";
 
 // create index.php
+copy("$projdir/templates/index.tmpl", "$homedir/templates/index.tmpl");
 $cssuri = $csslist[$usecss];
 $smarty->assign("jqueryuicss", $cssuri);
 $index = $smarty->fetch("index.tmpl");

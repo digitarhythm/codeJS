@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.26, created on 2013-07-29 18:40:28
+<?php /* Smarty version 2.6.26, created on 2013-07-29 19:15:04
          compiled from index.tmpl */ ?>
 <?php echo '<?php'; ?>
 
@@ -20,10 +20,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="<?php echo $this->_tpl_vars['jqueryuicss']; ?>
 " />
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
 		<script type="text/javascript" charset="UTF-8" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="http://code.jquery.com/ui/1.10.2/jquery-ui.min.js"></script>
-		<script type="text/javascript" charset="UTF-8" src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="syslibs/jquery.ui.touch-punch.min.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="syslibs/jquery.upload-1.0.2.min.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="syslibs/imgLiquid-min.js"></script>
