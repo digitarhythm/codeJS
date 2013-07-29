@@ -42,8 +42,8 @@ class JSButton extends JSControl
 		if ($(@_viewSelector+"_button").length)
 			$(@_viewSelector+"_button").remove()
 		if (@_style == "JSFormButtonStyleNormal")
-#			tag = "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;z-index:1;' value='"+@_buttonTitle+"' />"
-			tag = '<a href="#" data-role="button" data-icon="star" id="'+@_objectID+'_button">'+@_buttonTitle+'</a>'
+			tag = "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;z-index:1;' value='"+@_buttonTitle+"' />"
+#			tag = '<a href="#" data-role="button" data-icon="star" id="'+@_objectID+'_button">'+@_buttonTitle+'</a>'
 			w = @_frame.size.width - 16
 			h = @_frame.size.height - 8
 		else if (@_style == "JSFormButtonStyleImageUpload")
