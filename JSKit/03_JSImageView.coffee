@@ -45,4 +45,5 @@ class JSImageView extends JSView
 		super()
 		@setCornerRadius(@_cornerRadius)
 		@setImage(@_image)
+		@setContentMode(@_contentMode)
 

@@ -42,21 +42,23 @@ class JSButton extends JSControl
 		if ($(@_viewSelector+"_button").length)
 			$(@_viewSelector+"_button").remove()
 		if (@_style == "JSFormButtonStyleNormal")
-			tag = "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;z-index:1;' value='"+@_buttonTitle+"' />"
 			w = @_frame.size.width - 16
-			h = @_frame.size.height - 8
+			h = @_frame.size.height - 9
+			tag = "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;z-index:1;' value='"+@_buttonTitle+"' />"
 		else if (@_style == "JSFormButtonStyleImageUpload")
-			tag = "<input id='"+@_objectID+"_button' type='file' name='"+@_objectID+"_button' style='position:absolute;z-index:1;' enctype='multipart/form-data' />"
-			w = @_frame.size.width
-			h = 18
+			w = @_frame.size.width - 16
+			h = @_frame.size.height - 9
+			tag  = "<input id=\""+@_objectID+"_file\" type=\"file\" name=\""+@_objectID+"_file\" style=\"display:none;\">"
+			tag += "<input type=\"submit\" id=\""+@_objectID+"_button\" style=\"width:"+w+"px; height:"+h+"px; position:absolute;z-index:1;\" value=\"Upload\" onClick=\"$('#"+@_objectID+"_file').click();\" />"
+#			tag = "<input id='"+@_objectID+"_button' type='file' name='"+@_objectID+"_button' style='position:absolute;z-index:1;' enctype='multipart/form-data' />"
 		$(@_viewSelector).append(tag)
 		if (@_style == "JSFormButtonStyleImageUpload")
-			$(@_viewSelector+"_button").change =>
-				$(@_viewSelector+"_button").upload "syslibs/library.php",
+			$(@_viewSelector+"_file").change =>
+				$(@_viewSelector+"_file").upload "syslibs/library.php",
 					mode: "uploadfile"
-					key: @_objectID+"_button"
+					key: @_objectID+"_file"
 				, (res) =>
-					$(@_viewSelector+"_button").val("")
+					$(@_viewSelector+"_file").val("")
 					$.post "syslibs/library.php",
 						mode:"createThumbnail"
 						path:"Media/Picture"
