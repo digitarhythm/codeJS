@@ -23,7 +23,8 @@ $ ->
 		height = frame.size.height
 		$("#"+rootID).width(width)
 		$("#"+rootID).height(height)
-		@applicationMain.didBrowserResize()
+		if (typeof @applicationMain.didBrowserResize == "function")
+			@applicationMain.didBrowserResize()
 		for o in @rootView._objlist
 			o.didBrowserResize()
 	
