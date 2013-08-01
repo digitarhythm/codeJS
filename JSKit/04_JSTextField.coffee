@@ -49,6 +49,8 @@ class JSTextField extends JSControl
 				$(@_viewSelector).css("text-align", "center")
 	
 	setFrame:(frame)->
+		frame.size.width -= 5
+		frame.origin.x += 2
 		super(frame)
 		$(@_viewSelector+"_text").width(frame.size.width)
 		$(@_viewSelector+"_text").height(frame.size.height)
