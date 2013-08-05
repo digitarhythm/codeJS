@@ -265,6 +265,10 @@ class JSView extends JSResponder
 							@_borderColor = value
 						when "border-width"
 							@_borderWidth = value
+						when "width"
+							@_frame.size.width = value
+						when "height"
+							@_frame.size.height = value
 				completion(@_self)
 		else
 			$(@_viewSelector).animate animobj, duration, =>
@@ -282,6 +286,10 @@ class JSView extends JSResponder
 							@_borderColor = value
 						when "border-width"
 							@_borderWidth = value
+						when "width"
+							@_frame.size.width = value
+						when "height"
+							@_frame.size.height = value
 			
 	setShadow:(@_shadow)->
 		if (@_shadow == true)
