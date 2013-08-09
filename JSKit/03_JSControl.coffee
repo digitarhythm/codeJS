@@ -23,5 +23,5 @@ class JSControl extends JSView
 		@setEnable(@_enable)
 		$(@_viewSelector).unbind("click").bind "click", (event) =>
 			if (@action? && @_enable == true)
-					@action(@_self)
+				@action(@_self)
 				event.stopPropagation()
