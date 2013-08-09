@@ -10,6 +10,7 @@ class JSResponder extends JSObject
 		@_touches = false
 
 	initResponder:->
+		###
 		$("#"+@_objectID).on "vmousedown", (event)=>
 			@_touches = true
 			if (typeof @touchesBegan == 'function')
@@ -29,6 +30,7 @@ class JSResponder extends JSObject
 			if (typeof @touchesCanceled == 'function')
 				@_event = event
 				@touchesCanceled(event)
+		###
 
 	didBrowserResize:->
 		for o in @_objlist

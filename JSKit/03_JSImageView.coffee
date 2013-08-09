@@ -40,6 +40,13 @@ class JSImageView extends JSView
 					$(@_viewSelector).imgLiquid(fill: false)
 				when "JSViewContentModeScaleAspectFill"
 					$(@_viewSelector).imgLiquid()
+					
+	setFrame:(frame)->
+		super(frame)
+		$(@_viewSelector+"_image").css("left", frame.origin.x)
+		$(@_viewSelector+"_image").css("top", frame.origin.y)
+		$(@_viewSelector+"_image").width(frame.size.width)
+		$(@_viewSelector+"_image").height(frame.size.height)
 
 	viewDidAppear:->
 		super()
