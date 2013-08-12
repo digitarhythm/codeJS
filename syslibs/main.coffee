@@ -28,8 +28,3 @@ $ ->
 		for o in @rootView._objlist
 			o.didBrowserResize()
 	
-	Array.prototype.indexOfObject = (target)->
-		for i in [0...@.length]
-			val = @[i]
-			if (target == val)
-				return i

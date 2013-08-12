@@ -15,6 +15,8 @@ class JSTextView extends JSScrollView
 		@_textAlignment = "JSTextAlignmentLeft"
 		@_text = ""
 		@_writingMode = 0
+		@_lineHeight = 1.0
+		@_fontFamily = "gothic"
 		
 	setWritingMode:(@_writingMode)->
 		@_editable = false
@@ -123,7 +125,6 @@ class JSTextView extends JSScrollView
 		
 		$(@_viewSelector+"_textarea").width(@_frame.size.width)
 		$(@_viewSelector+"_textarea").height(@_frame.size.height)
-		#$(@_viewSelector+"_textarea").css("border", "1px green solid")
 		
 	setTextAlignment: (@_textAlignment) ->
 		switch @_textAlignment
@@ -136,12 +137,28 @@ class JSTextView extends JSScrollView
 			else
 				$(@_viewSelector+"_textarea").css("text-align", "center")
 	
+	setTextLineHeight:(@_lineHeight)->
+		if ($(@_viewSelector+"_textarea").length)
+			$(@_viewSelector+"_textarea").css("line-height", @_lineHeight)
+	
+	setTextFontFamily:(@_fontFamily)->
+		if ($(@_viewSelector+"_textarea").length)
+			switch @_fontFamily
+				when "mincho"
+					JSLog("mincho")
+					$(@_viewSelector+"_textarea").css("font-family", "'Hiragino Mincho ProN', serif;")
+				when "gothic"
+					JSLog("gothic")
+					$(@_viewSelector+"_textarea").css("font-family", "'Hiragino Maru Gothic Pro W4', 'Hiragino Maru Gothic Pro', 'sans-serif';");
+
 	viewDidAppear: ->
 		super()
 		@setEditable(@_editable)
 		@setTextSize(@_textSize)
 		@setTextColor(@_textColor)
 		@setTextAlignment(@_textAlignment)
+		@setTextLineHeight(@_lineHeight)
+		@setTextFontFamily(@_fontFamily)
 		#$(@_viewSelector+"_textarea").width(@_frame.size.width)
 		#$(@_viewSelector+"_textarea").height(@_frame.size.height)
 		if (@_editable == true)
