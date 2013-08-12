@@ -8,12 +8,17 @@
 	}
 	set_include_path(get_include_path().PATH_SEPARATOR.$_HOMEDIR_."/syslibs");
 	require_once("main.php");
+	
 ?>
 	<!DOCTYPE html>
 	<html>
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, maximum-scale=1" />
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<link rel="apple-touch-startup-image" href="Media/Picture/webapplicationstartup.png">
 		<link rel="stylesheet" href="[{$jqueryuicss}]" />
 		<script type="text/javascript" charset="UTF-8" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="http://code.jquery.com/ui/1.10.2/jquery-ui.min.js"></script>

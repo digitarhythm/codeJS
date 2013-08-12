@@ -122,6 +122,7 @@ class JSTextView extends JSScrollView
 		
 		$(@_viewSelector+"_textarea").width(@_frame.size.width)
 		$(@_viewSelector+"_textarea").height(@_frame.size.height)
+		$(@_viewSelector+"_textarea").css("border", "1px green solid")
 		
 	setTextAlignment: (@_textAlignment) ->
 		switch @_textAlignment
@@ -140,8 +141,8 @@ class JSTextView extends JSScrollView
 		@setTextSize(@_textSize)
 		@setTextColor(@_textColor)
 		@setTextAlignment(@_textAlignment)
-		$(@_viewSelector+"_textarea").width(@_frame.size.width)
-		$(@_viewSelector+"_textarea").height(@_frame.size.height)
+		#$(@_viewSelector+"_textarea").width(@_frame.size.width)
+		#$(@_viewSelector+"_textarea").height(@_frame.size.height)
 		if (@_editable == true)
 			$(@_viewSelector+"_textarea").unbind("click").bind "click", (event) =>
 				event.stopPropagation()

@@ -110,11 +110,9 @@ class JSView extends JSResponder
 					opacity:@_dragopacity
 					disabled: false
 					start:(event, ui)=>
-						alert("start")
 						if (typeof @touchesBegan == "function")
 							@touchesBegan(event)
 					drag:(event, ui) =>
-						alert("drag")
 						frame = @_self._frame
 						frame.origin.x = $(@_viewSelector).css("left")
 						frame.origin.y = $(@_viewSelector).css("top")
