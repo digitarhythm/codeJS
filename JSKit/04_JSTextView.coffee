@@ -17,6 +17,7 @@ class JSTextView extends JSScrollView
 		@_writingMode = 0
 		
 	setWritingMode:(@_writingMode)->
+		@_editable = false
 		@setEditable(@_editable)
 
 	getText:->
@@ -122,7 +123,7 @@ class JSTextView extends JSScrollView
 		
 		$(@_viewSelector+"_textarea").width(@_frame.size.width)
 		$(@_viewSelector+"_textarea").height(@_frame.size.height)
-		$(@_viewSelector+"_textarea").css("border", "1px green solid")
+		#$(@_viewSelector+"_textarea").css("border", "1px green solid")
 		
 	setTextAlignment: (@_textAlignment) ->
 		switch @_textAlignment
