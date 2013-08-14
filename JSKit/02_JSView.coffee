@@ -255,9 +255,11 @@ class JSView extends JSResponder
 					@_tapAction(@_self, event)
 					
 		if (tapnum == 2)
-			$(@_viewSelector).unbind("dblclick").bind "dblclick", (event) =>
-				if (@_tapAction2? && @_userInteractionEnabled == true && @_alpha > 0.0)
-					@_tapAction2(@_self, event)
+			$('#container').hammer.on 'doubletap', (ev)=>
+				alert(ev);
+			#$(@_viewSelector).unbind("dblclick").bind "dblclick", (event) =>
+			#	if (@_tapAction2? && @_userInteractionEnabled == true && @_alpha > 0.0)
+			#		@_tapAction2(@_self, event)
 				
 	animateWithDuration:(duration, animations, completion = null)=>
 		duration *= 1000
