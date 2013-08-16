@@ -90,19 +90,23 @@ while ($fname = readdir($dir)) {
 system("cp -a ".$p_extjslibs."/codeJS_default ".$h_syslibs."/");
 copy($p_extjslibs."/three.min.js", $h_syslibs."/three.min.js");
 
-// copy htaccess file
+// copy htaccess file(hidden)
 copy($p_syslibs."/htaccess", $homedir."/configs/.htaccess");
 copy($p_syslibs."/htaccess", $homedir."/Library/.htaccess");
 copy($p_syslibs."/htaccess", $homedir."/templates/.htaccess");
+copy($p_syslibs."/htaccess", $homedir."/appscode/.htaccess");
 
-// copy system file
+// copy htaccess file(open)
 system("cp -a ".$p_syslibs."/Picture ".$h_syslibs."/");
 copy($p_syslibs."/htaccess2", $homedir."/.htaccess");
-copy($p_syslibs."/htaccess2", $homedir."/appscode/.htaccess");
 copy($p_syslibs."/htaccess2", $homedir."/usrlibs/.htaccess");
 copy($p_syslibs."/htaccess2", $homedir."/syslibs/.htaccess");
 copy($p_syslibs."/htaccess2", $homedir."/cache/.htaccess");
+copy($p_syslibs."/htaccess2", $homedir."/Plugins/.htaccess");
 copy($p_syslibs."/htaccess2", $homedir."/Documents/.htaccess");
+copy($p_syslibs."/htaccess2", $homedir."/Media/Movie/.htaccess");
+copy($p_syslibs."/htaccess2", $homedir."/Media/Music/.htaccess");
+copy($p_syslibs."/htaccess2", $homedir."/Media/Picture/.htaccess");
 
 echo "Update System File Done.\n"
 ?>
