@@ -23,6 +23,7 @@ class JSView extends JSResponder
 		@_shadow = false
 		@_userInteractionEnabled = true
 		@_axis = false
+		@_touched = false
 
 	addSubview: (object) ->
 		if (!object?)
@@ -109,19 +110,19 @@ class JSView extends JSResponder
 					axis: @_axis
 					opacity:@_dragopacity
 					disabled: false
-					start:(event, ui)=>
-						if (typeof @touchesBegan == "function")
-							@touchesBegan(event)
-					drag:(event, ui) =>
-						frame = @_self._frame
-						frame.origin.x = $(@_viewSelector).css("left")
-						frame.origin.y = $(@_viewSelector).css("top")
-						@_self.setFrame(frame)
-						if (typeof @touchesMoved == "function")
-							@touchesMoved(event)
-					stop:(event, ui)=>
-						if (typeof @touchesEnded == "function")
-							@touchesEnded(event)
+					#start:(event, ui)=>
+					#	if (typeof @touchesBegan == "function")
+					#		@touchesBegan(event)
+					#drag:(event, ui) =>
+					#	frame = @_self._frame
+					#	frame.origin.x = $(@_viewSelector).css("left")
+					#	frame.origin.y = $(@_viewSelector).css("top")
+					#	@_self.setFrame(frame)
+					#	if (typeof @touchesMoved == "function")
+					#		@touchesMoved(event)
+					#stop:(event, ui)=>
+					#	if (typeof @touchesEnded == "function")
+					#		@touchesEnded(event)
 			else
 				$(@_viewSelector).draggable({opacity:@_dragopacity, disabled: false})
 				$(@_viewSelector).draggable("destroy")
@@ -129,21 +130,21 @@ class JSView extends JSResponder
 					opacity:@_dragopacity
 					axis: @_axis
 					disabled: false
-					start:(event, ui)=>
-						if (typeof @touchesBegan == "function")
-							@touchesBegan(event)
-					
-					stop:(event, ui)=>
-						if (typeof @touchesEnded == "function")
-							@touchesEnded(event)
-					
-					drag: (event, ui) =>
-						frame = @_self._frame
-						frame.origin.x = $(@_viewSelector).css("left")
-						frame.origin.y = $(@_viewSelector).css("top")
-						@_self.setFrame(frame)
-						if (typeof @touchesMoved == "function")
-							@touchesMoved(event)
+					#start:(event, ui)=>
+					#	if (typeof @touchesBegan == "function")
+					#		@touchesBegan(event)
+					#
+					#stop:(event, ui)=>
+					#	if (typeof @touchesEnded == "function")
+					#		@touchesEnded(event)
+					#
+					#drag: (event, ui) =>
+					#	frame = @_self._frame
+					#	frame.origin.x = $(@_viewSelector).css("left")
+					#	frame.origin.y = $(@_viewSelector).css("top")
+					#	@_self.setFrame(frame)
+					#	if (typeof @touchesMoved == "function")
+					#		@touchesMoved(event)
 		else
 			$(@_viewSelector).css("cursor", "auto")
 			$(@_viewSelector).draggable({disabled: true})
@@ -337,9 +338,39 @@ class JSView extends JSResponder
 			@addTapGesture(@_tapAction2, 2)
 
 		if (@_objlist.length > 0)
-			for i in [0...@_objlist.length]
+			for i in [0...objectNum(@_objlist)]
 				o = @_objlist[i]
 				if (!$(o._viewSelector).length)
 					$(@_viewSelector).append(o._div)
 					o.viewDidAppear()
-
+					isTouch = ('ontouchstart' in window)
+						
+		$(@_viewSelector).bind
+			'touchstart mousedown':=>
+				@touched = true
+				if (typeof @touchesBegan == 'function')
+					if (isTouch)
+						#e = event.originalEvent.touches[0]
+						e = event.changedTouches[0]
+					else
+						e = event
+					@touchesBegan(e)
+			'touchmove mousemove':=>
+				if (@touched)
+					if (typeof @touchesMoved == 'function')
+						if (isTouch)
+							#e = event.originalEvent.touches[0]
+							e = event.changedTouches[0]
+						else
+							e = event
+						@touchesMoved(e)
+			'touchend mouseup':=>
+				@touched = false
+				if (typeof @touchesEnded == 'function')
+					if (isTouch)
+						e = event.changedTouches[0]
+					else
+						e = event
+					@touchesEnded(e)
+			'touchcancel':=>
+				alert('cancel')

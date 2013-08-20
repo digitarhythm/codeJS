@@ -122,7 +122,7 @@ class JSTextField extends JSControl
 		@setEditable(@_editable)
 		$(@_viewSelector).css("vertical-align", "middle")
 		$(@_viewSelector+"_text").width(@_frame.size.width)
-		$(@_viewSelector+"_text").css("line-height",@_frame.size.height+"px")
+		#$(@_viewSelector+"_text").css("line-height",@_frame.size.height+"px")
 		@setTextSize(@_textSize)
 		@setTextColor(@_textColor)
 		@setTextAlignment(@_textAlignment)
