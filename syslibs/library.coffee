@@ -1,6 +1,10 @@
 # debug write
-JSLog = (a) ->
+JSLog = (a, b...) ->
+	#console.log(a)
+	for data in b
+		a = a.replace('%@', data)
 	console.log(a)
+		
 	
 # YES/NO dialog
 isConfirm = (str) ->

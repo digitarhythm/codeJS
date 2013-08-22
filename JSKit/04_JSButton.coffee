@@ -29,13 +29,13 @@ class JSButton extends JSControl
 		super(frame)
 		switch @_style
 			when "JSFormButtonStyleNormal"
-				w = frame.size.width - 16
-				h = frame.size.height - 8
-				$(@_viewSelector+"_button").width(w+"px")
-				$(@_viewSelector+"_button").height(h+"px")
+				buttonwidth = frame.size.width
+				buttonheight = frame.size.height
+				$(@_viewSelector+"_button").css("width", buttonwidth+"px")
+				$(@_viewSelector+"_button").css("height", buttonheight+"px")
 			when "JSFormButtonStyleImageUpload"
-				w = @_frame.size.width
-				$(@_viewSelector+"_button").width(w+"px")
+				buttonwidth = @_frame.size.width
+				$(@_viewSelector+"_button").css("width", buttonwidth+"px")
 
 	viewDidAppear:->
 		super()
@@ -44,14 +44,14 @@ class JSButton extends JSControl
 		if ($(@_viewSelector+"_pack").length)
 			$(@_viewSelector+"_pack").remove()
 		tag = ""
-		w = @_frame.size.width - 16
-		h = @_frame.size.height - 9
+		buttonwidth = @_frame.size.width
+		buttonheight = @_frame.size.height
 		if (@_style == "JSFormButtonStyleNormal")
 			tag += "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;z-index:1;' value='"+@_buttonTitle+"' />"
 		else if (@_style == "JSFormButtonStyleImageUpload")
 			tag += "<div id=\""+@_objectID+"_pack\">"
 			tag += "<input id=\""+@_objectID+"_file\" type=\"file\" name=\""+@_objectID+"_file\" style=\"display:none;\">"
-			tag += "<input type=\"submit\" id=\""+@_objectID+"_button\" style=\"width:"+w+"px; height:"+h+"px; position:absolute;z-index:1;\" value=\"Upload\" onClick=\"$('#"+@_objectID+"_file').click();\" />"
+			tag += "<input type=\"submit\" id=\""+@_objectID+"_button\" style=\"position:absolute;z-index:1;\" value=\"Upload\" onClick=\"$('#"+@_objectID+"_file').click();\" />"
 			tag += "</div>"
 		$(@_viewSelector).append(tag)
 		if (@_style == "JSFormButtonStyleImageUpload")
@@ -68,11 +68,15 @@ class JSButton extends JSControl
 						if (@delegate?)
 							@delegate.didImageUpload(res)
 				, "json"
+				
+		@_self.setBorderColor(JSColor("yellow"))
+		@_self.setBorderWidth(1)
 		$(@_viewSelector).css("overflow", "visible")
 		$(@_viewSelector+"_button").css("overflow", "hidden")
 		$(@_viewSelector+"_button").css("position", "absolute")
 		$(@_viewSelector+"_button").css("background-color", "transparent")
-		$(@_viewSelector+"_button").width(w+"px")
-		$(@_viewSelector+"_button").height(h+"px")
 		$(@_viewSelector+"_button").css("font-size", @_textSize+"pt")
+		$(@_viewSelector+"_button").css("width", buttonwidth+"px")
+		$(@_viewSelector+"_button").css("height", buttonheight+"px")
+
 		$(@_viewSelector+"_button").button()
