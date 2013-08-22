@@ -69,8 +69,6 @@ class JSButton extends JSControl
 							@delegate.didImageUpload(res)
 				, "json"
 				
-		@_self.setBorderColor(JSColor("yellow"))
-		@_self.setBorderWidth(1)
 		$(@_viewSelector).css("overflow", "visible")
 		$(@_viewSelector+"_button").css("overflow", "hidden")
 		$(@_viewSelector+"_button").css("position", "absolute")
