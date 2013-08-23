@@ -347,6 +347,8 @@ class JSView extends JSResponder
 						
 		$(@_viewSelector).bind
 			'touchstart mousedown':=>
+				if (@_editable == false)
+					event.preventDefault()
 				@touched = true
 				if (typeof @touchesBegan == 'function')
 					if (isTouch)
@@ -356,6 +358,8 @@ class JSView extends JSResponder
 						e = event
 					@touchesBegan(e)
 			'touchmove mousemove':=>
+				if (@_editable == false)
+					event.preventDefault()
 				if (@touched)
 					if (typeof @touchesMoved == 'function')
 						if (isTouch)
@@ -365,6 +369,8 @@ class JSView extends JSResponder
 							e = event
 						@touchesMoved(e)
 			'touchend mouseup':=>
+				if (@_editable == false)
+					event.preventDefault()
 				@touched = false
 				if (typeof @touchesEnded == 'function')
 					if (isTouch)
