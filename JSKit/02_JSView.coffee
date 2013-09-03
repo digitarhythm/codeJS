@@ -40,8 +40,8 @@ class JSView extends JSResponder
 		
 	setFrame: (@_frame) ->
 		if ($(@_viewSelector).length)
-			$(@_viewSelector).width(@_frame.size.width+"px")
-			$(@_viewSelector).height(@_frame.size.height+"px")
+			$(@_viewSelector).css("width", @_frame.size.width+"px")
+			$(@_viewSelector).css("height", @_frame.size.height+"px")
 			$(@_viewSelector).css("left", @_frame.origin.x+"px")
 			$(@_viewSelector).css("top", @_frame.origin.y+"px")
 

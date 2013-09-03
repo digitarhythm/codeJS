@@ -12,6 +12,7 @@ class JSTextField extends JSControl
 		@_textAlignment = "JSTextAlignmentCenter"
 		@_text = ""
 		@_editable = true
+		@_action = null
 
 	getText:->
 		if (@_editable == true)
@@ -102,6 +103,10 @@ class JSTextField extends JSControl
 			$(@_viewSelector+"_text").remove()
 		
 		$(@_viewSelector).append(tag)
+		$(@_viewSelector+"_text").keypress (event)=>
+			if (@action?)
+				@action(event.which)
+			
 		if (@_editable == true)
 			$(@_viewSelector+"_text").unbind("click").bind "click", (event) =>
 				event.stopPropagation()
@@ -116,6 +121,8 @@ class JSTextField extends JSControl
 		
 		$(@_viewSelector+"_text").width(@_frame.size.width)
 		$(@_viewSelector+"_text").height(@_frame.size.height)
+
+	setDidKeyPressEvent:(@action)->
 
 	viewDidAppear: ->
 		super()
