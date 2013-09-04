@@ -13,6 +13,7 @@ class JSTextField extends JSControl
 		@_text = ""
 		@_editable = true
 		@_action = null
+		@_focus = false
 
 	getText:->
 		if (@_editable == true)
@@ -123,6 +124,14 @@ class JSTextField extends JSControl
 		$(@_viewSelector+"_text").height(@_frame.size.height)
 
 	setDidKeyPressEvent:(@action)->
+
+	setFocus:(@_focus)->
+		if (!$(@_viewSelector+"_text").length)
+			return
+		if (@_focus == true)
+			$(@_viewSelector+"_text").focus()
+		else
+			$(@_viewSelector+"_text").blur()
 
 	viewDidAppear: ->
 		super()
