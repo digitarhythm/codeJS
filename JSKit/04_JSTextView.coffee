@@ -17,6 +17,7 @@ class JSTextView extends JSScrollView
 		@_writingMode = 0
 		@_lineHeight = 1.0
 		@_fontFamily = "gothic"
+		@_textVerticalAlignment = "JSTextVerticalAlignmentTop"
 		
 	setWritingMode:(@_writingMode)->
 		@_editable = false
@@ -85,17 +86,14 @@ class JSTextView extends JSScrollView
 		else # 編集不可モード
 			
 			if (@_editable == true) # モード変更前が編集可能モード
-				
 				@_text = $(@_viewSelector+"_textarea").val()
 				text = JSEscape(@_text)
 				disp = text.replace(/\n/g, "<br>")
-				tag = "<div id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;z-index:1;'>"+disp+"</div>"
-			
 			else # モード変更前が編集不可モード
 				text = JSEscape(@_text)
 				disp = text.replace(/\n/g, "<br>")
-				tag = "<div id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;z-index:1;'>"+disp+"</div>"
-				
+
+			tag = "<div id='"+@_objectID+"_textarea' style='overflow:auto;word-break:break-all;z-index:1;display:table-cell; vertical-align:middle;'>"+disp+"</div>"
 			x = 0
 			y = 0
 		
@@ -108,9 +106,13 @@ class JSTextView extends JSScrollView
 			writingmode = "horizontal-tb"
 		else
 			writingmode = "vertical-rl"
+			$(@_viewSelector+"_textarea").css("position", "absolute")
 		$(@_viewSelector+"_textarea").css("-webkit-writing-mode", writingmode)
 		$(@_viewSelector+"_textarea").css("background-color", JSColor("clearColor"))
+
 		$(@_viewSelector+"_textarea").css("border", "none")
+		#$(@_viewSelector+"_textarea").css("border", "1px red solid")
+
 		if (@_editable == true)
 			$(@_viewSelector+"_textarea").unbind("click").bind "click", (event) =>
 				event.stopPropagation()
@@ -127,6 +129,8 @@ class JSTextView extends JSScrollView
 		$(@_viewSelector+"_textarea").height(@_frame.size.height)
 		
 	setTextAlignment: (@_textAlignment) ->
+		if (!$(@_viewSelector+"_textarea").length)
+			return
 		switch @_textAlignment
 			when "JSTextAlignmentCenter"
 				$(@_viewSelector+"_textarea").css("text-align", "center")
@@ -136,6 +140,19 @@ class JSTextView extends JSScrollView
 				$(@_viewSelector+"_textarea").css("text-align", "right")
 			else
 				$(@_viewSelector+"_textarea").css("text-align", "center")
+
+	setTextVerticalAlignment:(@_textVerticalAlignment)->
+		if (!$(@_viewSelector+"_textarea").length)
+			return
+		switch @_textVerticalAlignment
+			when "JSTextVerticalAlignmentTop"
+				$(@_viewSelector+"_textarea").css("vertical-align", "top")
+			when "JSTextVerticalAlignmentMiddle"
+				$(@_viewSelector+"_textarea").css("vertical-align", "middle")
+			when "JSTextVerticalAlignmentBottom"
+				$(@_viewSelector+"_textarea").css("vertical-align", "bottom")
+			else
+				$(@_viewSelector+"_textarea").css("vertical-align", "middle")
 	
 	setTextLineHeight:(@_lineHeight)->
 		if ($(@_viewSelector+"_textarea").length)
@@ -155,6 +172,7 @@ class JSTextView extends JSScrollView
 		@setTextSize(@_textSize)
 		@setTextColor(@_textColor)
 		@setTextAlignment(@_textAlignment)
+		@setTextVerticalAlignment(@_textVerticalAlignment)
 		@setTextLineHeight(@_lineHeight)
 		@setTextFontFamily(@_fontFamily)
 		#$(@_viewSelector+"_textarea").width(@_frame.size.width)
