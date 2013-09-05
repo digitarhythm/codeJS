@@ -15,4 +15,4 @@ class JSUserCookies extends JSObject
 		return ret
 
 	removeObjectForKey:(forKey)->
-		$.cookie(forKey, null)
+		$.removeCookie(forKey)
