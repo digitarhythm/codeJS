@@ -1,0 +1,7 @@
+class [{$classname}] extends JSUserCookies
+	constructor:->
+		super()
+		###
+		Please describe initialization processing of a class below from here. 
+		###
+
