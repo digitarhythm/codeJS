@@ -10,7 +10,7 @@ class JSTableView extends JSScrollView
 		super(frame)
 		@_rowHeight = 64
 		@_clipToBounds = true
-		@_bgColor = JSColor("clearColor")
+		@_bgColor = JSColor("white")
 		@_scroll = true
 		@delegate = null
 		@dataSource = null
@@ -19,6 +19,8 @@ class JSTableView extends JSScrollView
 		
 	viewDidAppear:->
 		super()
+		bounds = getBounds()
+
 		# 各セクションに含まれるデータの数を取得する（デリゲートメソッドが無い場合はデータの数は初期値（0））
 		if (typeof @dataSource.numberOfRowsInSection == 'function')
 			@_dataNum = @dataSource.numberOfRowsInSection()
@@ -31,9 +33,10 @@ class JSTableView extends JSScrollView
 		else
 			@_sectionNum = 1
 			
-		bounds = getBounds()
 		@_tableView = new JSView(JSRectMake(0, 0, bounds.size.width, @_rowHeight * @_dataNum))
 		@_tableView.setBackgroundColor(JSColor("blue"))
+
+		dispNum = parseInt(bounds.size.height / @_rowHeight)
 			
 		# 各セルの内容を返すデリゲートメソッドを呼ぶ
 		diff_y = 0
@@ -41,12 +44,15 @@ class JSTableView extends JSScrollView
 			cell = @dataSource.cellForRowAtIndexPath(i)
 			cell._cellnum = i
 			cell.delegate = @delegate
+
 			# 各セルの高さを取得して設定する
 			if (typeof @delegate.heightForRowAtIndexPath == 'function')
 				cellHeight = @delegate.heightForRowAtIndexPath(i)
 			else
 				cellHeight = @_rowHeight
+
 			frm = JSRectMake(0, diff_y, cell._frame.size.width, cellHeight)
+
 			cell.setFrame(frm)
 			@_self.addSubview(cell)
 			diff_y += cellHeight+1
