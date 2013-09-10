@@ -11,6 +11,7 @@ class JSScrollView extends JSView
 	setScroll:(@_scroll)->
 		if (@_scroll == true)
 			$(@_viewSelector).css("overflow", "auto")
+			$(@_viewSelector).css("-webkit-overflow-scrolling", "touch")
 		else
 			@setClipToBounds(@_clipToBounds)
 

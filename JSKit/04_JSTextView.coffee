@@ -68,6 +68,7 @@ class JSTextView extends JSScrollView
 		
 		if (editable == true) # 編集可能モード
 			
+			@setUserInteractionEnabled(true)
 			if (@_editable == true) # モード変更前が編集可能モード
 				
 				if (!$(@_viewSelector+"_textarea").length)
@@ -85,6 +86,7 @@ class JSTextView extends JSScrollView
 			
 		else # 編集不可モード
 			
+			@setUserInteractionEnabled(false)
 			if (@_editable == true) # モード変更前が編集可能モード
 				@_text = $(@_viewSelector+"_textarea").val()
 				text = JSEscape(@_text)
@@ -108,7 +110,7 @@ class JSTextView extends JSScrollView
 			writingmode = "vertical-rl"
 			$(@_viewSelector+"_textarea").css("position", "absolute")
 		$(@_viewSelector+"_textarea").css("-webkit-writing-mode", writingmode)
-		$(@_viewSelector+"_textarea").css("background-color", JSColor("clearColor"))
+		#$(@_viewSelector+"_textarea").css("background-color", JSColor("clearColor"))
 
 		$(@_viewSelector+"_textarea").css("border", "none")
 		#$(@_viewSelector+"_textarea").css("border", "1px red solid")
@@ -118,10 +120,13 @@ class JSTextView extends JSScrollView
 				event.stopPropagation()
 			$(@_viewSelector+"_textarea").bind "change", =>
 				@_text = $(@_viewSelector+"_textarea").val()
+		else
+			$(@_viewSelector+"_textarea").unbind("click")
 			
 		@setTextSize(@_textSize)
 		@setTextColor(@_textColor)
 		@setTextAlignment(@_textAlignment)
+		@setTextVerticalAlignment(@_textVerticalAlignment)
 		$(@_viewSelector+"_textarea").css("left", x)
 		$(@_viewSelector+"_textarea").css("top", y)
 		
@@ -180,5 +185,7 @@ class JSTextView extends JSScrollView
 		if (@_editable == true)
 			$(@_viewSelector+"_textarea").unbind("click").bind "click", (event) =>
 				event.stopPropagation()
+		else
+			$(@_viewSelector+"_textarea").unbind("click")
 
 

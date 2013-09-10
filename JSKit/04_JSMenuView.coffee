@@ -30,12 +30,17 @@ class JSMenuView extends JSScrollView
 			$(@_viewSelector+"_menu").remove()
 			
 		$(@_viewSelector).append(@_div)
-		$(@_viewSelector+"_menu").css("top", @_parent._frame.size.height+"px")
+		$(@_viewSelector+"_menu").css("left", @_parent._frame.origin.x+"px")
+		$(@_viewSelector+"_menu").css("top", @_parent._frame.origin.y+"px")
+		$(@_viewSelector+"_menu").css("width", @_parent._frame.size.width+"px")
+		$(@_viewSelector+"_menu").css("height", @_parent._frame.size.height+"px")
 		$(@_viewSelector+"_menu").css("position", "absolute")
 		$(@_viewSelector+"_menu").css("overflow", "visible")
 		$(@_viewSelector+"_menu").css("font-size", @_textSize+"pt")
 		$(@_viewSelector+"_menu").menu
 			select: (event, ui) =>
+				if (@_userInteractionEnabled == false)
+					return
 				item = ui.item.context.textContent
 				@selectMenuItem(item)
 				@closeMenu()
@@ -56,4 +61,3 @@ class JSMenuView extends JSScrollView
 		super()
 		if (!$(@_viewSelector+"_menu").length)
 			@addMenuItem(@_menuitem)
-

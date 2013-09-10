@@ -1,0 +1,24 @@
+class [{$classname}] extends JSTableViewController
+	constructor:(frame)->
+		super(frame)
+		###
+		Please describe user processing below from here. 
+		###
+
+	numberOfRowsInSection:->
+		###
+		Please describe user processing below from here. 
+		###
+		return objectNum(@data)
+
+	cellForRowAtIndexPath:(i)->
+		cell = new JSTableViewCell()
+		###
+		Please describe user processing below from here. 
+		###
+		return cell
+		
+	didSelectRowAtIndexPath:(i)->
+		###
+		Please describe user processing below from here. 
+		###

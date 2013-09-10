@@ -1,4 +1,4 @@
-class [{$classname}] extends JSTableView
+class [{$classname}] extends JSTableViewCell
 	constructor:(frame)->
 		super(frame)
 		###
