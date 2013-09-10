@@ -42,6 +42,6 @@ class JSTableViewCell extends JSView
 		@_textlabel = new JSLabel(JSRectMake(sidesize, 0, @_frame.size.width - sidesize - 8, @_frame.size.height))
 		@_textlabel.setBackgroundColor(JSColor("clearColor"))
 		@_textlabel.setTextAlignment("JSTextAlignmentLeft")
-		@_textlabel.setTextSize(14)
+		@_textlabel.setTextSize(12)
 		@_textlabel.setText(@_text)
 		@_self.addSubview(@_textlabel)

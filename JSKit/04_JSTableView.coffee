@@ -8,7 +8,7 @@ class JSTableView extends JSScrollView
 		if (!frame?)
 			frame = getBounds()
 		super(frame)
-		@_rowHeight = 64
+		@_rowHeight = 32
 		@_clipToBounds = true
 		@_bgColor = JSColor("white")
 		@_scroll = true
@@ -41,6 +41,7 @@ class JSTableView extends JSScrollView
 		# 各セルの内容を返すデリゲートメソッドを呼ぶ
 		diff_y = 0
 		for i in [0...@_dataNum]
+			JSLog("i=%@", i)
 			cell = @dataSource.cellForRowAtIndexPath(i)
 			cell._cellnum = i
 			cell.delegate = @delegate
