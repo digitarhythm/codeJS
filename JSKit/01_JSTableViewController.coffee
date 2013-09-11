@@ -8,11 +8,6 @@ class JSTableViewController extends JSObject
 		super()
 		@_tableViewStyle = "UITableViewStylePlain"
 		@_bgColor = JSColor("white")
-		@_titlebarColor = JSColor("#d0d8e0")
-		@_title = ""
-		@_dataNum = 0
-		@_sectionNum = 1
-		@_clipToBounds = true
 		@_tableView = new JSTableView()
 		
 		@_tableView.delegate = @_self

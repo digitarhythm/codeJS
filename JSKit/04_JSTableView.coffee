@@ -12,13 +12,15 @@ class JSTableView extends JSScrollView
 		@_clipToBounds = true
 		@_bgColor = JSColor("white")
 		@_scroll = true
+		@_titlebarColor = JSColor("#d0d8e0")
+		@_title = ""
+		
 		@delegate = null
 		@dataSource = null
 		
 	setRowHeight:(@_rowHeight)->
 		
-	viewDidAppear:->
-		super()
+	addTableView:->
 		bounds = getBounds()
 
 		# 各セクションに含まれるデータの数を取得する（デリゲートメソッドが無い場合はデータの数は初期値（0））
@@ -33,8 +35,9 @@ class JSTableView extends JSScrollView
 		else
 			@_sectionNum = 1
 			
-		@_tableView = new JSView(JSRectMake(0, 0, bounds.size.width, @_rowHeight * @_dataNum))
-		@_tableView.setBackgroundColor(JSColor("blue"))
+		if (!@_tableView?)
+			@_tableView = new JSView()
+		@_tableView.setFrame(JSRectMake(0, 0, bounds.size.width, @_rowHeight * @_dataNum))
 
 		dispNum = parseInt(bounds.size.height / @_rowHeight)
 			
@@ -57,3 +60,10 @@ class JSTableView extends JSScrollView
 			@_self.addSubview(cell)
 			diff_y += cellHeight+1
 		@_parent.bringSubviewToFront(@_self)
+
+	reloadData:->
+		@addTableView()
+
+	viewDidAppear:->
+		super()
+		@addTableView()
