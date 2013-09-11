@@ -41,7 +41,6 @@ class JSTableView extends JSScrollView
 		# 各セルの内容を返すデリゲートメソッドを呼ぶ
 		diff_y = 0
 		for i in [0...@_dataNum]
-			JSLog("i=%@", i)
 			cell = @dataSource.cellForRowAtIndexPath(i)
 			cell._cellnum = i
 			cell.delegate = @delegate
