@@ -67,6 +67,6 @@ class JSTableViewCell extends JSView
 		@setTextColor(@_textColor)
 		@setTextAlignment(@_textAlignment)
 		@setImage(@_image)
-		@addTapGesture =>
+		$(@_viewSelector).on 'tap', (event)=>
 			if (typeof @delegate.didSelectRowAtIndexPath == 'function')
-				@delegate.didSelectRowAtIndexPath(@_cellnum)
+				@delegate.didSelectRowAtIndexPath(@_cellnum, event)

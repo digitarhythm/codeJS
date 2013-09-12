@@ -13,10 +13,13 @@ class JSTableView extends JSScrollView
 		@_bgColor = JSColor("white")
 		@_scroll = true
 		@_titlebarColor = JSColor("#d0d8e0")
-		@_title = ""
+		@_titleColor = JSColor("black")
+		@_title = "Title Bar"
 		
+		@_tableView = undefined
 		@delegate = null
 		@dataSource = null
+		@titleBar = undefined
 		
 	setRowHeight:(@_rowHeight)->
 		
@@ -35,14 +38,13 @@ class JSTableView extends JSScrollView
 		else
 			@_sectionNum = 1
 			
-		if (!@_tableView?)
-			@_tableView = new JSView()
-		@_tableView.setFrame(JSRectMake(0, 0, bounds.size.width, @_rowHeight * @_dataNum))
+		@_tableView.setFrame(getBounds())
+		@_tableView.setScroll(true)
 
 		dispNum = parseInt(bounds.size.height / @_rowHeight)
 			
 		# 各セルの内容を返すデリゲートメソッドを呼ぶ
-		diff_y = 0
+		diff_y = 24
 		for i in [0...@_dataNum]
 			cell = @dataSource.cellForRowAtIndexPath(i)
 			cell._cellnum = i
@@ -53,17 +55,42 @@ class JSTableView extends JSScrollView
 				cellHeight = @delegate.heightForRowAtIndexPath(i)
 			else
 				cellHeight = @_rowHeight
-
+			
 			frm = JSRectMake(0, diff_y, cell._frame.size.width, cellHeight)
 
 			cell.setFrame(frm)
-			@_self.addSubview(cell)
+			@_tableView.addSubview(cell)
 			diff_y += cellHeight+1
 		@_parent.bringSubviewToFront(@_self)
+		
+	setTitleTextColor:(@_titleColor)->
+		if (@titlebar?)
+			@setTitleBar()
+		
+	setTitleText:(@_title)->
+		if (@titlebar?)
+			@setTitleBar()
+		
+	setTitleBar:->
+		@titleBar.setText(@_title)
+		@titleBar.setTextAlignment("JSTextAlignmentLeft")
+		@titleBar.setTextSize(11)
+		@titleBar.setBackgroundColor(@_titlebarColor)
+		@titleBar.setTextColor(@_titleColor)
 
 	reloadData:->
 		@addTableView()
 
 	viewDidAppear:->
 		super()
+		JSLog("tableView=%@, titlebar=%@", @_tableView, @titlebar)
+		if (!@_tableView?)
+			@_tableView = new JSScrollView()
+			@_self.addSubview(@_tableView)
+		if (!@titleBar?)
+			bounds = getBounds()
+			@titleBar = new JSLabel(JSRectMake(0, 0, bounds.size.width, 24))
+			@titleBar.setAlpha(0.9)
+			@_self.addSubview(@titleBar)
 		@addTableView()
+		@setTitleBar()
