@@ -20,6 +20,7 @@ class JSTableView extends JSScrollView
 		@delegate = null
 		@dataSource = null
 		@titleBar = undefined
+		@childlist = []
 		
 	setRowHeight:(@_rowHeight)->
 		
@@ -49,6 +50,7 @@ class JSTableView extends JSScrollView
 			cell = @dataSource.cellForRowAtIndexPath(i)
 			cell._cellnum = i
 			cell.delegate = @delegate
+			@childlist.push(cell)
 
 			# 各セルの高さを取得して設定する
 			if (typeof @delegate.heightForRowAtIndexPath == 'function')
@@ -79,6 +81,8 @@ class JSTableView extends JSScrollView
 		@titleBar.setTextColor(@_titleColor)
 
 	reloadData:->
+		for obj in @childlist
+			obj.removeFromSuperview()
 		@addTableView()
 
 	viewDidAppear:->
