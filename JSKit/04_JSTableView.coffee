@@ -44,7 +44,7 @@ class JSTableView extends JSScrollView
 		dispNum = parseInt(bounds.size.height / @_rowHeight)
 			
 		# 各セルの内容を返すデリゲートメソッドを呼ぶ
-		diff_y = 24
+		diff_y = 32
 		for i in [0...@_dataNum]
 			cell = @dataSource.cellForRowAtIndexPath(i)
 			cell._cellnum = i
@@ -83,13 +83,12 @@ class JSTableView extends JSScrollView
 
 	viewDidAppear:->
 		super()
-		JSLog("tableView=%@, titlebar=%@", @_tableView, @titlebar)
 		if (!@_tableView?)
 			@_tableView = new JSScrollView()
 			@_self.addSubview(@_tableView)
 		if (!@titleBar?)
 			bounds = getBounds()
-			@titleBar = new JSLabel(JSRectMake(0, 0, bounds.size.width, 24))
+			@titleBar = new JSLabel(JSRectMake(0, 0, bounds.size.width, 32))
 			@titleBar.setAlpha(0.9)
 			@_self.addSubview(@titleBar)
 		@addTableView()
