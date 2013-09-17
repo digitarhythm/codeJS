@@ -233,7 +233,7 @@ function thumbnailList($path)
 	$extarray = array("png", "jpg", "jpeg", "gif");
 	while ($fname = readdir($dir)) {
 		$target = "$_HOMEDIR_/$path/$fname";
-		if (is_dir($target) == false) {
+		if (is_dir($target) == false && !preg_match("/^\..*/", $fname)) {
 			$ext = pathinfo($fname, PATHINFO_EXTENSION);
 			$file = pathinfo($fname, PATHINFO_FILENAME);
 			if (in_array($ext, $extarray) == true && is_file($thumbdir."/".$file."_s.".$ext) == true) {

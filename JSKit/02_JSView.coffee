@@ -253,12 +253,14 @@ class JSView extends JSResponder
 		if (tapnum == 1)
 			$(@_viewSelector).on 'tap', (e)=>
 				if (@_tapAction? && @_userInteractionEnabled == true && @_alpha > 0.0 && @_hidden == false)
-					@_tapAction(@_self, event)
+					@_tapAction(@_self, e)
+					e.stopPropagation()
 					
 		if (tapnum == 2)
 			$(@_viewSelector).on 'doubletap', (e)=>
 				if (@_tapAction2? && @_userInteractionEnabled == true && @_alpha > 0.0 && @_hidden == false)
-					@_tapAction2(@_self, event)
+					@_tapAction2(@_self, e)
+					e.stopPropagation()
 				
 	animateWithDuration:(duration, animations, completion = null)=>
 		duration *= 1000

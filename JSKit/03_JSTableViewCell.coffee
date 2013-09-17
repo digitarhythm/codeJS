@@ -46,7 +46,6 @@ class JSTableViewCell extends JSView
 			$(@_viewSelector+"_image").remove()
 		sidesize = @_frame.size.height
 		$(@_viewSelector+"_cell").append("<img id='"+@_objectID+"_image' border='0' src='"+@_image._imagepath+"' style='position:absolute;left:0px;top:0px;width:"+sidesize+"px;height:"+sidesize+"px;'>")
-		JSLog("img=%@", @_image._imagepath)
 
 	setFrame:(frame)->
 		super(frame)
