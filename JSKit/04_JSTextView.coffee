@@ -86,7 +86,7 @@ class JSTextView extends JSScrollView
 			
 		else # 編集不可モード
 			
-			@setUserInteractionEnabled(false)
+			#@setUserInteractionEnabled(false)
 			if (@_editable == true) # モード変更前が編集可能モード
 				@_text = $(@_viewSelector+"_textarea").val()
 				text = JSEscape(@_text)
