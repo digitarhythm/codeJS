@@ -15,18 +15,26 @@ class JSTableView extends JSScrollView
 		@_titlebarColor = JSColor("#d0d8e0")
 		@_titleColor = JSColor("black")
 		@_title = "Title Bar"
-		
+		@_titleBar = undefined
 		@_tableView = undefined
+		
 		@delegate = null
 		@dataSource = null
-		@titleBar = undefined
 		@childlist = []
+		
+		@bounds = getBounds()
+		
+		if (!@_titleBar?)
+			@_titleBar = new JSLabel(JSRectMake(0, 0, @bounds.size.width, 32))
+			@_titleBar.setText(@_title)
+			@_titleBar.setTextAlignment("JSTextAlignmentLeft")
+			@_titleBar.setTextSize(11)
+			@_titleBar.setBackgroundColor(@_titlebarColor)
+			@_titleBar.setTextColor(@_titleColor)
 		
 	setRowHeight:(@_rowHeight)->
 		
 	addTableView:->
-		bounds = getBounds()
-
 		# 各セクションに含まれるデータの数を取得する（デリゲートメソッドが無い場合はデータの数は初期値（0））
 		if (typeof @dataSource.numberOfRowsInSection == 'function')
 			@_dataNum = @dataSource.numberOfRowsInSection()
@@ -42,7 +50,7 @@ class JSTableView extends JSScrollView
 		@_tableView.setFrame(getBounds())
 		@_tableView.setScroll(true)
 
-		dispNum = parseInt(bounds.size.height / @_rowHeight)
+		dispNum = parseInt(@bounds.size.height / @_rowHeight)
 			
 		# 各セルの内容を返すデリゲートメソッドを呼ぶ
 		diff_y = 32
@@ -65,21 +73,6 @@ class JSTableView extends JSScrollView
 			diff_y += cellHeight+1
 		@_parent.bringSubviewToFront(@_self)
 		
-	setTitleTextColor:(@_titleColor)->
-		if (@titlebar?)
-			@setTitleBar()
-		
-	setTitleText:(@_title)->
-		if (@titlebar?)
-			@setTitleBar()
-		
-	setTitleBar:->
-		@titleBar.setText(@_title)
-		@titleBar.setTextAlignment("JSTextAlignmentLeft")
-		@titleBar.setTextSize(11)
-		@titleBar.setBackgroundColor(@_titlebarColor)
-		@titleBar.setTextColor(@_titleColor)
-
 	reloadData:->
 		for obj in @childlist
 			obj.removeFromSuperview()
@@ -90,10 +83,8 @@ class JSTableView extends JSScrollView
 		if (!@_tableView?)
 			@_tableView = new JSScrollView()
 			@_self.addSubview(@_tableView)
-		if (!@titleBar?)
-			bounds = getBounds()
-			@titleBar = new JSLabel(JSRectMake(0, 0, bounds.size.width, 32))
-			@titleBar.setAlpha(0.9)
-			@_self.addSubview(@titleBar)
+		if (!@_titleBar?)
+			@_titleBar = new JSLabel(JSRectMake(0, 0, @bounds.size.width, 32))
+		@_titleBar.setAlpha(0.9)
+		@_self.addSubview(@_titleBar)
 		@addTableView()
-		@setTitleBar()
