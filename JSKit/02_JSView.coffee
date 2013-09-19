@@ -351,7 +351,7 @@ class JSView extends JSResponder
 					event.preventDefault()
 				@touched = true
 				if (typeof @touchesBegan == 'function')
-					if (@_isTouch == true)
+					if (@_isTouch == true && event.changedTouches != undefined)
 						e = event.changedTouches[0]
 					else
 						e = event
@@ -361,7 +361,7 @@ class JSView extends JSResponder
 					event.preventDefault()
 				if (@touched)
 					if (typeof @touchesMoved == 'function')
-						if (@_isTouch == true)
+						if (@_isTouch == true && event.changedTouches != undefined)
 							e = event.changedTouches[0]
 						else
 							e = event
@@ -371,7 +371,7 @@ class JSView extends JSResponder
 					event.preventDefault()
 				@touched = false
 				if (typeof @touchesEnded == 'function')
-					if (@_isTouch == true)
+					if (@_isTouch == true && event.changedTouches != undefined)
 						e = event.changedTouches[0]
 					else
 						e = event
@@ -381,7 +381,7 @@ class JSView extends JSResponder
 					event.preventDefault()
 				@touched = false
 				if (typeof @touchesCancelled == 'function')
-					if (@_isTouch == true)
+					if (@_isTouch == true && event.changedTouches != undefined)
 						e = event.changedTouches[0]
 					else
 						e = event
