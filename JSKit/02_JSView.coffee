@@ -379,4 +379,12 @@ class JSView extends JSResponder
 						e = event
 					@touchesEnded(e)
 			'touchcancel':=>
-				alert('cancel')
+				if (@_editable == false)
+					event.preventDefault()
+				@touched = false
+				if (typeof @touchesCancelled == 'function')
+					if (isTouch)
+						e = event.changedTouches[0]
+					else
+						e = event
+					@touchesCancelled(e)
