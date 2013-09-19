@@ -24,6 +24,7 @@ class JSView extends JSResponder
 		@_userInteractionEnabled = true
 		@_axis = false
 		@_touched = false
+		@_isTouch = ('ontouchstart' of window)
 
 	addSubview: (object) ->
 		if (!object?)
@@ -343,7 +344,6 @@ class JSView extends JSResponder
 				if (!$(o._viewSelector).length)
 					$(@_viewSelector).append(o._div)
 					o.viewDidAppear()
-					isTouch = ('ontouchstart' in window)
 						
 		$(@_viewSelector).bind
 			'touchstart mousedown':=>
@@ -351,8 +351,7 @@ class JSView extends JSResponder
 					event.preventDefault()
 				@touched = true
 				if (typeof @touchesBegan == 'function')
-					if (isTouch)
-						#e = event.originalEvent.touches[0]
+					if (@_isTouch == true)
 						e = event.changedTouches[0]
 					else
 						e = event
@@ -362,8 +361,7 @@ class JSView extends JSResponder
 					event.preventDefault()
 				if (@touched)
 					if (typeof @touchesMoved == 'function')
-						if (isTouch)
-							#e = event.originalEvent.touches[0]
+						if (@_isTouch == true)
 							e = event.changedTouches[0]
 						else
 							e = event
@@ -373,7 +371,7 @@ class JSView extends JSResponder
 					event.preventDefault()
 				@touched = false
 				if (typeof @touchesEnded == 'function')
-					if (isTouch)
+					if (@_isTouch == true)
 						e = event.changedTouches[0]
 					else
 						e = event
@@ -383,7 +381,7 @@ class JSView extends JSResponder
 					event.preventDefault()
 				@touched = false
 				if (typeof @touchesCancelled == 'function')
-					if (isTouch)
+					if (@_isTouch == true)
 						e = event.changedTouches[0]
 					else
 						e = event
