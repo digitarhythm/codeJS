@@ -7,7 +7,7 @@ code:JS Japanese document(It is the middle of writing)
 http://www.prominence.tv/codejsdoc/
 
 code:JS DEMO & Support site.
-http://www.prominence.tv/
+http://www.prominence.tv/codejsdemo/
 
 Special Thanks:
 jQuery               : http://jquery.com
