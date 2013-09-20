@@ -111,19 +111,6 @@ class JSView extends JSResponder
 					axis: @_axis
 					opacity:@_dragopacity
 					disabled: false
-					#start:(event, ui)=>
-					#	if (typeof @touchesBegan == "function")
-					#		@touchesBegan(event)
-					#drag:(event, ui) =>
-					#	frame = @_self._frame
-					#	frame.origin.x = $(@_viewSelector).css("left")
-					#	frame.origin.y = $(@_viewSelector).css("top")
-					#	@_self.setFrame(frame)
-					#	if (typeof @touchesMoved == "function")
-					#		@touchesMoved(event)
-					#stop:(event, ui)=>
-					#	if (typeof @touchesEnded == "function")
-					#		@touchesEnded(event)
 			else
 				$(@_viewSelector).draggable({opacity:@_dragopacity, disabled: false})
 				$(@_viewSelector).draggable("destroy")
@@ -131,21 +118,6 @@ class JSView extends JSResponder
 					opacity:@_dragopacity
 					axis: @_axis
 					disabled: false
-					#start:(event, ui)=>
-					#	if (typeof @touchesBegan == "function")
-					#		@touchesBegan(event)
-					#
-					#stop:(event, ui)=>
-					#	if (typeof @touchesEnded == "function")
-					#		@touchesEnded(event)
-					#
-					#drag: (event, ui) =>
-					#	frame = @_self._frame
-					#	frame.origin.x = $(@_viewSelector).css("left")
-					#	frame.origin.y = $(@_viewSelector).css("top")
-					#	@_self.setFrame(frame)
-					#	if (typeof @touchesMoved == "function")
-					#		@touchesMoved(event)
 		else
 			$(@_viewSelector).css("cursor", "auto")
 			$(@_viewSelector).draggable({disabled: true})

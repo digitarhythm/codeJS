@@ -11,7 +11,6 @@ class JSTableViewCell extends JSView
 		super(frame)
 		@_image = null
 		@_imageview = null
-		@_textlabel = null
 		@_text = ""
 		@_textColor = JSColor("black")
 		@_textAlignment = "JSTextAlignmentLeft"
@@ -40,6 +39,8 @@ class JSTableViewCell extends JSView
 				$(@_viewSelector+"_text").css("text-align", "right")
 	
 	setImage:(@_image)->
+		if (!$(@_viewSelector+"_cell").length)
+			return
 		if (!@_image?)
 			return
 		if ($(@_viewSelector+"_image").length)

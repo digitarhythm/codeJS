@@ -12,11 +12,3 @@ class JSTableViewController extends JSObject
 		
 		@_tableView.delegate = @_self
 		@_tableView.dataSource = @_self
-		
-	numberOfRowsInSection:->
-		return 0
-
-	cellForRowAtIndexPath:(i)->
-		cell = new JSTableViewCell()
-		return cell
-	
