@@ -24,7 +24,7 @@ class JSView extends JSResponder
 		@_userInteractionEnabled = true
 		@_axis = false
 		@_touched = false
-		@_isTouch = ('ontouchstart' of window)
+		#@_isTouch = ('ontouchstart' of window)
 
 	addSubview: (object) ->
 		if (!object?)
@@ -323,7 +323,7 @@ class JSView extends JSResponder
 					event.preventDefault()
 				@touched = true
 				if (typeof @touchesBegan == 'function')
-					if (@_isTouch == true && event.changedTouches != undefined)
+					if (isTouch() == true && event.changedTouches != undefined)
 						e = event.changedTouches[0]
 					else
 						e = event
@@ -333,7 +333,7 @@ class JSView extends JSResponder
 					event.preventDefault()
 				if (@touched)
 					if (typeof @touchesMoved == 'function')
-						if (@_isTouch == true && event.changedTouches != undefined)
+						if (isTouch() == true && event.changedTouches != undefined)
 							e = event.changedTouches[0]
 						else
 							e = event
@@ -343,7 +343,7 @@ class JSView extends JSResponder
 					event.preventDefault()
 				@touched = false
 				if (typeof @touchesEnded == 'function')
-					if (@_isTouch == true && event.changedTouches != undefined)
+					if (isTouch() == true && event.changedTouches != undefined)
 						e = event.changedTouches[0]
 					else
 						e = event
@@ -353,7 +353,7 @@ class JSView extends JSResponder
 					event.preventDefault()
 				@touched = false
 				if (typeof @touchesCancelled == 'function')
-					if (@_isTouch == true && event.changedTouches != undefined)
+					if (isTouch() == true && event.changedTouches != undefined)
 						e = event.changedTouches[0]
 					else
 						e = event
