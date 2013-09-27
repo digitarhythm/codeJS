@@ -28,3 +28,4 @@ $ ->
 		for o in @rootView._objlist
 			o.didBrowserResize()
 	
+	window.cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame

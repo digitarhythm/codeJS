@@ -9,6 +9,15 @@
 	set_include_path(get_include_path().PATH_SEPARATOR.$_HOMEDIR_."/syslibs");
 	require_once("main.php");
 	
+	$framework = array();
+	$confpath = "$_HOMEDIR_/configs/system.ini";
+	$systemini = parse_ini_file($confpath, true);
+	if (isset($systemini['FRAMEWORKS'])) {
+		$includelist = $systemini['FRAMEWORKS'];
+		foreach ($includelist as $package) {
+			$framework[] = $package;
+		}
+	}
 ?>
 	<!DOCTYPE html>
 	<html>
@@ -30,10 +39,17 @@
 		<script type="text/javascript" charset="UTF-8" src="syslibs/three.min.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="syslibs/library.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="syslibs/JSKit.js"></script>
-		<script type="text/javascript" charset="UTF-8" src="usrlibs/applicationMain.js"></script>
-		<script type="text/javascript" charset="UTF-8" src="syslibs/main.js"></script>
 <?php
-		$link_arr = array();	
+		foreach ($framework as $package) {
+			$f = "syslibs/frameworks/$package.framework.js";
+			clearstatcache();
+			if (file_exists($_HOMEDIR_."/".$f) == true) {
+?>				<script type="text/javascript" charset="UTF-8" src="<?php echo $f ?>"></script>
+<?php		}
+		}
+?>		<script type="text/javascript" charset="UTF-8" src="usrlibs/applicationMain.js"></script>
+		<script type="text/javascript" charset="UTF-8" src="syslibs/main.js"></script>
+<?php	$link_arr = array();	
 		$ext = "js";
 		$search_dir = "usrlibs";
 		$dir = opendir($_HOMEDIR_."/".$search_dir);

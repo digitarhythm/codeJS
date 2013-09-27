@@ -13,14 +13,16 @@ $system_ini = parse_ini_file($projdir."/configs/system.ini", true);
 $environ = $system_ini["ENVIRON"];
 $csslist = $system_ini["JQUERYUI-CSS"];
 
-$smartypath = $environ["smartypath"];
-$homedir = realpath(".").$projname;
-$p_syslibs = $projdir."/syslibs";
-$p_extjslibs = $projdir."/extlibs";
-$h_syslibs = $homedir."/syslibs";
-$p_jskit = $projdir."/JSKit";
+$smartypath   = $environ["smartypath"];
+$homedir      = realpath(".").$projname;
+$p_syslibs    = $projdir."/syslibs";
+$p_extjslibs  = $projdir."/extlibs";
+$p_jskit      = $projdir."/JSKit";
+$p_framework  = $p_jskit."/frameworks";
 $p_sysphplibs = $projdir."/phplibs";
-$h_usrlibs = realpath($homedir."/usrlibs");
+$h_syslibs    = $homedir."/syslibs";
+$h_usrlibs    = realpath($homedir."/usrlibs");
+$h_framework  = realpath("$h_syslibs/frameworks");
 
 $user_ini = parse_ini_file($homedir."/configs/system.ini", true);
 $usrenviron = $user_ini["ENVIRON"];
@@ -54,15 +56,28 @@ $path = $p_jskit;
 $dir = opendir($path);
 $file_arr = array();
 while ($fname = readdir($dir)) {
+	// もし、検索してきたものが「ディレクトリ」「ドットで始まっている」「数字で始まっていない」のどれかだったら対象外
 	if (is_dir("$path/$fname") == true || preg_match("/^\./", $fname) == true || preg_match("/^\d/", $fname) == false) {
 		continue;
 	}
+	
+	// CoffeeScriptでコンパイルするファイル一覧配列ソースファイルのパスを登録する
 	$file_arr[] = "$path/$fname";
 }
 sort($file_arr);
 $compile = implode(" ", $file_arr);
 system("coffee -j JSKit.js -b -o ".$h_syslibs." -c ".$compile);
 system("coffee -b -o ".$h_syslibs." -c ".$p_syslibs);
+
+// compile Framework
+$path = $p_framework;
+$dir = opendir($path);
+while ($dirname = readdir($dir)) {
+	// もし、検索してきたものが「ディレクトリ」、且つ「ドットで始まっていない」、且つ「*.framework」という名前だったらフレームワークとしてコンパイル
+	if (is_dir("$path/$dirname") == true && preg_match("/^\./", $dirname) == false && preg_match("/.*\.framework/", $dirname) == true) {
+		system("coffee -j $dirname.js -b -o $h_framework -c $path/$dirname");
+	}
+}
 
 // copy js file
 $srcdir = $p_extjslibs;

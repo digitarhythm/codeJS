@@ -36,6 +36,7 @@ array_push($createdir_arr, $homedir."/appscode");
 array_push($createdir_arr, $homedir."/usrlibs");
 array_push($createdir_arr, $homedir."/syslibs");
 array_push($createdir_arr, $homedir."/syslibs/Picture");
+array_push($createdir_arr, $homedir."/syslibs/frameworks");
 array_push($createdir_arr, $homedir."/templates");
 array_push($createdir_arr, $homedir."/templates_c");
 array_push($createdir_arr, $homedir."/cache");
@@ -72,6 +73,8 @@ $fp = fopen($homedir."/configs/system.ini", "w");
 fputs($fp, "[ENVIRON]\n");
 fputs($fp, "smartypath=\"".$smartypath."\"\n");
 fputs($fp, "jqueryui-theme=\"codejs-default\"\n");
+fputs($fp, "\n");
+fputs($fp, "[FRAMEWORKS]\n");
 fclose($fp);
 
 // copy user script(coffee-script)

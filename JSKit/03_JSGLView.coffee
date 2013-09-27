@@ -21,6 +21,8 @@ class JSGLView extends JSView
 		@_lightdir_z = 0.577
 		@_ambientLightColor = 0x404040
 		
+		@delegate = @_self
+		
 		# init rendere
 		@_renderer = new THREE.WebGLRenderer({ antialias:@_antialias })
 		@_renderer.setSize(frame.size.width, frame.size.height)
@@ -49,7 +51,7 @@ class JSGLView extends JSView
 	
 	render_sub:=>
 		requestAnimationFrame(@render_sub);
-		@enterFrame()
+		@delegate.enterFrame()
 		@_renderer.render(@_scene, @_camera);
 
 	viewDidAppear:->

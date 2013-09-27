@@ -24,7 +24,6 @@ class JSView extends JSResponder
 		@_userInteractionEnabled = true
 		@_axis = false
 		@_touched = false
-		#@_isTouch = ('ontouchstart' of window)
 
 	addSubview: (object) ->
 		if (!object?)

@@ -1,0 +1,11 @@
+class [{$classname}] extends JSLocationManager
+	constructor:-> 
+		super()
+		###
+		Please describe initialization processing of a class below from here. 
+		###
+
+	didUpdateToLocation:(oldcoord, newcoord)->
+		###
+		Please describe initialization processing of a class below from here. 
+		###
