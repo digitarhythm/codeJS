@@ -26,6 +26,15 @@ $ ->
 		if (typeof @applicationMain.didBrowserResize == "function")
 			@applicationMain.didBrowserResize()
 		for o in @rootView._objlist
-			o.didBrowserResize()
+			if (typeof o.didBrowserResize == "function")
+				o.didBrowserResize()
+	
+	$(window).bind 'orientationchange', =>
+		angle = Math.abs(window.orientation)
+		if (typeof @applicationMain.didBrowserRotate == "function")
+			@applicationMain.didBrowserRotate(angle)
+		for o in @rootView._objlist
+			if (typeof o.didBrowserRotate == "function")
+				o.didBrowserRotate(angle)
 	
 	window.cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame

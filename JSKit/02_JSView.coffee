@@ -301,13 +301,14 @@ class JSView extends JSResponder
 		@setShadow(@_shadow)
 		@setDraggable(@_draggable, @_axis, @_dragopacity)
 		@setResizable(@_resizable, @_resizeAction, @_resizeopacity)
+		
 		@removeTapGesture(1)
 		@removeTapGesture(2)
 		if (@_tapAction?)
 			@addTapGesture(@_tapAction)
 		if (@_tapAction2?)
 			@addTapGesture(@_tapAction2, 2)
-
+		
 		if (@_objlist.length > 0)
 			for i in [0...objectNum(@_objlist)]
 				o = @_objlist[i]
