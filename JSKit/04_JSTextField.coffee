@@ -122,7 +122,7 @@ class JSTextField extends JSControl
 		
 		$(@_viewSelector+"_text").width(@_frame.size.width)
 		$(@_viewSelector+"_text").height(@_frame.size.height)
-
+		
 	setDidKeyPressEvent:(@action)->
 
 	setFocus:(@_focus)->
@@ -138,8 +138,9 @@ class JSTextField extends JSControl
 		@setEditable(@_editable)
 		$(@_viewSelector).css("vertical-align", "middle")
 		$(@_viewSelector+"_text").width(@_frame.size.width)
-		#$(@_viewSelector+"_text").css("line-height",@_frame.size.height+"px")
 		@setTextSize(@_textSize)
 		@setTextColor(@_textColor)
 		@setTextAlignment(@_textAlignment)
+		$(@_viewSelector).css("overflow", "")
+
 

@@ -74,10 +74,10 @@ class JSView extends JSResponder
 
 	setClipToBounds: (@_clipToBounds) ->
 		if ($(@_viewSelector).length)
-			if (@_clipToBounds == false)
-				$(@_viewSelector).css("overflow", "visible")
-			else
+			if (@_clipToBounds == true)
 				$(@_viewSelector).css("overflow", "hidden")
+			else
+				$(@_viewSelector).css("overflow", "")
 				
 	setUserInteractionEnabled:(@_userInteractionEnabled)->
 		if (@_userInteractionEnabled == true)
@@ -299,7 +299,6 @@ class JSView extends JSResponder
 		@setBorderColor(@_borderColor)
 		@setBorderWidth(@_borderWidth)
 		@setShadow(@_shadow)
-		@setClipToBounds(@_clipToBounds)
 		@setDraggable(@_draggable, @_axis, @_dragopacity)
 		@setResizable(@_resizable, @_resizeAction, @_resizeopacity)
 		@removeTapGesture(1)
