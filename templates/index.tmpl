@@ -9,6 +9,12 @@
 	set_include_path(get_include_path().PATH_SEPARATOR.$_HOMEDIR_."/syslibs");
 	require_once("main.php");
 	
+	if (file_exists($_HOMEDIR_."/Media/Picture/touch-icon.png")) {
+		$touchicon = "<link rel='apple-touch-icon' href='Media/Picture/touch-icon.png'>";
+	} else {
+		$touchicon = "";
+	}
+	
 	$framework = array();
 	$confpath = "$_HOMEDIR_/configs/system.ini";
 	$systemini = parse_ini_file($confpath, true);
@@ -27,7 +33,10 @@
 		<meta name="format-detection" content="telephone=no" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-		<link rel="apple-touch-startup-image" href="Media/Picture/webapplicationstartup.png">
+<?		if ($touchicon != "") {
+			echo $touchicon;
+}
+?>		<link rel="apple-touch-startup-image" href="Media/Picture/webapplicationstartup.png">
 		<link rel="stylesheet" href="[{$jqueryuicss}]" />
 		<script type="text/javascript" charset="UTF-8" src="syslibs/jquery-2.0.3.min.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="syslibs/jquery.finger.js"></script>
