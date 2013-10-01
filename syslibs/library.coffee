@@ -119,3 +119,8 @@ objectNum = (obj)->
 
 isTouch =->
 	return ('ontouchstart' of window)
+
+#//////////////////////////////////////////////////////////////////////////////////////////
+
+isAndroid =->
+	return navigator.userAgent.indexOf('Android') != -1
