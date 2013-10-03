@@ -18,12 +18,13 @@ class JSView extends JSResponder
 		@_resizable = false
 		@_containment = false
 		@_div = "<div id=\"" + @_objectID + "\" style='position:absolute;z-index:1;'><!--null--></div>"
+		@_ignoreDraggable = []
 		@_objlist = new Array()
-		@_hidden = false
 		@_shadow = false
 		@_userInteractionEnabled = true
 		@_axis = false
 		@_touched = false
+		@_hidden = false
 
 	addSubview: (object) ->
 		if (!object?)
@@ -92,7 +93,11 @@ class JSView extends JSResponder
 		else
 			$(@_viewSelector).unbind("click")
 			$(@_viewSelector).unbind("dblclick")
-			
+
+	disableDragObject:(object)->
+		if ($(@_viewSelector).length)
+			$(@_viewSelector).draggable('option', 'cancel', object._viewSelector)
+	
 	setDraggable: (@_draggable, @_axis = false, @_dragopacity = 0.5) ->
 		if (@_parent?)
 			containment = @_parent._containment
@@ -108,10 +113,11 @@ class JSView extends JSResponder
 				$(@_viewSelector).draggable
 					containment:"parent"
 					axis: @_axis
-					opacity:@_dragopacity
+					opacity: @_dragopacity
 					disabled: false
 			else
-				$(@_viewSelector).draggable({opacity:@_dragopacity, disabled: false})
+				$(@_viewSelector).draggable
+					disabled: false
 				$(@_viewSelector).draggable("destroy")
 				$(@_viewSelector).draggable
 					opacity:@_dragopacity
@@ -120,7 +126,7 @@ class JSView extends JSResponder
 		else
 			$(@_viewSelector).css("cursor", "auto")
 			$(@_viewSelector).draggable({disabled: true})
-			
+
 	setResizable: (@_resizable, @_resizeAction = null, @_resizeopacity = 0.5, minWidth = 0, minHeight = 0, maxWidth = 16777216, maxHeight = 16777216) ->
 		if (@_parent?)
 			containment = @_parent._containment
@@ -215,8 +221,10 @@ class JSView extends JSResponder
 	addTapGesture:(tapAction, tapnum = 1)=>
 		if (tapnum == 1)
 			@_tapAction = tapAction
-		if (tapnum == 2)
+		else if (tapnum == 2)
 			@_tapAction2 = tapAction
+		else
+			return
 			
 		if (!$(@_viewSelector).length)
 			return

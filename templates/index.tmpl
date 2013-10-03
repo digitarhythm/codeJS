@@ -15,14 +15,23 @@
 		$touchicon = "";
 	}
 	
-	$framework = array();
+	// システム定数を読み込む
 	$confpath = "$_HOMEDIR_/configs/system.ini";
 	$systemini = parse_ini_file($confpath, true);
+
+	$framework = array();
 	if (isset($systemini['FRAMEWORKS'])) {
 		$includelist = $systemini['FRAMEWORKS'];
 		foreach ($includelist as $package) {
 			$framework[] = $package;
 		}
+	}
+
+	if (isset($systemini['APIKEY']['GOOGLEMAPS_V3'])) {
+		$googlemaps_v3_apikey = $systemini['APIKEY']['GOOGLEMAPS_V3'];
+		$googlemaps_v3_tag = "<script type='text/javascript' src='http://maps.googleapis.com/maps/api/js?key=$googlemaps_v3_apikey&sensor=true'></script>";
+	} else {
+		$googlemapstag = "";
 	}
 ?>
 	<!DOCTYPE html>
@@ -33,11 +42,17 @@
 		<meta name="format-detection" content="telephone=no" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<?		if ($touchicon != "") {
+<?php
+		if ($touchicon != "") {
 			echo $touchicon;
-}
+		}
 ?>
 		<link rel="stylesheet" href="[{$jqueryuicss}]" />
+<?php
+		if ($googlemaps_v3_tag != "") {
+			echo $googlemaps_v3_tag;
+		}
+?>
 		<script type="text/javascript" charset="UTF-8" src="syslibs/jquery-2.0.3.min.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="syslibs/jquery.finger.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="syslibs/jquery.cookie.js"></script>
@@ -53,12 +68,14 @@
 			$f = "syslibs/frameworks/$package.framework.js";
 			clearstatcache();
 			if (file_exists($_HOMEDIR_."/".$f) == true) {
-?>				<script type="text/javascript" charset="UTF-8" src="<?php echo $f ?>"></script>
-<?php		}
+?>			<script type="text/javascript" charset="UTF-8" src="<?php echo $f ?>"></script>
+<?php
+			}
 		}
 ?>		<script type="text/javascript" charset="UTF-8" src="usrlibs/applicationMain.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="syslibs/main.js"></script>
-<?php	$link_arr = array();	
+<?php
+		$link_arr = array();	
 		$ext = "js";
 		$search_dir = "usrlibs";
 		$dir = opendir($_HOMEDIR_."/".$search_dir);
@@ -77,7 +94,8 @@
 		sort($link_arr);
 		foreach ($link_arr as $f) {
 ?>			<script type="text/javascript" charset="UTF-8" src="<?php echo $f ?>"></script>
-<?php	}
+<?php
+		}
 ?>
 	</head>
 	<body marginheight="0" marginwidth="0" topmargin="0" leftmargin="0">

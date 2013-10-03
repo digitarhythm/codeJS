@@ -8,8 +8,10 @@ class JSLocationManager extends JSObject
 		super()
 		@_location = new JSLocation()
 		@_oldcoord = new JSLocation()
+		@_calcelID = null
+
 		@delegate = @_self
-		@_cancelID = null
+
 
 	locationServicesEnabled:->
 		ret = navigator.geolocation
@@ -19,28 +21,28 @@ class JSLocationManager extends JSObject
 			return false
 	
 	startUpdatingLocation:->
-		@_cancelID = requestAnimationFrame(@enterFrame)
+		position_options =
+			enableHighAccuracy: true
+			timeout: 60000
+			maximumAge: 0
+		@_cancelID = navigator.geolocation.watchPosition(@successCallback, @errorCallback, position_options)
 		
 	stopUpdatingLocation:->
 		if (@_cancelID != null)
-			cancelAnimationFrame(@_cancelID)
+			navigator.geolocation.clearWatch(@_cancelID)
 			@_cancelID = null
 	
-	enterFrame:=>
+	successCallback:(event)=>
 		if (@_cancelID == null)
 			return
-		navigator.geolocation.getCurrentPosition (event)=>
+		if (typeof @delegate.didUpdateToLocation == 'function')
 			lat = event.coords.latitude
 			lng = event.coords.longitude
-			if (lat != @_location._coordinate['latitude'] || lng != @_location._coordinate['longitude'])
-				if (typeof @delegate.didUpdateToLocation == 'function')
-					@_oldcoord._coordinate['latitude'] = @_location._coordinate['latitude']
-					@_oldcoord._coordinate['longitude'] = @_location._coordinate['longitude']
-					@_location._coordinate['latitude'] = lat
-					@_location._coordinate['longitude'] = lng
-					@delegate.didUpdateToLocation(@_oldcoord, @_location)
-		, @errorCallback
-		@_cancelID = requestAnimationFrame(@enterFrame)
+			@_oldcoord._latitude = @_location._latitude
+			@_oldcoord._longitude = @_location._longitude
+			@_location._latitude = lat
+			@_location._longitude = lng
+			@delegate.didUpdateToLocation(@_oldcoord, @_location)
 	
 	errorCallback:(err)=>
 		if (typeof @delegate.didFailWithError == 'function')
