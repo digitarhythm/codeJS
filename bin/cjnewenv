@@ -75,6 +75,8 @@ fputs($fp, "smartypath=\"".$smartypath."\"\n");
 fputs($fp, "jqueryui-theme=\"codejs-default\"\n");
 fputs($fp, "\n");
 fputs($fp, "[FRAMEWORKS]\n");
+fputs($fp, "\n");
+fputs($fp, "[APIKEY]\n");
 fclose($fp);
 
 // copy user script(coffee-script)
