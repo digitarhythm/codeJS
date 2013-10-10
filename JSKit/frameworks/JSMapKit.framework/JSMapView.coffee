@@ -7,7 +7,27 @@ class JSMapView extends JSView
 	constructor: (frame)->
 		super(frame)
 		@delegate = @_self
+		@_map = undefined
 
+		@mapOptions =
+			center: new google.maps.LatLng(0.0, 0.0)
+			zoom: 8
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+			panControl: false
+			zoomControl: false
+			mapTypeControl: false
+			scaleControl: false
+			streetViewControl: false
+
+	# create map object
+	createMap:->
+		tag = "<div id='"+@_objectID+"_mapcanvas' style='width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;'></div>"
+		if ($(@_viewSelector+"_mapcanvas").length)
+			$(@_viewSelector+"_mapcanvas").remove()
+		$(@_viewSelector).append(tag)
+		@_map = new google.maps.Map(document.getElementById(@_objectID+"_mapcanvas"), @mapOptions)
+
+	# set/get zoom(region) 
 	setRegion:(zoom)->
 		if ($(@_viewSelector+"_mapcanvas").length)
 			@_map.setZoom(zoom)
@@ -18,6 +38,15 @@ class JSMapView extends JSView
 		else
 			return 0
 	
+	# set map center coordinate
+	setCenterCoordinate:(coord)->
+		if ($(@_viewSelector+"_mapcanvas").length)
+			latitude = coord._latitude
+			longitude = coord._longitude
+			@_center = new google.maps.LatLng(latitude, longitude)
+			@_map.setCenter(@_center)
+
+	# MapType
 	setMapType:(maptype)->
 		if ($(@_viewSelector+"_mapcanvas").length)
 			switch (maptype)
@@ -31,30 +60,17 @@ class JSMapView extends JSView
 					maptypeid = google.maps.MapTypeId.TERRAIN
 			@_map.setMapTypeId(maptypeid)
 
-	createMap:->
-		tag = "<div id='"+@_objectID+"_mapcanvas' style='width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;'></div>"
-		if ($(@_viewSelector+"_mapcanvas").length)
-			$(@_viewSelector+"_mapcanvas").remove()
-		$(@_viewSelector).append(tag)
-		mapOptions =
-			center: new google.maps.LatLng(0.0, 0.0)
-			zoom: 8
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-			panControl: false
-			zoomControl: false
-			mapTypeControl: false
-			scaleControl: false
-			streetViewControl: false
-			overviewMapControl: false
-		@_map = new google.maps.Map(document.getElementById(@_objectID+"_mapcanvas"), mapOptions)
-	
-	setCenterCoordinate:(coord)->
-		if ($(@_viewSelector+"_mapcanvas").length)
-			latitude = coord._latitude
-			longitude = coord._longitude
-			@_center = new google.maps.LatLng(latitude, longitude)
-			@_map.setCenter(@_center)
+	# set map options
+	mapOptionReflection:->
+		center = @_map.getCenter()
+		zoom = @_map.getZoom()
+		maptypeid = @_map.getMapTypeId()
+		@mapOptions.center = center
+		@mapOptions.zoom = zoom
+		@mapOptions.mapTypeId = maptypeid
+		@_map.setOptions(@mapOptions)
 
+	# view did appear
 	viewDidAppear:->
 		super()
 		if (!$(@_viewSelector+"_mapcanvas").length)

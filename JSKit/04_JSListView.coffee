@@ -12,6 +12,8 @@ class JSListView extends JSScrollView
 		@_style = "JSListStyleStandard"
 		@_textSize = 12
 		@_select = -1
+		@_clipToBounds = true
+		@_scroll = true
 		
 	setFrame:(frame)->
 		super(frame)
@@ -86,6 +88,7 @@ class JSListView extends JSScrollView
 					placeholder: "ui-sortable-placeholder"
 					distance: 3
 					opacity:0.8
+					scroll: true
 					
 				$(@_viewSelector+"_select").disableSelection()
 				

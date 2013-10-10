@@ -25,6 +25,7 @@ class JSGLView extends JSView
 		
 		# init rendere
 		@_renderer = new THREE.WebGLRenderer({ antialias:@_antialias })
+		#@_renderer = new THREE.CanvasRenderer({ antialias:@_antialias })
 		@_renderer.setSize(frame.size.width, frame.size.height)
 		@_renderer.setClearColorHex(@_bgcolor, @_alpha)
 	
