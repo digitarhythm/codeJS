@@ -110,7 +110,7 @@ class JSTextView extends JSScrollView
 			writingmode = "vertical-rl"
 			$(@_viewSelector+"_textarea").css("position", "absolute")
 		$(@_viewSelector+"_textarea").css("-webkit-writing-mode", writingmode)
-		#$(@_viewSelector+"_textarea").css("background-color", JSColor("clearColor"))
+		$(@_viewSelector+"_textarea").css("background-color", JSColor("clearColor"))
 
 		$(@_viewSelector+"_textarea").css("border", "none")
 		#$(@_viewSelector+"_textarea").css("border", "1px red solid")

@@ -8,10 +8,10 @@ class JSUserCookies extends JSObject
 		super()
 
 	setObject:(value, forKey)->
-		$.cookie forKey, value, {expires:365}
+		$.cookie forKey, encodeURIComponent(value), {expires:365}
 
 	stringForKey:(forKey)->
-		ret = $.cookie(forKey)
+		ret = decodeURIComponent($.cookie(forKey))
 		return ret
 
 	removeObjectForKey:(forKey)->
