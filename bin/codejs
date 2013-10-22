@@ -19,7 +19,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Smarty
-ls /usr/share/php/smarty/Smarty.class.php > /dev/null 2>&1
+ls /usr/share/php/smarty3/Smarty.class.php > /dev/null 2>&1
 if [ $? -ne 0 ]; then
 	echo "Smarty is not found."
 	exit
