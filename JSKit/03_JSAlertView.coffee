@@ -37,10 +37,11 @@ class JSAlertView extends JSView
 		if ($(@_viewSelector+"_form").length)
 			$(@_viewSelector+"_form").remove()
 		$(@_viewSelector).append(@_tag)
-		when "JSAlertViewStylePlainTextInput"
-			@cancel = true
-		else
-			@cancel = false
+		switch @_style
+			when "JSAlertViewStylePlainTextInput"
+				@cancel = true
+			else
+				@cancel = false
 		buttonhash = 
 			OK:=>
 				if (@delegate? && typeof @delegate.clickedButtonAtIndex == "function")
