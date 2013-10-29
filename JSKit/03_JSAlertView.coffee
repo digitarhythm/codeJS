@@ -67,6 +67,8 @@ class JSAlertView extends JSView
 			modal: true
 			closeOnEscape: true
 			close:=>
+				if (@delegate? && typeof @delegate.clickedButtonAtIndex == "function")
+					@delegate.clickedButtonAtIndex(0, @_self)
 				$(@_viewSelector+"_form").dialog("close")
 				@_self.removeFromSuperview()
 		alerthash["buttons"] = buttonhash
