@@ -29,8 +29,8 @@ $usrcode = $homedir."/appscode";
 $smartypath = $environ["smartypath"];
 
 // make directory
+mkdir($homedir);
 $createdir_arr = array();
-array_push($createdir_arr, $homedir);
 array_push($createdir_arr, $homedir."/configs");
 array_push($createdir_arr, $homedir."/appscode");
 array_push($createdir_arr, $homedir."/usrlibs");
@@ -49,7 +49,7 @@ array_push($createdir_arr, $homedir."/Documents");
 array_push($createdir_arr, $homedir."/Plugins");
 
 foreach($createdir_arr as $path) {
-	mkdir($path, 0775, true);
+	mkdir($path, 02775, true);
 	chmod($path, 02775);
 }
 
