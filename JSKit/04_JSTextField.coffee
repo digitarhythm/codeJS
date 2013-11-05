@@ -146,7 +146,7 @@ class JSTextField extends JSControl
 		@setTextSize(@_textSize)
 		@setTextColor(@_textColor)
 		@setTextAlignment(@_textAlignment)
-		@setPlaceHolder(@_placeholder)
+		@setPlaceholder(@_placeholder)
 		$(@_viewSelector).css("overflow", "")
 
 
