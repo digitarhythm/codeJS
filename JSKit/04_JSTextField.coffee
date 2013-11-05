@@ -14,6 +14,7 @@ class JSTextField extends JSControl
 		@_editable = true
 		@_action = null
 		@_focus = false
+		@_placeholder = ""
 
 	getText:->
 		if (@_editable == true)
@@ -56,6 +57,9 @@ class JSTextField extends JSControl
 		super(frame)
 		$(@_viewSelector+"_text").width(frame.size.width)
 		$(@_viewSelector+"_text").height(frame.size.height)
+	
+	setPlaceHolder:(@_placeholder)->
+		$(@_viewSelector+"_text").attr("data-placeholder", @_placeholder)
 	
 	setEditable:(editable)->
 		if (!$(@_viewSelector).length)
@@ -141,6 +145,7 @@ class JSTextField extends JSControl
 		@setTextSize(@_textSize)
 		@setTextColor(@_textColor)
 		@setTextAlignment(@_textAlignment)
+		@setPlaceHolder(@_placeholder)
 		$(@_viewSelector).css("overflow", "")
 
 
