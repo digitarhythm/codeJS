@@ -17,6 +17,7 @@ class JSTextView extends JSScrollView
 		@_writingMode = 0
 		@_lineHeight = 1.0
 		@_fontFamily = "gothic"
+		@_placeholder = ""
 		@_textVerticalAlignment = "JSTextVerticalAlignmentTop"
 		
 	setWritingMode:(@_writingMode)->
@@ -60,6 +61,10 @@ class JSTextView extends JSScrollView
 		if ($(@_viewSelector+"_textarea").length)
 			$(@_viewSelector+"_textarea").width(frame.size.width)
 			$(@_viewSelector+"_textarea").height(frame.size.height)
+
+	setPlaceholder:(@_placeholder)->
+		if ($(@_viewSelector+"_textarea").length)
+			$(@_viewSelector+"_textarea").attr("placeholder", @_placeholder)
 		
 	setEditable:(editable)->
 		if (!$(@_viewSelector).length)
@@ -180,6 +185,7 @@ class JSTextView extends JSScrollView
 		@setTextVerticalAlignment(@_textVerticalAlignment)
 		@setTextLineHeight(@_lineHeight)
 		@setTextFontFamily(@_fontFamily)
+		@setPlaceholder(@_placeholder)
 		#$(@_viewSelector+"_textarea").width(@_frame.size.width)
 		#$(@_viewSelector+"_textarea").height(@_frame.size.height)
 		if (@_editable == true)
