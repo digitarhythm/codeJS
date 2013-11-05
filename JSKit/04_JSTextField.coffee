@@ -59,7 +59,8 @@ class JSTextField extends JSControl
 		$(@_viewSelector+"_text").height(frame.size.height)
 	
 	setPlaceHolder:(@_placeholder)->
-		$(@_viewSelector+"_text").attr("data-placeholder", @_placeholder)
+		if ($(@_viewSelector+"_text").length)
+			$(@_viewSelector+"_text").attr("placeholder", @_placeholder)
 	
 	setEditable:(editable)->
 		if (!$(@_viewSelector).length)
