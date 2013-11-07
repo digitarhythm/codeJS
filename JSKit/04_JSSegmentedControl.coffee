@@ -9,9 +9,10 @@ class JSSegmentedControl extends JSControl
 		@_bgColor = JSColor("clearColor")
 		@_selectedSegmentIndex = -1
 
-	setValue:(num)->
-		$("input:radio[name='"+@_objectID+"_radio'][value='"+num+"']").attr("checked", "checke")
-		$(@_viewSelector+"_radio").buttonset('refresh')
+	setValue:(@_selectedSegmentIndex)->
+		if ($(@_viewSelector).length)
+			$("input:radio[name='"+@_objectID+"_radio'][value='"+@_selectedSegmentIndex+"']").attr("checked", "checke")
+			$(@_viewSelector+"_radio").buttonset('refresh')
 
 	viewDidAppear:->
 		super()
@@ -26,10 +27,9 @@ class JSSegmentedControl extends JSControl
 		if ($(@_viewSelector+"_radio").length)
 			$(@_viewSelector+"_radio").remove()
 		$(@_viewSelector).append(tag)
-		if (@_value?)
-			@selectedSegmentIndex(@_value)
 		$(@_viewSelector+"_radio").buttonset().click(=>
 			@_selectedSegmentIndex = $("input[name='"+@_objectID+"_radio']:checked").val()
 			if (@action?)
 				@action(@_self)
 		)
+		@setValue(@_selectedSegmentIndex)
