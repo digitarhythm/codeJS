@@ -149,7 +149,8 @@ class JSView extends JSResponder
 						frame.size.width = $(@_viewSelector).width()
 						frame.size.height = $(@_viewSelector).height()
 						@_self.setFrame(frame)
-						@_resizeAction()
+						if (@_resizeAction?)
+							@_resizeAction()
 			else
 				$(@_viewSelector).resizable
 					opacity:@_resizeopacity
