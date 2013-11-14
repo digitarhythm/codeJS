@@ -145,7 +145,9 @@ class JSView extends JSResponder
 					maxWidth:maxWidth
 					maxHeight:maxHeight
 					resize: (event, ui) =>
-						frame = @_self._frame
+						frame = @_frame
+						frame.origin.x = $(@_viewSelector).css("left")
+						frame.origin.y = $(@_viewSelector).css("top")
 						frame.size.width = $(@_viewSelector).width()
 						frame.size.height = $(@_viewSelector).height()
 						@_self.setFrame(frame)
