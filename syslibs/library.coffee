@@ -5,7 +5,6 @@ JSLog = (a, b...) ->
 		a = a.replace('%@', data)
 	console.log(a)
 		
-	
 # YES/NO dialog
 isConfirm = (str) ->
 	if (window.confirm(str))

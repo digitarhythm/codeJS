@@ -1,4 +1,5 @@
-$ ->
+@rootView = undefined
+$ =>
 	bounds = getBounds()
 	width = bounds.size.width
 	height = bounds.size.height
@@ -46,3 +47,7 @@ $ ->
 					o.didBrowserRotate(angle)
 	
 	window.cancelAnimationFrame = window.cancelAnimationFrame || window.mozCancelAnimationFrame || window.webkitCancelAnimationFrame || window.msCancelAnimationFrame
+
+getRootView = =>
+	return @rootView
+	
