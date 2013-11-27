@@ -81,6 +81,7 @@ class JSImagePicker extends JSScrollView
 				view.setContentMode("JSViewContentModeScaleAspectFit")
 				view.setBackgroundColor(JSColor("black"))
 				view.imgfname = imgfname
+				view.imgthumb = thumbfname
 				view.setUserInteractionEnabled(true)
 				view.addTapGesture(@tapImage, 2)
 				view.addTapGesture (sender, e)=>
@@ -157,11 +158,15 @@ class JSImagePicker extends JSScrollView
 	deleteImage:(sender)=>
 		sender._parent.animateWithDuration 0.2, {alpha:0.0}, =>
 			fname = @_imageList[sender._parent.number].imgfname
+			thumb = @_imageList[sender._parent.number].imgthumb
 			@_imageList.splice(sender._parent.number, 1)
 			sender._parent.removeFromSuperview()
 			$.post "syslibs/library.php",
 				mode: "fileUnlink"
 				fpath: fname
+			$.post "syslibs/library.php",
+				mode: "fileUnlink"
+				fpath: thumb
 			xnum = 0
 			ynum = 0
 			hnum = parseInt(@_frame.size.width / @_thumbnail_width) - 1
