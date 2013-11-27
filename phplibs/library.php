@@ -176,7 +176,7 @@ function saveImageFile($_file, $_dir) {
 			$ext = ".gif";
 			break;
 		default:
-			return "{err:0}";
+			return "{path:'', err:0}";
 			break;
 	}
 	
@@ -185,9 +185,9 @@ function saveImageFile($_file, $_dir) {
 		$savepath = $temppath.$ext;
 		move_uploaded_file($tmpname, $savepath);
 		unlink($temppath);
-		return "{path:'".$savepath."'}";
+		return "{path:'".$savepath."', err:1}";
 	} else {
-		return "{err:0}";
+		return "{path:'', err:0}";
 	}
 }
 
