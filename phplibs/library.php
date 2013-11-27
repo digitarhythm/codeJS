@@ -183,9 +183,10 @@ function saveImageFile($_file, $_dir) {
 	if(is_uploaded_file($tmpname)){
 		$temppath = tempnam($savedir, "img_");
 		$savepath = $temppath.$ext;
+		$fname = "Media/Picture/".basename($savepath);
 		move_uploaded_file($tmpname, $savepath);
 		unlink($temppath);
-		return "{path:'".$savepath."', err:1}";
+		return "{path:'".$fname."', err:1}";
 	} else {
 		return "{path:'', err:0}";
 	}
