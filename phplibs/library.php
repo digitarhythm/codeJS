@@ -115,6 +115,12 @@ switch ($mode) {
 		$ret = removeUserDefaults($forKey);
 		echo $ret;
 		break;
+
+	case "createDirectoryAtPath":
+		$path = $_arg['path'];
+		$ret = createDirectoryAtPath($path);
+		echo $ret;
+		break;
 }
 
 //##########################################################################################
@@ -333,7 +339,7 @@ function removeFile($path)
 		$ret = 1;
 	}
 	
-	return $ret2;
+	return $ret;
 }
 
 //##########################################################################################
@@ -435,6 +441,28 @@ function removeUserDefaults($forKey)
 	}
 	
 	$ret = "hoge";
+	return $ret;
+}
+
+//##########################################################################################
+// 指定されたディレクトリを作成する
+//##########################################################################################
+function createDirectoryAtPath($path)
+{
+	global $_HOMEDIR_;
+	
+	$fullpath = $_HOMEDIR_."/".$path;
+	if (is_file($fullpath) || is_dir($fullpath)) {
+		$ret = 0;
+	} else {
+		$err = system("mkdir -p ".$fullpath);
+		if ($err == false) {
+			$ret = 0;
+		} else {
+			$ret = 1;
+		}
+	}
+	
 	return $ret;
 }
 ?>
