@@ -74,7 +74,7 @@ class JSImagePicker extends JSScrollView
 				pos.x = xnum * (@_thumbnail_width+4)+4
 				pos.y = ynum * (@_thumbnail_height+4)+4
 				path = JSSearchPathForDirectoriesInDomains("JSPictureDirectory")
-				imgfname = thumbfname.replace(/^.*\/(.*?)_s\.(.*)/, path+"/$1.$2")
+				imgfname = thumbfname.replace(/^.*\/(.*?)_s\.(.*)/, "/$1.$2")
 				img = new JSImage(thumbfname)
 				viewfrm = JSRectMake(pos.x, pos.y, @_thumbnail_width, @_thumbnail_height)
 				view = new JSImageView(viewfrm)
@@ -161,9 +161,10 @@ class JSImagePicker extends JSScrollView
 			thumb = @_imageList[sender._parent.number].imgthumb
 			@_imageList.splice(sender._parent.number, 1)
 			sender._parent.removeFromSuperview()
+			path = JSSearchPathForDirectoriesInDomains("JSPictureDirectory")
 			$.post "syslibs/library.php",
 				mode: "fileUnlink"
-				fpath: fname
+				fpath: path+"/"+fname
 			$.post "syslibs/library.php",
 				mode: "fileUnlink"
 				fpath: thumb
