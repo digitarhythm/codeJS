@@ -65,7 +65,7 @@ class JSButton extends JSControl
 						mode:"createThumbnail"
 						path:"Media/Picture"
 					, =>
-						if (@delegate?)
+						if (typeof @delegate.didImageUpload == 'function')
 							@delegate.didImageUpload(res)
 				, "json"
 				
