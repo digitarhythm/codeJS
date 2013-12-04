@@ -65,12 +65,12 @@ JSMakeRange = (loc, len) ->
 
 # get browser size(not include scrolling bar)
 getApplicationFrame=->
-	frame = new JSRect(0, 0, $("html").innerWidth(), $("html").innerHeight())
+	frame = new JSRect(0, 0, $("html").innerWidth() - 1, $("html").innerHeight() - 1)
 	return frame
 		
 # get browser size(include scrolling bar)
 getBounds=->
-	frame = JSRectMake(0, 0, document.documentElement.clientWidth, document.documentElement.clientHeight)
+	frame = JSRectMake(0, 0, document.documentElement.clientWidth - 1, document.documentElement.clientHeight - 1)
 	return frame
 
 # Color management
