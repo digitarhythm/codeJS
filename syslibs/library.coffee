@@ -4,6 +4,7 @@ JSLog = (a, b...) ->
 	for data in b
 		a = a.replace('%@', data)
 	console.log(a)
+	return a
 		
 # YES/NO dialog
 isConfirm = (str) ->

@@ -75,7 +75,8 @@ $dir = opendir($path);
 while ($dirname = readdir($dir)) {
 	// もし、検索してきたものが「ディレクトリ」、且つ「ドットで始まっていない」、且つ「*.framework」という名前だったらフレームワークとしてコンパイル
 	if (is_dir("$path/$dirname") == true && preg_match("/^\./", $dirname) == false && preg_match("/.*\.framework/", $dirname) == true) {
-		system("coffee -j $dirname.js -b -o $h_framework -c $path/$dirname");
+		$execstr = "coffee -j $dirname.js -b -o $h_framework -c $path/$dirname";
+		system($execstr);
 	}
 }
 
