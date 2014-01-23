@@ -36,7 +36,6 @@ array_push($createdir_arr, $homedir."/usrlibs");
 array_push($createdir_arr, $homedir."/syslibs");
 array_push($createdir_arr, $homedir."/syslibs/Picture");
 array_push($createdir_arr, $homedir."/syslibs/frameworks");
-array_push($createdir_arr, $homedir."/cache");
 array_push($createdir_arr, $homedir."/Library");
 array_push($createdir_arr, $homedir."/Media/Picture");
 array_push($createdir_arr, $homedir."/Media/Picture/.thumb");

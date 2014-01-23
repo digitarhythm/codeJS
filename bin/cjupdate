@@ -101,7 +101,6 @@ system("cp -a ".$p_syslibs."/Picture ".$h_syslibs."/");
 copy($p_syslibs."/htaccess2", $homedir."/.htaccess");
 copy($p_syslibs."/htaccess2", $homedir."/usrlibs/.htaccess");
 copy($p_syslibs."/htaccess2", $homedir."/syslibs/.htaccess");
-copy($p_syslibs."/htaccess2", $homedir."/cache/.htaccess");
 copy($p_syslibs."/htaccess2", $homedir."/Plugins/.htaccess");
 copy($p_syslibs."/htaccess2", $homedir."/Documents/.htaccess");
 copy($p_syslibs."/htaccess2", $homedir."/Media/Movie/.htaccess");
