@@ -1,4 +1,4 @@
-class [{$classname}] extends JSWindow
+class [_classname_] extends JSWindow
 	constructor: (frame) ->
 		super(frame)
 		###

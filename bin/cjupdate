@@ -13,7 +13,6 @@ $system_ini = parse_ini_file($projdir."/configs/system.ini", true);
 $environ = $system_ini["ENVIRON"];
 $csslist = $system_ini["JQUERYUI-CSS"];
 
-$smartypath   = $environ["smartypath"];
 $homedir      = realpath(".").$projname;
 $p_syslibs    = $projdir."/syslibs";
 $p_extjslibs  = $projdir."/extlibs";
@@ -28,27 +27,13 @@ $user_ini = parse_ini_file($homedir."/configs/system.ini", true);
 $usrenviron = $user_ini["ENVIRON"];
 $usecss = $usrenviron["jqueryui-theme"];
 
-// setup smarty
-if (!defined("SMARTY_DIR")) {
-    define("SMARTY_DIR", $smartypath);
-}
-require_once(SMARTY_DIR . "/Smarty.class.php");
-$smarty = new Smarty();
-$smarty->template_dir   = $projdir."/templates";
-$smarty->compile_dir    = $projdir."/templates_c";
-$smarty->config_dir     = $projdir."/configs";
-$smarty->cache_dir      = $projdir."/cache";
-
-// change delimiter
-$smarty->left_delimiter = "[{";
-$smarty->right_delimiter = "}]";
-
 // create index.php
 $cssuri = $csslist[$usecss];
-$smarty->assign("jqueryuicss", $cssuri);
-$index = $smarty->fetch("index.tmpl");
+$indexpath = "$projdir/templates/index.tmpl";
+$indexbody = file_get_contents($indexpath);
+$indexbody = preg_replace("/\[_jqueryuicss_\]/", $cssuri, $indexbody);
 $fp = fopen($homedir."/index.php", "w");
-fputs($fp, $index);
+fputs($fp, $indexbody);
 fclose($fp);
 
 // compile JSKit
@@ -109,7 +94,6 @@ copy($p_extjslibs."/three.min.js", $h_syslibs."/three.min.js");
 // copy htaccess file(hidden)
 copy($p_syslibs."/htaccess", $homedir."/configs/.htaccess");
 copy($p_syslibs."/htaccess", $homedir."/Library/.htaccess");
-copy($p_syslibs."/htaccess", $homedir."/templates/.htaccess");
 copy($p_syslibs."/htaccess", $homedir."/appscode/.htaccess");
 
 // copy htaccess file(open)

@@ -1,4 +1,4 @@
-class [{$classname}] extends JSLocation
+class [_classname_] extends JSLocation
 	constructor:-> 
 		super()
 		###

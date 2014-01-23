@@ -1,4 +1,4 @@
-class [{$classname}] extends JSSegmentedControl
+class [_classname_] extends JSSegmentedControl
 	constructor:(dataarray)->
 		super(dataarray)
 		###

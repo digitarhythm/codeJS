@@ -1,4 +1,4 @@
-class [{$classname}] extends JSRect
+class [_classname_] extends JSRect
 	constructor:->
 		super()
 		###

@@ -1,4 +1,4 @@
-class [{$classname}] extends JSView
+class [_classname_] extends JSView
 	constructor:(frame)->
 		super(frame)
 		###

@@ -1,4 +1,4 @@
-class [{$classname}] extends JSGLView
+class [_classname_] extends JSGLView
 	constructor:(frame, bgColor, alpha, antialias)->
 		super(frame, bgColor, alpha, antialias)
 		###

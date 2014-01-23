@@ -1,4 +1,4 @@
-class [{$classname}] extends JSButton
+class [_classname_] extends JSButton
 	constructor:(frame)->
 		super(frame)
 		###

@@ -1,4 +1,4 @@
-class [{$classname}] extends JSMenuView
+class [_classname_] extends JSMenuView
 	constructor:(action)->
 		super(action)
 		###

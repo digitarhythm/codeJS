@@ -1,4 +1,4 @@
-class [{$classname}] extends JSSize
+class [_classname_] extends JSSize
 	constructor:->
 		super()
 		###

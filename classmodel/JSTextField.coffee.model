@@ -1,4 +1,4 @@
-class JSTextField extends JSControl
+class [_classname_] extends JSTextField
 	constructor: (frame)->
 		super(frame)
 		###

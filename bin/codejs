@@ -18,13 +18,6 @@ if [ $? -ne 0 ]; then
 	exit
 fi
 
-# Smarty
-ls /usr/share/php/smarty/Smarty.class.php > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-	echo "Smarty is not found."
-	exit
-fi
-
 # SQLite3
 which sqlite3 > /dev/null 2>&1
 if [ $? -ne 0 ]; then

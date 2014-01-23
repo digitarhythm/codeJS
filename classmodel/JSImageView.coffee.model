@@ -1,4 +1,4 @@
-class [{$classname}] extends JSImageView
+class [_classname_] extends JSImageView
 	constructor:(image)->
 		super(image)
 		###

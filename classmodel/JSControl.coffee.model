@@ -1,4 +1,4 @@
-class [{$classname}] extends JSControl
+class [_classname_] extends JSControl
 	constructor:(frame)->
 		super(frame)
 		###

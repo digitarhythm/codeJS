@@ -1,4 +1,4 @@
-class [{$classname}] extends JSResponder
+class [_classname_] extends JSResponder
 	constructor:->
 		super()
 		###

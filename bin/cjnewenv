@@ -26,7 +26,6 @@ $sysphplibs = $projdir."/phplibs";
 $usrlibs = $homedir."/usrlibs";
 $syscode = $projdir."/appscode";
 $usrcode = $homedir."/appscode";
-$smartypath = $environ["smartypath"];
 
 // make directory
 mkdir($homedir);
@@ -37,8 +36,6 @@ array_push($createdir_arr, $homedir."/usrlibs");
 array_push($createdir_arr, $homedir."/syslibs");
 array_push($createdir_arr, $homedir."/syslibs/Picture");
 array_push($createdir_arr, $homedir."/syslibs/frameworks");
-array_push($createdir_arr, $homedir."/templates");
-array_push($createdir_arr, $homedir."/templates_c");
 array_push($createdir_arr, $homedir."/cache");
 array_push($createdir_arr, $homedir."/Library");
 array_push($createdir_arr, $homedir."/Media/Picture");
@@ -53,25 +50,9 @@ foreach($createdir_arr as $path) {
 	chmod($path, 02775);
 }
 
-// setup smarty
-if (!defined("SMARTY_DIR")) {
-    define("SMARTY_DIR", $smartypath);
-}
-require_once(SMARTY_DIR . "/Smarty.class.php");
-$smarty = new Smarty();
-$smarty->template_dir   = $projdir."/templates";
-$smarty->compile_dir    = $projdir."/templates_c";
-$smarty->config_dir     = $projdir."/configs";
-$smarty->cache_dir      = $projdir."/cache";
-
-// change delimiter
-$smarty->left_delimiter = "[{";
-$smarty->right_delimiter = "}]";
-
 // create config file
 $fp = fopen($homedir."/configs/system.ini", "w");
 fputs($fp, "[ENVIRON]\n");
-fputs($fp, "smartypath=\"".$smartypath."\"\n");
 fputs($fp, "jqueryui-theme=\"codejs-default\"\n");
 fputs($fp, "\n");
 fputs($fp, "[FRAMEWORKS]\n");

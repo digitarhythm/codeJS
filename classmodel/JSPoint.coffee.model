@@ -1,4 +1,4 @@
-class [{$classname}] extends JSPoint
+class [_classname_] extends JSPoint
 	constructor:->
 		super()
 		###

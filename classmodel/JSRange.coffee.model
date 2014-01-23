@@ -1,4 +1,4 @@
-class [{$classname}] extends JSRange
+class [_classname_] extends JSRange
 	constructor:->
 		super()
 		###

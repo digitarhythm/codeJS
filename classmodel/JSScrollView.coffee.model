@@ -1,4 +1,4 @@
-class [{$classname}] extends JSScrollView
+class [_classname_] extends JSScrollView
 	constructor:(frame)->
 		super(frame)
 		###

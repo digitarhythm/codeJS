@@ -1,4 +1,4 @@
-class [{$classname}] extends JSUserCookies
+class [_classname_] extends JSUserCookies
 	constructor:->
 		super()
 		###
