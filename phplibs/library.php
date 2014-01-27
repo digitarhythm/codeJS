@@ -349,10 +349,12 @@ function moveFile($file, $toPath)
 {
 	global $_HOMEDIR_;
 	
+	$finfo = pathinfo($file);
+	$fname = $finfo['filename'].".".$finfo['extension'];
 	$orgFullPath = $_HOMEDIR_."/".$file;
-	$toFullPath = $_HOMEDIR_."/".$toPath;
+	$toFullPath = $_HOMEDIR_."/".$toPath."/".$fname;
 	if (is_file($orgFullPath)) {
-		$err = system("mv -f ".$orgFullPath." ".$toFullPath."/");
+		$err = rename($orgFullPath, $toFullPath);
 		if ($err == false) {
 			$ret = 0;
 		} else {
@@ -440,7 +442,6 @@ function removeUserDefaults($forKey)
 		 $ret = "-1";
 	}
 	
-	$ret = "hoge";
 	return $ret;
 }
 

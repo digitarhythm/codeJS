@@ -78,7 +78,7 @@ class JSView extends JSResponder
 			if (@_clipToBounds == true)
 				$(@_viewSelector).css("overflow", "hidden")
 			else
-				$(@_viewSelector).css("overflow", "")
+				$(@_viewSelector).css("overflow", "normal")
 				
 	setUserInteractionEnabled:(@_userInteractionEnabled)->
 		if (@_userInteractionEnabled == true)
