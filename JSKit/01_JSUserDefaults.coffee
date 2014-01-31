@@ -18,7 +18,10 @@ class JSUserDefaults extends JSObject
 			"mode": "getUserDefaults"
 			"forKey": forKey
 		, (data)=>
-			data2 = JSON.parse(data)
+			if (data != "")
+				data2 = JSON.parse(data)
+			else
+				data2 = ""
 			action(data2)
 
 	removeObjectForKey:(forKey)->
