@@ -18,3 +18,6 @@ class JSScrollView extends JSView
 	viewDidAppear:->
 		super()
 		@setScroll(@_scroll)
+
+	animateWithDuration:(duration, animations, completion = null)=>
+        super(duration, animations, completion)
