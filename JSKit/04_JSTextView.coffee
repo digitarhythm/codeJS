@@ -29,7 +29,6 @@ class JSTextView extends JSScrollView
             text = $(@_viewSelector+"_textarea").val()
         else
             text = @_text
-        JSLog(text)
         return text
 
     setText:(text)->
