@@ -8,7 +8,7 @@ class JSAlertView extends JSView
 		super()
 		@_bgColor = JSColor("clearColor")
 		@_style = "JSAlertViewStyleDefault"
-		@delegate = null
+		@delegate = @
 		@cancel = false
 
 	setAlertViewStyle:(@_style)->
