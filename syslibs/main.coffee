@@ -1,4 +1,4 @@
-@rootView = undefined
+rootView = undefined
 $ =>
 	bounds = getBounds()
 	width = bounds.size.width
@@ -11,7 +11,7 @@ $ =>
 	@rootView.setBackgroundColor(JSColor("clearColor"))
 
 	$("body").append(@rootView._div)
-	@rootView.viewDidAppear()
+	rootView.viewDidAppear()
 	
 	rootID = @rootView._objectID
 	

@@ -85,3 +85,4 @@ class JSAlertView extends JSView
 	
 	viewDidAppear:->
 		@setAlertViewStyle(@_style)
+
