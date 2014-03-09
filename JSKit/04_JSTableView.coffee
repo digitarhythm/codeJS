@@ -3,7 +3,7 @@
 # Coded by kouichi.sakazaki 2013.09.10
 #*****************************************
 
-class JSTableView extends JSScrollView
+class JSTableView extends JSView
     constructor:(frame)->
         if (!frame?)
             frame = getBounds()
@@ -23,14 +23,15 @@ class JSTableView extends JSScrollView
         @childlist = []
         
         @bounds = getBounds()
-        
+
         if (!@_titleBar?)
-            @_titleBar = new JSLabel(JSRectMake(0, 0, @bounds.size.width, 32))
+            @_titleBar = new JSLabel(JSRectMake(0, 0, @_frame.size.width, @_rowHeight))
             @_titleBar.setText(@_title)
             @_titleBar.setTextAlignment("JSTextAlignmentLeft")
             @_titleBar.setTextSize(11)
             @_titleBar.setBackgroundColor(@_titlebarColor)
             @_titleBar.setTextColor(@_titleColor)
+            @_titleBar.setAlpha(0.9)
         
     setRowHeight:(@_rowHeight)->
 
@@ -50,13 +51,10 @@ class JSTableView extends JSScrollView
         else
             @_sectionNum = 1
             
-        @_tableView.setFrame(getBounds())
         @_tableView.setScroll(true)
 
-        dispNum = parseInt(@bounds.size.height / @_rowHeight)
-            
         # 各セルの内容を返すデリゲートメソッドを呼ぶ
-        diff_y = 32
+        diff_y = @_rowHeight
         for i in [0...@_dataNum]
             cell = @dataSource.cellForRowAtIndexPath(i)
             cell._cellnum = i
@@ -84,10 +82,8 @@ class JSTableView extends JSScrollView
     viewDidAppear:->
         super()
         if (!@_tableView?)
-            @_tableView = new JSScrollView()
+            frm = JSRectMake(0, 0, @_frame.size.width, @_frame.size.height)
+            @_tableView = new JSScrollView(frm)
             @_self.addSubview(@_tableView)
-        if (!@_titleBar?)
-            @_titleBar = new JSLabel(JSRectMake(0, 0, @bounds.size.width, 32))
-        @_titleBar.setAlpha(0.9)
-        @_self.addSubview(@_titleBar)
         @addTableView()
+        @_self.addSubview(@_titleBar)
