@@ -35,9 +35,6 @@ class JSTableView extends JSView
         
     setRowHeight:(@_rowHeight)->
 
-    cellForRowAtIndexPath:(num)->
-        return @childlist[num]
-        
     addTableView:->
         # 各セクションに含まれるデータの数を取得する（デリゲートメソッドが無い場合はデータの数は初期値（0））
         if (typeof @dataSource.numberOfRowsInSection == 'function')

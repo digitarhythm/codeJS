@@ -8,10 +8,10 @@ class JSGLView extends JSView
         super(frame)
         
         # init values
-        @_perspective = 15
+        @_perspective = 24
         @_camera_x = 0
-        @_camera_y = 0
-        @_camera_z = 10
+        @_camera_y = 100
+        @_camera_z = 100
         @_lookat_x = 0
         @_lookat_y = 0
         @_lookat_z = 0
