@@ -1,13 +1,13 @@
 class [_classname_] extends JSImageView
-	constructor:(image)->
-		super(image)
-		###
-		Please describe initialization processing of a class below from here. 
-		###
-		
-	viewDidAppear:->
-		super()	
-		###
-		Please describe the processing about a view below from here. 
-		###
-			
+    constructor:(image)->
+        super(image)
+        ###
+        Please describe initialization processing of a class below from here. 
+        ###
+        
+    viewDidAppear:->
+        super()    
+        ###
+        Please describe the processing about a view below from here. 
+        ###
+            

@@ -1,6 +1,6 @@
 class [_classname_] extends JSScrollView
-	constructor:(frame)->
-		super(frame)
-		###
-		Please describe user processing below from here. 
-		###
+    constructor:(frame)->
+        super(frame)
+        ###
+        Please describe user processing below from here. 
+        ###

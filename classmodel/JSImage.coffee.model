@@ -1,7 +1,7 @@
 class [_classname_] extends JSImage
-	constructor:(imagename)->
-		super(imagename)
-		###
-		Please describe user processing below from here. 
-		###
-		
+    constructor:(imagename)->
+        super(imagename)
+        ###
+        Please describe user processing below from here. 
+        ###
+        
