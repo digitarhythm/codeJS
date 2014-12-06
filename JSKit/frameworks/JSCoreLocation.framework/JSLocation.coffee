@@ -4,5 +4,5 @@
 #*****************************************
 
 class JSLocation extends JSObject
-	constructor:(@_latitude = 0.0, @_longitude = 0.0)-> 
-		super()
+    constructor:(@_latitude = 0.0, @_longitude = 0.0)-> 
+        super()

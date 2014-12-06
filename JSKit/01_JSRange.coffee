@@ -4,8 +4,8 @@
 #*****************************************
 
 class JSRange extends JSObject
-	constructor:->
-		super()
-		@location = 0
-		@length = 0
+    constructor:->
+        super()
+        @location = 0
+        @length = 0
 

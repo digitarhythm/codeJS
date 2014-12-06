@@ -4,15 +4,15 @@
 #*****************************************
 
 class JSUserCookies extends JSObject
-	constructor:->
-		super()
+    constructor:->
+        super()
 
-	setObject:(value, forKey)->
-		$.cookie forKey, encodeURIComponent(value), {expires:365}
+    setObject:(value, forKey)->
+        $.cookie forKey, encodeURIComponent(value), {expires:365}
 
-	stringForKey:(forKey)->
-		ret = decodeURIComponent($.cookie(forKey))
-		return ret
+    stringForKey:(forKey)->
+        ret = decodeURIComponent($.cookie(forKey))
+        return ret
 
-	removeObjectForKey:(forKey)->
-		$.removeCookie(forKey)
+    removeObjectForKey:(forKey)->
+        $.removeCookie(forKey)

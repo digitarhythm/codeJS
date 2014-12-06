@@ -4,7 +4,7 @@
 #*****************************************
 
 class JSSize extends JSObject
-	constructor:->
-		super()
-		@width = 0
-		@height = 0
+    constructor:->
+        super()
+        @width = 0
+        @height = 0

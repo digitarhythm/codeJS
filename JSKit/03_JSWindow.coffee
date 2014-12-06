@@ -4,8 +4,8 @@
 #*****************************************
 
 class JSWindow extends JSView
-	constructor: (frame) ->
-		super(frame)
-	
-	viewDidAppear:->
-		super()
+    constructor: (frame) ->
+        super(frame)
+    
+    viewDidAppear:->
+        super()
