@@ -15,6 +15,7 @@ class JSListView extends JSScrollView
         @_select = -1
         @_clipToBounds = true
         @_scroll = true
+        @_delegate = @
         
     setFrame:(frame)->
         super(frame)
@@ -91,6 +92,10 @@ class JSListView extends JSScrollView
                     distance: 3
                     opacity:0.8
                     scroll: true
+                    update: (event, ui)=>
+                        @sortReflection()
+                        if (typeof @_delegate.sortUpdate == 'function')
+                            @_delegate.sortUpdate(event, ui)
                     
                 $(@_viewSelector+"_select").disableSelection()
                 
