@@ -312,6 +312,7 @@ class JSView extends JSResponder
         @setShadow(@_shadow)
         @setDraggable(@_draggable, @_axis, @_dragopacity)
         @setResizable(@_resizable, @_resizeAction, @_resizeopacity)
+        @setClipToBounds(@_clipToBounds)
         
         @removeTapGesture(1)
         @removeTapGesture(2)
