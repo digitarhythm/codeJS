@@ -10,23 +10,23 @@ class JSImageView extends JSView
         @_bgColor = JSColor("clearColor")
         @_clipToBounds = true
         @_contentMode = "JSViewContentModeNormal"
+        @_image = undefined
 
     setImage:(@_image)->
         if (@_image?)
             preimg = new Image()
             preimg.src = @_image._imagepath
             img = "<img id='"+@_objectID+"_image' src='"+@_image._imagepath+"' style='position:absolute;z-index:1;left:0px;top:0px;width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;'>"
-            if ($(@_viewSelector).length)
-                if ($(@_viewSelector+"_image").length)
-                    $(@_viewSelector+"_image").remove()
-                $(@_viewSelector).append(img)
-                @setContentMode(@_contentMode)
-            else
-                @_div = @_div.replace(/<!--null-->/, img+"<!--null-->")
         else
+            img = "<img id='"+@_objectID+"_image' style='position:absolute;z-index:1;left:0px;top:0px;width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;'>"
+        if ($(@_viewSelector).length)
             if ($(@_viewSelector+"_image").length)
                 $(@_viewSelector+"_image").remove()
-        
+            $(@_viewSelector).append(img)
+            @setContentMode(@_contentMode)
+        else
+            @_div = @_div.replace(/<!--null-->/, img+"<!--null-->")
+
     setCornerRadius:(radius)->
         super(radius)
         $(@_viewSelector+"_image").css("border-radius", radius)
