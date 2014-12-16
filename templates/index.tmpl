@@ -76,6 +76,11 @@
 ?>		<script type="text/javascript" charset="UTF-8" src="usrlibs/applicationMain.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="syslibs/main.js"></script>
 <?php
+        $addarr = $systemini["ADDLIB"];
+        foreach ($addarr as $str) {
+?>  		<script type="text/javascript" charset="UTF-8" src="<?php echo $str ?>"></script>
+<?php   }
+
 		$link_arr = array();	
 		$ext = "js";
 		$search_dir = "usrlibs";

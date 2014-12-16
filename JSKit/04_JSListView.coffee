@@ -7,6 +7,7 @@ class JSListView extends JSScrollView
     constructor:(frame)->
         super(frame)
         @_listData = null
+        @_orglist = null
         @_clickaction = null
         @_dblclickaction = null
         @_style = "JSListStyleStandard"
@@ -22,6 +23,7 @@ class JSListView extends JSScrollView
             $(@_viewSelector+"_select").height(frame.size.height)
 
     setListData:(list)->
+        @_orglist = list
         switch @_style
             when "JSListStyleStandard", "JSListStyleDropdown"
                 if (@_style=="JSListStyleStandard")
@@ -118,9 +120,9 @@ class JSListView extends JSScrollView
     sortReflection:->
         if (@_style == "JSListStyleSortable")
             arr = $(@_viewSelector+"_select").sortable("toArray")
-            ret = new Array()
+            ret = []
             for key, i in arr
-                ret[i] = @_listData[key]
+                ret[i] = @_orglist[key]
             @_listData = ret
         
     setTextSize:(@_textSize)->

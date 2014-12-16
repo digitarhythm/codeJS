@@ -1,3 +1,4 @@
+GLOBAL = {}
 rootView = undefined
 $ =>
 	bounds = getBounds()

@@ -52,11 +52,10 @@ foreach($createdir_arr as $path) {
 // create config file
 $fp = fopen($homedir."/configs/system.ini", "w");
 fputs($fp, "[ENVIRON]\n");
-fputs($fp, "jqueryui-theme=\"codejs-default\"\n");
-fputs($fp, "\n");
-fputs($fp, "[FRAMEWORKS]\n");
-fputs($fp, "\n");
-fputs($fp, "[APIKEY]\n");
+fputs($fp, "jqueryui-theme=\"codejs-default\"\n\n");
+fputs($fp, "[FRAMEWORKS]\n\n");
+fputs($fp, "[APIKEY]\n\n");
+fputs($fp, "[ADDLIB]\n\n");
 fclose($fp);
 
 // copy user script(coffee-script)

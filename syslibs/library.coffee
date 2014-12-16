@@ -71,7 +71,7 @@ getApplicationFrame=->
 		
 # get browser size(include scrolling bar)
 getBounds=->
-	frame = JSRectMake(0, 0, document.documentElement.clientWidth - 1, document.documentElement.clientHeight - 1)
+	frame = JSRectMake(0, 0, document.documentElement.clientWidth, document.documentElement.clientHeight)
 	return frame
 
 # Color management
