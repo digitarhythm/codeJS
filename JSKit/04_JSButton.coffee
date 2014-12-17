@@ -56,6 +56,8 @@ class JSButton extends JSControl
         $(@_viewSelector).append(tag)
         if (@_style == "JSFormButtonStyleImageUpload")
             $(@_viewSelector+"_file").change =>
+                if (typeof @delegate.didUploadStart == 'function')
+                    @delegate.didUploadStart()
                 $(@_viewSelector+"_file").upload "syslibs/library.php",
                     mode: "uploadfile"
                     key: @_objectID+"_file"
