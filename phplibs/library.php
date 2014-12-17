@@ -172,18 +172,23 @@ function saveImageFile($_file, $_dir) {
     switch ($type) {
         case "image/png":
             $ext = ".png";
+            $head = "img_";
             break;
         case "image/jpg":
             $ext = ".jpg";
+            $head = "img_";
             break;
         case "image/jpeg":
             $ext = ".jpg";
+            $head = "img_";
             break;
         case "image/gif":
             $ext = ".gif";
+            $head = "img_";
             break;
         case "video/mp4":
             $ext = ".mp4";
+            $head = "vid_";
             break;
         default:
             return "{path:'', err:0, type:'".$type."'}";
@@ -191,7 +196,7 @@ function saveImageFile($_file, $_dir) {
     }
     
     if(is_uploaded_file($tmpname)){
-        $temppath = tempnam($savedir, "img_");
+        $temppath = tempnam($savedir, $head);
         $savepath = $temppath.$ext;
         $fname = basename($savepath);
         move_uploaded_file($tmpname, $savepath);
