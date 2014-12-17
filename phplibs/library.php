@@ -168,6 +168,7 @@ function saveImageFile($_file, $_dir) {
     $orgname = $imginfo['name'];
     
     $savedir = $_HOMEDIR_."/Media/Picture";
+
     switch ($type) {
         case "image/png":
             $ext = ".png";
@@ -181,8 +182,11 @@ function saveImageFile($_file, $_dir) {
         case "image/gif":
             $ext = ".gif";
             break;
+        case "video/mp4":
+            $ext = ".mp4";
+            break;
         default:
-            return "{path:'', err:0}";
+            return "{path:'', err:0, type:'".$type."'}";
             break;
     }
     
@@ -192,9 +196,9 @@ function saveImageFile($_file, $_dir) {
         $fname = basename($savepath);
         move_uploaded_file($tmpname, $savepath);
         unlink($temppath);
-        return "{path:'".$fname."', err:1}";
+        return "{path:'".$fname."', err:1, type:'".$type."'}";
     } else {
-        return "{path:'', err:0}";
+        return "{path:'', err:0, type:'".$type."'}";
     }
 }
 

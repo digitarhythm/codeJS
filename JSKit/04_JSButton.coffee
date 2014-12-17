@@ -60,13 +60,12 @@ class JSButton extends JSControl
                     mode: "uploadfile"
                     key: @_objectID+"_file"
                 , (res) =>
+                    if (typeof @delegate.didImageUpload == 'function')
+                        @delegate.didImageUpload(res)
                     $(@_viewSelector+"_file").val("")
                     $.post "syslibs/library.php",
                         mode:"createThumbnail"
                         path:"Media/Picture"
-                    , =>
-                        if (typeof @delegate.didImageUpload == 'function')
-                            @delegate.didImageUpload(res)
                 , "json"
                 
         $(@_viewSelector).css("overflow", "visible")
