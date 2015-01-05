@@ -51,7 +51,7 @@ class JSButton extends JSControl
         else if (@_style == "JSFormButtonStyleImageUpload")
             tag += "<div id=\""+@_objectID+"_pack\">"
             tag += "<input id=\""+@_objectID+"_file\" type=\"file\" name=\""+@_objectID+"_file\" style=\"display:none;\">"
-            tag += "<input type=\"submit\" id=\""+@_objectID+"_button\" style=\"position:absolute;z-index:1;\" value=\"Upload\" onClick=\"$('#"+@_objectID+"_file').click();\" />"
+            tag += "<input type=\"submit\" id=\""+@_objectID+"_button\" style=\"position:absolute;z-index:1;\" value=\""+@_buttonTitle+"\" onClick=\"$('#"+@_objectID+"_file').click();\" />"
             tag += "</div>"
         $(@_viewSelector).append(tag)
         if (@_style == "JSFormButtonStyleImageUpload")

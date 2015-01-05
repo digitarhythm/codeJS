@@ -166,7 +166,6 @@ function saveImageFile($_file, $_dir) {
     $tmpname = $imginfo['tmp_name'];
     $type = $imginfo['type'];
     $orgname = $imginfo['name'];
-    
     $savedir = $_HOMEDIR_."/Media/Picture";
 
     switch ($type) {

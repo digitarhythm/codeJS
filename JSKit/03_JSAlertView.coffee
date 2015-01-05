@@ -4,7 +4,7 @@
 #*****************************************
 
 class JSAlertView extends JSView
-    constructor:(@_title, @_message, @_param = null)->
+    constructor:(@_title, @_message, @_param = null, @_passform = null)->
         super()
         @_bgColor = JSColor("clearColor")
         @_style = "JSAlertViewStyleDefault"
@@ -27,7 +27,12 @@ class JSAlertView extends JSView
                 else
                     value = ""
                 @_tag += "<label style='vertical-align:bottom;'>"+p+"</labeL>"
-                addtag = "<input type='text' name='"+@_objectID+"_textfield_"+i+"' id='"+@_objectID+"_textfield_"+i+"' style='width:"+(@_frame.size.width-32)+"px;' value='"+value+"' /><br>"
+                if (@_passform?)
+                    if (@_passform.indexOf(i) < 0)
+                        formtype = "text"
+                    else
+                        formtype = "password"
+                addtag = "<input type='"+formtype+"' name='"+@_objectID+"_textfield_"+i+"' id='"+@_objectID+"_textfield_"+i+"' style='width:"+(@_frame.size.width-32)+"px;' value='"+value+"' /><br>"
                 @_tag += addtag
             @_tag += "</fieldset>"
             @_tag += "</form>"
