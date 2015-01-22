@@ -8,7 +8,7 @@ class JSView extends JSResponder
         super()
         @_parent = null
         @_viewSelector = "#"+@_objectID
-        @_bgColor = JSColor("#f0f0f0")
+        @_bgColor = JSColor("#c0c0c0")
         @_alpha = 1.0
         @_cornerRadius = 0
         @_borderColor = JSColor("clearColor")
