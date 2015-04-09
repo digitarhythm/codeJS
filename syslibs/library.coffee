@@ -5,6 +5,21 @@ JSLog = (a, b...) ->
 		a = a.replace('%@', data)
 	console.log(a)
 	return a
+
+# format strings
+sprintf = (a, b...)-> 
+    for data in b
+        match = a.match(/%0\d*@/)
+        if (match?)
+            repstr = match[0]
+            num = parseInt(repstr.match(/\d+/))
+            zero =""
+            zero += "0" while (zero.length < num)
+            data2 = (zero+data).substr(-num)
+            a = a.replace(repstr, data2)
+        else
+            a = a.replace('%@', data)
+    return a
 		
 # YES/NO dialog
 isConfirm = (str) ->
