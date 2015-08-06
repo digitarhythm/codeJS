@@ -1,0 +1,7 @@
+class [_classname_] extends JSUserDefault
+    constructor:->
+        super()
+        ###
+        Please describe initialization processing of a class below from here. 
+        ###
+
