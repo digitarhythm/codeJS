@@ -8,7 +8,7 @@ class JSImageView extends JSView
     super(frame)
     @_userInteractionEnabled = false
     @_bgColor = JSColor("clearColor")
-    @_clipToBounds = false
+    @_clipToBounds = true
     @_contentMode = "JSViewContentModeNormal"
     @_image = undefined
 
@@ -42,13 +42,6 @@ class JSImageView extends JSView
         when "JSViewContentModeScaleAspectFill"
           $(@_viewSelector).imgLiquid()
           
-  setFrame:(frame)->
-    super(frame)
-    $(@_viewSelector+"_image").css("left", frame.origin.x)
-    $(@_viewSelector+"_image").css("top", frame.origin.y)
-    $(@_viewSelector+"_image").width(frame.size.width)
-    $(@_viewSelector+"_image").height(frame.size.height)
-
   viewDidAppear:->
     super()
     @setCornerRadius(@_cornerRadius)
