@@ -1,9 +1,9 @@
 #!/usr/bin/php -f
 <?php
 if (isset($argv[1])) {
-	$projname = "/".$argv[1];
+  $projname = "/".$argv[1];
 } else {
-	$projname = "";
+  $projname = "";
 }
 
 // path initialize
@@ -41,50 +41,50 @@ $path = $p_jskit;
 $dir = opendir($path);
 $file_arr = array();
 while ($fname = readdir($dir)) {
-	// もし、検索してきたものが「ディレクトリ」「ドットで始まっている」「数字で始まっていない」のどれかだったら対象外
-	if (is_dir("$path/$fname") == true || preg_match("/^\./", $fname) == true || preg_match("/^\d/", $fname) == false) {
-		continue;
-	}
-	
-	// CoffeeScriptでコンパイルするファイル一覧配列ソースファイルのパスを登録する
-	$file_arr[] = "$path/$fname";
+  // もし、検索してきたものが「ディレクトリ」「ドットで始まっている」「数字で始まっていない」のどれかだったら対象外
+  if (is_dir("$path/$fname") == true || preg_match("/^\./", $fname) == true || preg_match("/^\d/", $fname) == false) {
+    continue;
+  }
+  
+  // CoffeeScriptでコンパイルするファイル一覧配列ソースファイルのパスを登録する
+  $file_arr[] = "$path/$fname";
 }
 sort($file_arr);
 $compile = implode(" ", $file_arr);
-system("coffee -j JSKit.js -b -o ".$h_syslibs." -c ".$compile);
+system("cat ".$compile." | coffee -b --stdio --compile > ".$h_syslibs."/JSKit.js");
 system("coffee -b -o ".$h_syslibs." -c ".$p_syslibs);
 
 // compile Framework
 $path = $p_framework;
 $dir = opendir($path);
 while ($dirname = readdir($dir)) {
-	// もし、検索してきたものが「ディレクトリ」、且つ「ドットで始まっていない」、且つ「*.framework」という名前だったらフレームワークとしてコンパイル
-	if (is_dir("$path/$dirname") == true && preg_match("/^\./", $dirname) == false && preg_match("/.*\.framework/", $dirname) == true) {
-		$execstr = "coffee -j $dirname.js -b -o $h_framework -c $path/$dirname";
-		system($execstr);
-	}
+  // もし、検索してきたものが「ディレクトリ」、且つ「ドットで始まっていない」、且つ「*.framework」という名前だったらフレームワークとしてコンパイル
+  if (is_dir("$path/$dirname") == true && preg_match("/^\./", $dirname) == false && preg_match("/.*\.framework/", $dirname) == true) {
+    $execstr = "cat $path/$dirname/*.coffee | coffee -b --stdio --compile > $h_framework/$dirname.js";
+    system($execstr);
+  }
 }
 
 // copy js file
 $srcdir = $p_extjslibs;
 $dir = opendir($srcdir);
 while ($fname = readdir($dir)) {
-	if (!preg_match("/.*\.js/", $fname) || preg_match("/^\./", $fname)) {
-		continue;
-	}
-	$src = $srcdir."/".$fname;
-	copy($src, $h_syslibs."/".$fname);
+  if (!preg_match("/.*\.js/", $fname) || preg_match("/^\./", $fname)) {
+    continue;
+  }
+  $src = $srcdir."/".$fname;
+  copy($src, $h_syslibs."/".$fname);
 }
 
 // copy php file
 $srcdir = $p_sysphplibs;
 $dir = opendir($srcdir);
 while ($fname = readdir($dir)) {
-	if (is_dir($srcdir."/".$fname) == true) {
-		continue;
-	}
-	$src = $srcdir."/".$fname;
-	copy($src, $h_syslibs."/".$fname);
+  if (is_dir($srcdir."/".$fname) == true) {
+    continue;
+  }
+  $src = $srcdir."/".$fname;
+  copy($src, $h_syslibs."/".$fname);
 }
 
 // copy external library file

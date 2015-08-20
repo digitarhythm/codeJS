@@ -252,7 +252,7 @@ class JSView extends JSResponder
       if (key == "alpha")
         key = "opacity"
       animobj[key] = value
-        
+
     if (completion?)
       $(@_viewSelector).animate animobj, duration, =>
         for key, value of animations
@@ -300,6 +300,11 @@ class JSView extends JSResponder
       $(@_viewSelector).css("box-shadow", "2px 2px 10px rgba(0,0,0,0.4)")
     else
       $(@_viewSelector).css("box-shadow", "none")
+
+  didBrowserResize:->
+    for obj in @_objlist
+      if (typeof obj.didBrowserResize == 'function')
+        obj.didBrowserResize()
 
   viewDidAppear: ->
     @setHidden(@_hidden)

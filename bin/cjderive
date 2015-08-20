@@ -2,9 +2,9 @@
 <?php
 // parameter check
 if (count($argv) < 3) {
-	echo "[Usage]\n";
-	echo $argv[0]." model_class_name new_class_name\n";
-	exit(1);
+  echo "[Usage]\n";
+  echo $argv[0]." model_class_name new_class_name\n";
+  exit(1);
 }
 
 // path initialize
@@ -22,8 +22,8 @@ $modelfilename = $modeldir."/".$modelclassname.".coffee.model";
 $classfilename = $usrcode."/".$newclassname.".coffee";
 
 if (!is_file($modelfilename)) {
-	echo "'$modelfilename' is not classfile.\n";
-	exit(0);
+  echo "'$modelfilename' is not classfile.\n";
+  exit(0);
 }
 
 $classbody = file_get_contents($modelfilename);
