@@ -1,4 +1,4 @@
-#!/usr/bin/php -f
+#!/usr/bin/php
 <?php
 if (isset($argv[1])) {
   $projname = "/".$argv[1];

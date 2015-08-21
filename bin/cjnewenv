@@ -1,4 +1,4 @@
-#!/usr/bin/php -f
+#!/usr/bin/php
 <?php
 if (isset($argv[1]) == false) {
   echo "Please specify a project name.";

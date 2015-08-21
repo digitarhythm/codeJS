@@ -5,8 +5,6 @@ opt2=$2
 opt3=$3
 cwd=$(cd $(dirname $0);pwd)
 
-echo "Execute directory ["$(pwd)"]"
-
 ##################################################
 # verify package
 ##################################################
@@ -46,6 +44,18 @@ if [ -z "$opt" ]; then
   echo "derive : An inherited class is generated.(require option1 is inheritance class, option2 is new class)"
   exit
 fi
+
+wdir=$(pwd)
+while [ ! -d "./appscode" ]; do
+  cd "${wdir}/.."
+  wdir=$(pwd)
+  if [ ${wdir} = "/" ]; then
+    echo "Not found code:JS project directory."
+    exit
+  fi
+done
+
+echo "Execute directory ["${wdir}"]"
 
 case ${opt} in
 new)
