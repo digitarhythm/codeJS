@@ -4,6 +4,12 @@ class [_classname_] extends JSView
     ###
     Please describe initialization processing of a class below from here. 
     ###
+
+  destructor:->
+    super()
+    ###
+    Please describe the process that is executed before the class is deleted below.
+    ###
     
   viewDidAppear:->
     super()

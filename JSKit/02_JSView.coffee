@@ -189,6 +189,7 @@ class JSView extends JSResponder
     v.appendTo(v.parent())
     
   removeFromSuperview:=>
+    @destructor()
     if (@_parent == null)
       return
     t = -1
