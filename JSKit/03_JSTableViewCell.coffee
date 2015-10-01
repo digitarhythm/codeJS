@@ -75,4 +75,7 @@ class JSTableViewCell extends JSView
     @setImage(@_image)
     $(@_viewSelector).on 'tap', (event)=>
       if (typeof @delegate.didSelectRowAtIndexPath == 'function')
+        @_tableview.deselectRowAtIndexPath()
+        @setBackgroundColor(JSColor("#87cefa"))
         @delegate.didSelectRowAtIndexPath(@_cellnum, event)
+

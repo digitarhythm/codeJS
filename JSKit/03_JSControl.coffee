@@ -21,8 +21,7 @@ class JSControl extends JSView
   viewDidAppear:->
     super()
     @setEnable(@_enable)
-    #$(@_viewSelector).unbind("click").bind "click", (event) =>
-    $(@_viewSelector).on 'tap', (event)=>
+    $(@_viewSelector).on 'click', (event)=>
       if (@action? && @_enable == true && @_userInteractionEnabled == true)
         @action(@_self)
         event.stopPropagation()

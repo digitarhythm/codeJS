@@ -4,11 +4,11 @@
 #*****************************************
 
 class JSTableViewController extends JSObject
-  constructor:->
+  constructor:(frame)->
     super()
     @_tableViewStyle = "UITableViewStylePlain"
     @_bgColor = JSColor("white")
-    @_tableView = new JSTableView()
+    @_tableView = new JSTableView(frame)
     
     @_tableView.delegate = @_self
     @_tableView.dataSource = @_self

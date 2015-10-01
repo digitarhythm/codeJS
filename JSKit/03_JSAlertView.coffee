@@ -13,11 +13,11 @@ class JSAlertView extends JSView
 
   setAlertViewStyle:(@_style)->
     $("body").css
-      "font-size": "60%"
+      "font-size": "80%"
     @_tag  = "<div id='"+@_objectID+"_form' title='"+@_title+"'>"
     @_tag += "<p class='validateTips'>"+@_message+"</p>"
     if (@_style == "JSAlertViewStylePlainTextInput" && @_param?)
-      dialogHeight = 144+(44*@_param.length)
+      dialogHeight = 200+(40*@_param.length)
       @_tag += "<form onSubmit='return false;'>"
       @_tag += "<fieldset>"
       for i in [0...@_param.length]
@@ -26,7 +26,7 @@ class JSAlertView extends JSView
           value = @_data[i]
         else
           value = ""
-        @_tag += "<label style='vertical-align:bottom;'>"+p+"</labeL>"
+        @_tag += "<label style='vertical-align:bottom; height:64px;'>"+p+"</labeL>"
         if (@_passform?)
           if (@_passform.indexOf(i) < 0)
             formtype = "text"
@@ -50,6 +50,7 @@ class JSAlertView extends JSView
               arr = []
               for i in [0...@_param.length]
                 t = $(@_viewSelector+"_textfield_"+i).val()
+                $(@_viewSelector+"_textfield_"+i).css('font-size', '16')
                 arr.push(t)
               text = JSON.stringify(arr)
               @delegate.clickedButtonAtIndex(text, @_self)

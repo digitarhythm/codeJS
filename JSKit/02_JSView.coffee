@@ -26,10 +26,12 @@ class JSView extends JSResponder
     @_touched = false
     @_hidden = false
 
+  destructor:->
+
   addSubview: (object) ->
     if (!object?)
       return
-      
+
     @_objlist.push(object)
     object._parent = @_self
       
@@ -189,7 +191,7 @@ class JSView extends JSResponder
     v.appendTo(v.parent())
     
   removeFromSuperview:=>
-    @destructor()
+    @destructor() if (typeof @destructor == 'function')
     if (@_parent == null)
       return
     t = -1
@@ -336,7 +338,7 @@ class JSView extends JSResponder
             
     $(@_viewSelector).bind
       'touchstart mousedown':=>
-        if (@_editable == false)
+        if (@_editable == false && event?)
           event.preventDefault()
         @touched = true
         if (typeof @touchesBegan == 'function')
@@ -346,7 +348,7 @@ class JSView extends JSResponder
             e = event
           @touchesBegan(e)
       'touchmove mousemove':=>
-        if (@_editable == false)
+        if (@_editable == false && event?)
           event.preventDefault()
         if (@touched)
           if (typeof @touchesMoved == 'function')
@@ -356,7 +358,7 @@ class JSView extends JSResponder
               e = event
             @touchesMoved(e)
       'touchend mouseup':=>
-        if (@_editable == false)
+        if (@_editable == false && event?)
           event.preventDefault()
         @touched = false
         if (typeof @touchesEnded == 'function')
@@ -366,7 +368,7 @@ class JSView extends JSResponder
             e = event
           @touchesEnded(e)
       'touchcancel':=>
-        if (@_editable == false)
+        if (@_editable == false && event?)
           event.preventDefault()
         @touched = false
         if (typeof @touchesCancelled == 'function')

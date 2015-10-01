@@ -14,7 +14,7 @@ class JSListView extends JSScrollView
     @_textSize = 12
     @_select = -1
     @_clipToBounds = true
-    @_scroll = true
+    #@_scroll = true
     @_delegate = @
     
   setFrame:(frame)->
@@ -38,7 +38,7 @@ class JSListView extends JSScrollView
           for item in list
             @_listData.push(item)
           
-        @_tag = "<select id='"+@_objectID+"_select' size='"+size+"' style='width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;z-index:1;'>"
+        @_tag = "<select id='"+@_objectID+"_select' size='"+size+"' style='width:"+(@_frame.size.width)+"px;height:"+(@_frame.size.height)+"px;z-index:1;'>"
         if (!@_listData?)
           @_listData = new Array()
         for i in [0...@_listData.length]
@@ -48,9 +48,9 @@ class JSListView extends JSScrollView
         @_tag += "</select>"
         if ($(@_viewSelector+"_select").length)
           $(@_viewSelector+"_select").remove()
-        $(@_viewSelector).append(@_tag)  
+        $(@_viewSelector).append(@_tag)
         
-        $(@_viewSelector+"_select").css("background-color", "transparent")
+        $(@_viewSelector+"_select").css("background-color", "clearColor")
         $(@_viewSelector+"_select").css("border", "0px transparent")
         $(@_viewSelector+"_select").css("font-size", @_textSize)
         
@@ -91,7 +91,7 @@ class JSListView extends JSScrollView
           placeholder: "ui-sortable-placeholder"
           distance: 3
           opacity:0.8
-          scroll: true
+          scroll: false
           update: (event, ui)=>
             @sortReflection()
             if (typeof @_delegate.sortUpdate == 'function')

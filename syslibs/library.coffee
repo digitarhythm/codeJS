@@ -81,12 +81,12 @@ JSMakeRange = (loc, len) ->
 
 # get browser size(not include scrolling bar)
 getApplicationFrame=->
-  frame = JSRectMake(0, 0, $("html").innerWidth() - 1, $("html").innerHeight() - 1)
+  frame = JSRectMake(0, 0, window.innerWidth - 1, window.innerHeight - 1)
   return frame
     
 # get browser size(include scrolling bar)
 getBounds=->
-  frame = JSRectMake(0, 0, document.documentElement.clientWidth, document.documentElement.clientHeight)
+  frame = JSRectMake(0, 0, document.documentElement.scrollWidth, document.documentElement.scrollHeight)
   return frame
 
 # Color management
@@ -112,6 +112,8 @@ JSSearchPathForDirectoriesInDomains = (kind) ->
       ret = "Media/Picture"
     when "JSSystemDirectory"
       ret = "syslibs"
+    when "JSBackendDirectory"
+      ret = "backend"
   
   return ret
 
@@ -128,7 +130,10 @@ JSEscape = (str) ->
 #//////////////////////////////////////////////////////////////////////////////////////////
 
 objectNum = (obj)->
+  if (obj?)
     return Object.keys(obj).length
+  else
+    return 0
 
 #//////////////////////////////////////////////////////////////////////////////////////////
 

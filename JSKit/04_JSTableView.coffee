@@ -56,6 +56,7 @@ class JSTableView extends JSView
       cell = @dataSource.cellForRowAtIndexPath(i)
       cell._cellnum = i
       cell.delegate = @delegate
+      cell._tableview = @
       @childlist.push(cell)
 
       # 各セルの高さを取得して設定する
@@ -72,9 +73,15 @@ class JSTableView extends JSView
     @_parent.bringSubviewToFront(@_self)
     
   reloadData:->
-    for obj in @childlist
-      obj.removeFromSuperview()
-    @addTableView()
+    if (@_tableView?)
+      for obj in @childlist
+        obj.removeFromSuperview()
+      @addTableView()
+
+  deselectRowAtIndexPath:->
+    if (@_tableView?)
+      for obj in @childlist
+        obj.setBackgroundColor(JSColor("clearColor"))
 
   viewDidAppear:->
     super()

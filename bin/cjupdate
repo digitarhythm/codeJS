@@ -102,6 +102,7 @@ copy($p_syslibs."/htaccess2", $homedir."/.htaccess");
 copy($p_syslibs."/htaccess2", $homedir."/usrlibs/.htaccess");
 copy($p_syslibs."/htaccess2", $homedir."/syslibs/.htaccess");
 copy($p_syslibs."/htaccess2", $homedir."/Plugins/.htaccess");
+copy($p_syslibs."/htaccess2", $homedir."/backend/.htaccess");
 copy($p_syslibs."/htaccess2", $homedir."/Documents/.htaccess");
 copy($p_syslibs."/htaccess2", $homedir."/Media/Movie/.htaccess");
 copy($p_syslibs."/htaccess2", $homedir."/Media/Music/.htaccess");

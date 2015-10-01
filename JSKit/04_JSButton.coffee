@@ -79,3 +79,4 @@ class JSButton extends JSControl
     $(@_viewSelector+"_button").css("height", buttonheight+"px")
 
     $(@_viewSelector+"_button").button()
+
