@@ -17,9 +17,8 @@ class JSAlertView extends JSView
     @_tag  = "<div id='"+@_objectID+"_form' title='"+@_title+"'>"
     @_tag += "<p class='validateTips'>"+@_message+"</p>"
     if (@_style == "JSAlertViewStylePlainTextInput" && @_param?)
-      dialogHeight = 200+(40*@_param.length)
-      @_tag += "<form onSubmit='return false;'>"
-      @_tag += "<fieldset>"
+      dialogHeight = 180+(60*@_param.length)
+      @_tag += "<fieldset style='border:0px transparent dotted;'>"
       for i in [0...@_param.length]
         p = @_param[i]
         if (@_data?)
@@ -32,10 +31,9 @@ class JSAlertView extends JSView
             formtype = "text"
           else
             formtype = "password"
-        addtag = "<input type='"+formtype+"' name='"+@_objectID+"_textfield_"+i+"' id='"+@_objectID+"_textfield_"+i+"' style='width:"+(@_frame.size.width-32)+"px;' value='"+value+"' /><br>"
+        addtag = "<input type='"+formtype+"' name='"+@_objectID+"_textfield_"+i+"' id='"+@_objectID+"_textfield_"+i+"' style='width:"+(@_frame.size.width-32)+"px; padding:6px;' value='"+value+"' /><br><br>"
         @_tag += addtag
       @_tag += "</fieldset>"
-      @_tag += "</form>"
     else
       dialogHeight = 160
     @_tag += "</div>"
