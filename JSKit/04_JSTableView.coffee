@@ -10,7 +10,7 @@ class JSTableView extends JSView
     super(frame)
     @_rowHeight = 32
     @_clipToBounds = true
-    @_bgColor = JSColor("white")
+    @_bgColor = JSColor("clearColor")
     @_scroll = true
     @_titlebarColor = JSColor("#d0d8e0")
     @_titleColor = JSColor("black")
@@ -88,6 +88,11 @@ class JSTableView extends JSView
     if (!@_tableView?)
       frm = JSRectMake(0, 0, @_frame.size.width, @_frame.size.height)
       @_tableView = new JSScrollView(frm)
+      @_tableView.setBackgroundColor(@_bgColor)
+      @_tableView.setAlpha(@_alpha)
+      @_tableView.setCornerRadius(@_cornerRadius)
+      @_tableView.setBorderColor(@_borderColor)
+      @_tableView.setBorderWidth(@_borderWidth)
       @_self.addSubview(@_tableView)
     @addTableView()
     @_self.addSubview(@_titleBar)

@@ -12,7 +12,10 @@ class JSButton extends JSControl
     @_style = "JSFormButtonStyleNormal"
     @_textSize = 8
     @delegate = null
-    
+    @icon = undefined
+
+  setIcon:(@icon)->
+  
   setButtonTitle:(title)->
     @_buttonTitle = title
     if ($(@_viewSelector+"_button").length)
@@ -47,7 +50,9 @@ class JSButton extends JSControl
     buttonwidth = @_frame.size.width
     buttonheight = @_frame.size.height
     if (@_style == "JSFormButtonStyleNormal")
+      tag += "<div class='jquery-ui-icon'>"
       tag += "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;z-index:1;' value='"+@_buttonTitle+"' />"
+      tag += "</div>"
     else if (@_style == "JSFormButtonStyleImageUpload")
       tag += "<div id=\""+@_objectID+"_pack\">"
       tag += "<input id=\""+@_objectID+"_file\" type=\"file\" name=\""+@_objectID+"_file\" style=\"display:none;\">"
@@ -78,5 +83,7 @@ class JSButton extends JSControl
     $(@_viewSelector+"_button").css("width", buttonwidth+"px")
     $(@_viewSelector+"_button").css("height", buttonheight+"px")
 
-    $(@_viewSelector+"_button").button()
+    $(@_viewSelector+"_button").button {
+      icons: {primary: @icon}
+    }
 

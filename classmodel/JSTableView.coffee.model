@@ -4,3 +4,9 @@ class [_classname_] extends JSTableView
     ###
     Please describe user processing below from here. 
     ###
+
+  viewDidAppear:->
+    super()
+    ###
+    Please describe the processing about a view below from here. 
+    ###

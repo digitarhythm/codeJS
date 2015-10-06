@@ -4,11 +4,8 @@
 #*****************************************
 
 class JSTableViewCell extends JSView
-  constructor: (frame) ->
-    if (!frame?)
-      bounds = getBounds()
-      frame = JSRectMake(0, 0, bounds.size.width - 2, 0)
-    super(frame)
+  constructor:->
+    super()
     @_image = null
     @_imageview = null
     @_text = ""
@@ -66,6 +63,7 @@ class JSTableViewCell extends JSView
 
   viewDidAppear:->
     super()
+    @_frame.origin.x = 1
     $(@_viewSelector).append(@tag)
     @setFrame(@_frame)
     @setText(@_text)
