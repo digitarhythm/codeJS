@@ -76,7 +76,7 @@ class JSTableView extends JSView
     super()
     if (!@_tableView?)
       if (!@_titleBar?)
-        @_titleBar = new JSLabel(JSRectMake(0, 0, @_frame.size.width, @_rowHeight))
+        @_titleBar = new JSLabel(JSRectMake(4, 0, @_frame.size.width - 8, @_rowHeight))
         @_titleBar.setText(@_title)
         @_titleBar.setTextAlignment("JSTextAlignmentLeft")
         @_titleBar.setTextSize(11)
