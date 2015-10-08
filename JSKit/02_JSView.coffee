@@ -248,7 +248,7 @@ class JSView extends JSResponder
           @_tapAction2(@_self, e)
           e.stopPropagation()
         
-  animateWithDuration:(duration, animations, completion = null)=>
+  animateWithDuration:(duration, animations, completion = undefined)=>
     duration *= 1000
     animobj = {}
     for key, value of animations
@@ -256,47 +256,27 @@ class JSView extends JSResponder
         key = "opacity"
       animobj[key] = value
 
-    if (completion?)
-      $(@_viewSelector).animate animobj, duration, =>
-        for key, value of animations
-          switch key
-            when "top"
-              @_frame.origin.y = value
-            when "left"
-              @_frame.origin.x = value
-            when "alpha"
-              @_alpha = value
-            when "background-color"
-              @_bgColor = value
-            when "border-color"
-              @_borderColor = value
-            when "border-width"
-              @_borderWidth = value
-            when "width"
-              @_frame.size.width = value
-            when "height"
-              @_frame.size.height = value
+    $(@_viewSelector).animate animobj, duration, =>
+      for key, value of animations
+        switch key
+          when "top"
+            @_frame.origin.y = value
+          when "left"
+            @_frame.origin.x = value
+          when "alpha"
+            @_alpha = value
+          when "background-color"
+            @_bgColor = value
+          when "border-color"
+            @_borderColor = value
+          when "border-width"
+            @_borderWidth = value
+          when "width"
+            @_frame.size.width = value
+          when "height"
+            @_frame.size.height = value
+      if (completion?)
         completion(@_self)
-    else
-      $(@_viewSelector).animate animobj, duration, =>
-        for key, value of animations
-          switch key
-            when "top"
-              @_frame.origin.y = value
-            when "left"
-              @_frame.origin.x = value
-            when "alpha"
-              @_alpha = value
-            when "background-color"
-              @_bgColor = value
-            when "border-color"
-              @_borderColor = value
-            when "border-width"
-              @_borderWidth = value
-            when "width"
-              @_frame.size.width = value
-            when "height"
-              @_frame.size.height = value
       
   setShadow:(@_shadow)->
     if (@_shadow == true)

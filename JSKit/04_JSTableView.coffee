@@ -23,15 +23,6 @@ class JSTableView extends JSView
     @childlist = []
     
     @bounds = getBounds()
-
-    if (!@_titleBar?)
-      @_titleBar = new JSLabel(JSRectMake(0, 0, @_frame.size.width, @_rowHeight))
-      @_titleBar.setText(@_title)
-      @_titleBar.setTextAlignment("JSTextAlignmentLeft")
-      @_titleBar.setTextSize(11)
-      @_titleBar.setBackgroundColor(@_titlebarColor)
-      @_titleBar.setTextColor(@_titleColor)
-      @_titleBar.setAlpha(0.9)
     
   setRowHeight:(@_rowHeight)->
 
@@ -53,21 +44,19 @@ class JSTableView extends JSView
     # 各セルの内容を返すデリゲートメソッドを呼ぶ
     diff_y = @_rowHeight
     for i in [0...@_dataNum]
-      cell = @dataSource.cellForRowAtIndexPath(i)
-      cell._cellnum = i
-      cell.delegate = @delegate
-      cell._tableview = @
-      @childlist.push(cell)
-
       # 各セルの高さを取得して設定する
       if (typeof @delegate.heightForRowAtIndexPath == 'function')
         cellHeight = @delegate.heightForRowAtIndexPath(i)
       else
         cellHeight = @_rowHeight
       
-      frm = JSRectMake(0, diff_y, cell._frame.size.width, cellHeight)
+      cell = @dataSource.cellForRowAtIndexPath(i)
+      cell._cellnum = i
+      cell.delegate = @delegate
+      cell._tableview = @
+      @childlist.push(cell)
 
-      cell.setFrame(frm)
+      cell.setFrame(JSRectMake(1, diff_y, @_frame.size.width - 4, cellHeight))
       @_tableView.addSubview(cell)
       diff_y += cellHeight+1
     @_parent.bringSubviewToFront(@_self)
@@ -86,6 +75,14 @@ class JSTableView extends JSView
   viewDidAppear:->
     super()
     if (!@_tableView?)
+      if (!@_titleBar?)
+        @_titleBar = new JSLabel(JSRectMake(0, 0, @_frame.size.width, @_rowHeight))
+        @_titleBar.setText(@_title)
+        @_titleBar.setTextAlignment("JSTextAlignmentLeft")
+        @_titleBar.setTextSize(11)
+        @_titleBar.setBackgroundColor(@_titlebarColor)
+        @_titleBar.setTextColor(@_titleColor)
+        @_titleBar.setAlpha(0.9)
       frm = JSRectMake(0, 0, @_frame.size.width, @_frame.size.height)
       @_tableView = new JSScrollView(frm)
       @_tableView.setBackgroundColor(@_bgColor)
