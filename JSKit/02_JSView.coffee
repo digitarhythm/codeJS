@@ -192,8 +192,7 @@ class JSView extends JSResponder
     
   removeFromSuperview:=>
     @destructor() if (typeof @destructor == 'function')
-    if (@_parent == null)
-      return
+    return if (@_parent == null)
     t = -1
     i = 0
     for o in @_parent._objlist

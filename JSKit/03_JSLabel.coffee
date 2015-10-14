@@ -14,6 +14,7 @@ class JSLabel extends JSView
     
   setText: (@_text) ->
     if ($(@_viewSelector).length)
+      $(@_viewSelector).css("text-indent", "4px")
       $(@_viewSelector).html(@_text)
 
   setTextSize: (@_textSize) ->

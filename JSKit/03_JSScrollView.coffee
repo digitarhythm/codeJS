@@ -7,6 +7,9 @@ class JSScrollView extends JSView
   constructor:(frame)->
     super(frame)
     @_scroll = false
+
+  destructor:->
+    super()
   
   setScroll:(@_scroll)->
     if (@_scroll == true)

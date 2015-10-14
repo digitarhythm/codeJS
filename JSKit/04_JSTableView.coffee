@@ -26,6 +26,13 @@ class JSTableView extends JSView
     
   setRowHeight:(@_rowHeight)->
 
+  destructor:->
+    super()
+    @_tableView.removeFromSuperview()
+    for obj in @childlist
+      JSLog(obj)
+      obj.removeFromSuperview()
+
   addTableView:->
     # 各セクションに含まれるデータの数を取得する（デリゲートメソッドが無い場合はデータの数は初期値（0））
     if (typeof @dataSource.numberOfRowsInSection == 'function')
@@ -76,7 +83,7 @@ class JSTableView extends JSView
     super()
     if (!@_tableView?)
       if (!@_titleBar?)
-        @_titleBar = new JSLabel(JSRectMake(4, 0, @_frame.size.width - 8, @_rowHeight))
+        @_titleBar = new JSLabel(JSRectMake(0, 0, @_frame.size.width, @_rowHeight))
         @_titleBar.setText(@_title)
         @_titleBar.setTextAlignment("JSTextAlignmentLeft")
         @_titleBar.setTextSize(11)
