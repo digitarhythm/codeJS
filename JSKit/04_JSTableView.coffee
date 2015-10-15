@@ -30,7 +30,6 @@ class JSTableView extends JSView
     super()
     @_tableView.removeFromSuperview()
     for obj in @childlist
-      JSLog(obj)
       obj.removeFromSuperview()
 
   addTableView:->
