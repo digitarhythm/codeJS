@@ -28,9 +28,6 @@ class JSTableView extends JSView
 
   destructor:->
     super()
-    @_tableView.removeFromSuperview()
-    for obj in @childlist
-      obj.removeFromSuperview()
 
   addTableView:->
     # 各セクションに含まれるデータの数を取得する（デリゲートメソッドが無い場合はデータの数は初期値（0））
