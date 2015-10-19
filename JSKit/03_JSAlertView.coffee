@@ -17,7 +17,7 @@ class JSAlertView extends JSView
     @_tag  = "<div id='"+@_objectID+"_form' title='"+@_title+"'>"
     @_tag += "<p class='validateTips'>"+@_message+"</p>"
     if (@_style == "JSAlertViewStylePlainTextInput" && @_param?)
-      dialogHeight = 180+(60*@_param.length)
+      dialogHeight = 180+(70*@_param.length)
       @_tag += "<fieldset style='border:0px transparent dotted;'>"
       for i in [0...@_param.length]
         p = @_param[i]
