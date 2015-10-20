@@ -35,7 +35,7 @@ class JSAlertView extends JSView
         @_tag += addtag
       @_tag += "</fieldset>"
     else
-      dialogHeight = 160
+      dialogHeight = 180
     @_tag += "</div>"
     if ($(@_viewSelector+"_form").length)
       $(@_viewSelector+"_form").remove()
