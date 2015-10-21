@@ -52,11 +52,19 @@ class JSView extends JSResponder
     if ($(@_viewSelector).length)
       $(@_viewSelector).css("background-color", @_bgColor)
     
-  setAlpha: (@_alpha) ->
+  setAlpha: (@_alpha, flag = false) ->
     if (@_alpha < 0 or @_alpha > 1)
       return
     if ($(@_viewSelector).length)
-      $(@_viewSelector).css("opacity", @_alpha)
+      ret = @_bgColor.match(/^(#)(..)(..)(..)$/)
+      if (ret? && ret[1] == "#" && flag)
+        r = parseInt(ret[2], 16)
+        g = parseInt(ret[3], 16)
+        b = parseInt(ret[4], 16)
+        col = 'rgba('+r+', '+g+', '+b+', '+@_alpha+')'
+        $(@_viewSelector).css("background-color", col)
+      else
+        $(@_viewSelector).css("opacity", @_alpha)
 
   setCornerRadius: (@_cornerRadius) ->
     if ($(@_viewSelector).length)
@@ -247,12 +255,20 @@ class JSView extends JSResponder
           @_tapAction2(@_self, e)
           e.stopPropagation()
         
-  animateWithDuration:(duration, animations, completion = undefined)=>
+  animateWithDuration:(duration, animations, completion = undefined, flag = false)=>
     duration *= 1000
     animobj = {}
     for key, value of animations
       if (key == "alpha")
         key = "opacity"
+      else if (key == "alpha2")
+        ret = @_bgColor.match(/^(#)(..)(..)(..)$/)
+        if (ret? && ret[1] == "#")
+          r = parseInt(ret[2], 16)
+          g = parseInt(ret[3], 16)
+          b = parseInt(ret[4], 16)
+          key = "background-color"
+          value = 'rgba('+r+', '+g+', '+b+', '+value+')'
       animobj[key] = value
 
     $(@_viewSelector).animate animobj, duration, =>
