@@ -15,9 +15,9 @@ class JSAlertView extends JSView
     $("body").css
       "font-size": "80%"
     @_tag  = "<div id='"+@_objectID+"_form' title='"+@_title+"'>"
-    @_tag += "<p class='validateTips'>"+@_message+"</p>"
+    @_tag += "<p class='validateTips' style='height:48px;'>"+@_message+"</p>"
     if (@_style == "JSAlertViewStylePlainTextInput" && @_param?)
-      dialogHeight = 180+(70*@_param.length)
+      dialogHeight = 180+(80*@_param.length)
       @_tag += "<fieldset style='border:0px transparent dotted;'>"
       for i in [0...@_param.length]
         p = @_param[i]
@@ -25,13 +25,13 @@ class JSAlertView extends JSView
           value = @_data[i]
         else
           value = ""
-        @_tag += "<label style='vertical-align:bottom; height:64px;'>"+p+"</labeL>"
+        @_tag += "<label style='vertical-align:bottom; height:64px;'>"+p+"</labeL><br>"
         if (@_passform?)
           if (@_passform.indexOf(i) < 0)
             formtype = "text"
           else
             formtype = "password"
-        addtag = "<input type='"+formtype+"' name='"+@_objectID+"_textfield_"+i+"' id='"+@_objectID+"_textfield_"+i+"' style='width:"+(@_frame.size.width-32)+"px; padding:6px;' value='"+value+"' /><br><br>"
+        addtag = "<input type='"+formtype+"' name='"+@_objectID+"_textfield_"+i+"' id='"+@_objectID+"_textfield_"+i+"' style='width:"+(@_frame.size.width-32)+"px; height:24; padding:6px;' value='"+value+"' /><br><br>"
         @_tag += addtag
       @_tag += "</fieldset>"
     else
