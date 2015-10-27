@@ -58,9 +58,9 @@ class JSView extends JSResponder
     if ($(@_viewSelector).length)
       ret = @_bgColor.match(/^(#)(..)(..)(..)$/)
       if (ret? && ret[1] == "#" && flag)
-        r = parseInt(ret[2], 16)
-        g = parseInt(ret[3], 16)
-        b = parseInt(ret[4], 16)
+        r = String(parseInt(ret[2], 16))
+        g = String(parseInt(ret[3], 16))
+        b = String(parseInt(ret[4], 16))
         col = 'rgba('+r+', '+g+', '+b+', '+@_alpha+')'
         $(@_viewSelector).css("background-color", col)
       else
@@ -264,9 +264,9 @@ class JSView extends JSResponder
       else if (key == "alpha2")
         ret = @_bgColor.match(/^(#)(..)(..)(..)$/)
         if (ret? && ret[1] == "#")
-          r = parseInt(ret[2], 16)
-          g = parseInt(ret[3], 16)
-          b = parseInt(ret[4], 16)
+          r = String(parseInt(ret[2], 16))
+          g = String(parseInt(ret[3], 16))
+          b = String(parseInt(ret[4], 16))
           key = "background-color"
           value = 'rgba('+r+', '+g+', '+b+', '+value+')'
       animobj[key] = value
