@@ -144,7 +144,7 @@ function writeToFile($data, $fname) {
   
   $fullpath = $_HOMEDIR_."/".$fname;
   $path = pathinfo($fullpath, PATHINFO_DIRNAME);
-  if (is_dir($path) == false) {
+  if (is_dir($path) === false) {
     mkdir($path, 0775, true);
   }
   $fp = fopen($fullpath, "w");
@@ -248,7 +248,7 @@ function thumbnailList($path)
   $extarray = array("png", "jpg", "jpeg", "gif");
   while ($fname = readdir($dir)) {
     $target = "$_HOMEDIR_/$path/$fname";
-    if (is_dir($target) == false && !preg_match("/^\..*/", $fname)) {
+    if (is_dir($target) === false && !preg_match("/^\..*/", $fname)) {
       $ext = pathinfo($fname, PATHINFO_EXTENSION);
       $file = pathinfo($fname, PATHINFO_FILENAME);
       if (in_array($ext, $extarray) == true && is_file($thumbdir."/".$file."_s.".$ext) == true) {
@@ -272,7 +272,7 @@ function createThumbnail($path)
   global $_HOMEDIR_;
   $imgdir = $_HOMEDIR_."/$path";
   $thumbdir = $_HOMEDIR_."/$path/.thumb";
-  if (is_dir($thumbdir) == false) {
+  if (is_dir($thumbdir) === false) {
     return 0;
   }
   $extarray = array("png", "jpg", "jpeg", "gif");
@@ -280,7 +280,7 @@ function createThumbnail($path)
   while ($fname = readdir($dir)) {
     $ext = pathinfo($fname, PATHINFO_EXTENSION);
     $file = pathinfo($fname, PATHINFO_FILENAME);
-    if (in_array($ext, $extarray) == true && is_file($thumbdir."/".$file."_s.".$ext) == false) {
+    if (in_array($ext, $extarray) == true && is_file($thumbdir."/".$file."_s.".$ext) === false) {
       exec("convert -resize 120x120 ".$imgdir."/".$fname." ".$thumbdir."/".$file."_s.".$ext);
     }
   }
@@ -295,7 +295,7 @@ function deleteAloneThumb($path)
   global $_HOMEDIR_;
   $imgdir = $_HOMEDIR_."/$path";
   $thumbdir = $_HOMEDIR_."/$path/.thumb";
-  if (is_dir($thumbdir) == false) {
+  if (is_dir($thumbdir) === false) {
     return 0;
   }
   $dir = opendir($thumbdir);
@@ -303,10 +303,10 @@ function deleteAloneThumb($path)
     $ext = pathinfo($fname, PATHINFO_EXTENSION);
     $filetmp = pathinfo($fname, PATHINFO_FILENAME);
     preg_match("/(.*)_s/", $filetmp, $match);
-    if (isset($match[1]) == false) {
+    if (isset($match[1]) === false) {
       continue;
     }
-    if (is_file($imgdir."/".$match[1].".".$ext) == false) {
+    if (is_file($imgdir."/".$match[1].".".$ext) === false) {
       unlink($thumbdir."/".$fname);
     }
   }
@@ -319,7 +319,7 @@ function savePicture($imagepath, $path)
 {
   global $_HOMEDIR_;
   
-  if (is_file($_HOMEDIR_."/".$imagepath) == false) {
+  if (is_file($_HOMEDIR_."/".$imagepath) === false) {
     return $imagepath;
   }
   
@@ -338,7 +338,7 @@ function removeFile($path)
   $fullpath = $_HOMEDIR_."/".$path;
   if (is_file($fullpath) || is_dir($fullpath)) {
     $err = system("rm -rf ".$fullpath);
-    if ($err == false) {
+    if ($err === false) {
       $ret = 0;
     } else {
       $ret = 1;
@@ -361,7 +361,7 @@ function moveFile($file, $toPath)
   $toFullPath = $_HOMEDIR_."/".$toPath;
   if (is_file($orgFullPath)) {
     $err = rename($orgFullPath, $toFullPath);
-    if ($err == false) {
+    if ($err === false) {
       $ret = 0;
     } else {
       $ret = 1;
@@ -463,7 +463,7 @@ function createDirectoryAtPath($path)
     $ret = 0;
   } else {
     $err = system("mkdir -p ".$fullpath);
-    if ($err == false) {
+    if ($err === false) {
       $ret = 0;
     } else {
       $ret = 1;

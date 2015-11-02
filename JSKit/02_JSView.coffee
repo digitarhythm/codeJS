@@ -332,7 +332,7 @@ class JSView extends JSResponder
           o.viewDidAppear()
             
     $(@_viewSelector).bind
-      'touchstart mousedown':=>
+      'touchstart mousedown':(event)=>
         if (@_editable == false && event?)
           event.preventDefault()
         @touched = true
@@ -342,7 +342,7 @@ class JSView extends JSResponder
           else
             e = event
           @touchesBegan(e)
-      'touchmove mousemove':=>
+      'touchmove mousemove':(event)=>
         if (@_editable == false && event?)
           event.preventDefault()
         if (@touched)
@@ -352,7 +352,7 @@ class JSView extends JSResponder
             else
               e = event
             @touchesMoved(e)
-      'touchend mouseup':=>
+      'touchend mouseup':(event)=>
         if (@_editable == false && event?)
           event.preventDefault()
         @touched = false
@@ -362,7 +362,7 @@ class JSView extends JSResponder
           else
             e = event
           @touchesEnded(e)
-      'touchcancel':=>
+      'touchcancel':(event)=>
         if (@_editable == false && event?)
           event.preventDefault()
         @touched = false

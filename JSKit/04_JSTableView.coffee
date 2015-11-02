@@ -70,6 +70,12 @@ class JSTableView extends JSView
         obj.removeFromSuperview()
       @addTableView()
 
+  selectRowAtIndexPath:(num)->
+    if (@_tableView?)
+      for obj, i in @childlist
+        if (i == num)
+            obj.setBackgroundColor(JSColor("#87cefa"))
+
   deselectRowAtIndexPath:->
     if (@_tableView?)
       for obj in @childlist
@@ -96,3 +102,4 @@ class JSTableView extends JSView
       @_self.addSubview(@_tableView)
     @addTableView()
     @_self.addSubview(@_titleBar)
+
