@@ -17,13 +17,13 @@ class JSTableView extends JSView
     @_title = "Title Bar"
     @_titleBar = undefined
     @_tableView = undefined
-    
+
     @delegate = null
     @dataSource = null
     @childlist = []
-    
+
     @bounds = getBounds()
-    
+
   setRowHeight:(@_rowHeight)->
 
   destructor:->
@@ -35,13 +35,13 @@ class JSTableView extends JSView
       @_dataNum = @dataSource.numberOfRowsInSection()
     else
       @_dataNum = 0
-    
+
     # セクションの数を取得する（デリゲートメソッドが無い場合は初期値（1）のまま）
     if (typeof @dataSource.numberOfSectionsInTableView == 'function')
       @_sectionNum = @dataSource.numberOfSectionsInTableView()
     else
       @_sectionNum = 1
-      
+
     @_tableView.setScroll(true)
 
     # 各セルの内容を返すデリゲートメソッドを呼ぶ
@@ -52,7 +52,7 @@ class JSTableView extends JSView
         cellHeight = @delegate.heightForRowAtIndexPath(i)
       else
         cellHeight = @_rowHeight
-      
+
       cell = @dataSource.cellForRowAtIndexPath(i)
       cell._cellnum = i
       cell.delegate = @delegate

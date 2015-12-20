@@ -12,6 +12,7 @@ class JSImagePicker extends JSScrollView
     @_imageList = new Array()
     @delegate = null
     @hilight = null
+    @picturedir = JSSearchPathForDirectoriesInDomains("JSPictureDirectory")
 
   dispImageList:(_filelist)->
     if (!$(@_viewSelector).length)
@@ -28,13 +29,13 @@ class JSImagePicker extends JSScrollView
     h2 = vnum2 * (@_thumbnail_height+4)+4
     x = parseInt(@_frame.size.width / 2 - (w / 2))
     y = -(h2 + 0)
-    
+
     @imagebase = new JSScrollView(JSRectMake(x, y, w, h + 36))
     @imagebase.setShadow(true)
     @imagebase.setBackgroundColor(JSColor("black"))
     @_self.addSubview(@imagebase)
     @_self.bringSubviewToFront(@imagebase)
-    
+
     @listbase = new JSScrollView(JSRectMake(0, 0, w, h + 36))
     @listbase.setClipToBounds(true)
     @listbase.setScroll(true)
@@ -46,26 +47,26 @@ class JSImagePicker extends JSScrollView
         @hilight = null
     @imagebase.addSubview(@listbase)
     @imagebase.bringSubviewToFront(@listbase)
-      
+
     @imagectrl = new JSView(JSRectMake(0, h, w, 36))
     @imagectrl.setAlpha(0.8)
     @imagectrl.setBackgroundColor(JSColor("white"))
     @imagebase.addSubview(@imagectrl)
-    
+
     @closebutton = new JSButton(JSRectMake(w - 84, h+4, 80, 28))
     @closebutton.setButtonTitle("閉じる")
     @closebutton.addTarget(@closeImagePickerView)
     @closebutton.setShadow(true)
     @imagebase.addSubview(@closebutton)
     @imagebase.bringSubviewToFront(@closebutton)
-    
+
     @editbutton = new JSButton(JSRectMake(4, h+4, 80, 28))
     @editbutton.setButtonTitle("編集")
     @editbutton.addTarget(@editImageList)
     @editbutton.setShadow(true)
     @imagebase.addSubview(@editbutton)
     @imagebase.bringSubviewToFront(@editbutton)
-    
+
     @imagebase.animateWithDuration 0.2, {top:0}, =>
       xnum = 0
       ynum = 0
@@ -73,7 +74,6 @@ class JSImagePicker extends JSScrollView
       for thumbfname in imagelist
         pos.x = xnum * (@_thumbnail_width+4)+4
         pos.y = ynum * (@_thumbnail_height+4)+4
-        path = JSSearchPathForDirectoriesInDomains("JSPictureDirectory")
         imgfname = thumbfname.replace(/^.*\/(.*?)_s\.(.*)/, "/$1.$2")
         img = new JSImage(thumbfname)
         viewfrm = JSRectMake(pos.x, pos.y, @_thumbnail_width, @_thumbnail_height)
@@ -92,7 +92,7 @@ class JSImagePicker extends JSScrollView
           sender.delcoverview.setAlpha(0.5)
           e.stopPropagation()
         view.setImage(img)
-        
+
         delviewfrm = JSRectMake(0, 0, @_thumbnail_width, @_thumbnail_height)
         delcoverview = new JSView(delviewfrm)
         delcoverview.setAlpha(0.0)
@@ -116,10 +116,10 @@ class JSImagePicker extends JSScrollView
         if (xnum == hnum)
           xnum = 0
           ynum++
-    
+
   tapImage:(sender)=>
     @closeImagePickerView()
-    if (@delegate?)
+    if (@delegate? && typeof(@delegate.didPickedImage) == 'function')
       @delegate.didPickedImage(sender.imgfname)
 
   closeImagePickerView:=>
@@ -128,6 +128,8 @@ class JSImagePicker extends JSScrollView
         @imagectrl.removeFromSuperview()
         @listbase.removeFromSuperview()
         @imagebase.removeFromSuperview()
+        if (@delegate? && typeof(@delegate.didClosePickerview) == 'function')
+            @delegate.didClosePickerview()
         @_self.removeFromSuperview()
 
   editImageList:(sender)=>
@@ -154,17 +156,16 @@ class JSImagePicker extends JSScrollView
           if (@hilight?)
             @hilight.delcoverview.setAlpha(0.0)
             @hilight = null
-      
+
   deleteImage:(sender)=>
     sender._parent.animateWithDuration 0.2, {alpha:0.0}, =>
       fname = @_imageList[sender._parent.number].imgfname
       thumb = @_imageList[sender._parent.number].imgthumb
       @_imageList.splice(sender._parent.number, 1)
       sender._parent.removeFromSuperview()
-      path = JSSearchPathForDirectoriesInDomains("JSPictureDirectory")
       $.post "syslibs/library.php",
         mode: "fileUnlink"
-        fpath: path+"/"+fname
+        fpath: @picturedir+"/"+fname
       $.post "syslibs/library.php",
         mode: "fileUnlink"
         fpath: thumb
@@ -203,7 +204,7 @@ class JSImagePicker extends JSScrollView
     
     fm = new JSFileManager()
     fm.delegate = fm
-    path = JSSearchPathForDirectoriesInDomains("JSPictureDirectory")
-    fm.thumbnailList path, (filelist)=>
+    fm.thumbnailList @picturedir, (filelist)=>
       @windowbase.animateWithDuration 0.2, {alpha:0.7}, =>
         @dispImageList(filelist)
+

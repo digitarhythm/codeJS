@@ -34,13 +34,13 @@ class JSView extends JSResponder
 
     @_objlist.push(object)
     object._parent = @_self
-      
+
     if ($(@_viewSelector).length)
       $(@_viewSelector).append(object._div)
       object.setDraggable(object._draggable, object._axis, object._dragopacity)
       object.setResizable(object._resizable, object._resizeAction, object._resizeopacity)
       object.viewDidAppear()
-    
+
   setFrame: (@_frame) ->
     if ($(@_viewSelector).length)
       $(@_viewSelector).css("width", @_frame.size.width+"px")
@@ -51,7 +51,7 @@ class JSView extends JSResponder
   setBackgroundColor: (@_bgColor) ->
     if ($(@_viewSelector).length)
       $(@_viewSelector).css("background-color", @_bgColor)
-    
+
   setAlpha: (@_alpha, flag = false) ->
     if (@_alpha < 0 or @_alpha > 1)
       return
@@ -71,13 +71,13 @@ class JSView extends JSResponder
       $(@_viewSelector).css("-webkit-border-radius", @_cornerRadius+"px")
       $(@_viewSelector).css("-moz-border-radius", @_cornerRadius+"px")
       $(@_viewSelector).css("border-radius", @_cornerRadius+"px")
-  
+
   setBorderColor: (@_borderColor) ->
     if ($(@_viewSelector).length)
       $(@_viewSelector).css("border-color", @_borderColor)
       $(@_viewSelector).css("border-style", "solid")
       $(@_viewSelector).css("border-width", @_borderWidth)
-    
+
   setBorderWidth: (@_borderWidth) ->
       $(@_viewSelector).css("border-width", @_borderWidth)
       $(@_viewSelector).css("border-style", "solid")
@@ -89,7 +89,7 @@ class JSView extends JSResponder
         $(@_viewSelector).css("overflow", "hidden")
       else
         $(@_viewSelector).css("overflow", "normal")
-        
+
   setUserInteractionEnabled:(@_userInteractionEnabled)->
     if (@_userInteractionEnabled == true)
       $(@_viewSelector).unbind("click").bind "click", (event) =>
@@ -107,16 +107,16 @@ class JSView extends JSResponder
   disableDragObject:(object)->
     if ($(@_viewSelector).length)
       $(@_viewSelector).draggable('option', 'cancel', object._viewSelector)
-  
+
   setDraggable: (@_draggable, @_axis = false, @_dragopacity = 0.5) ->
     if (@_parent?)
       containment = @_parent._containment
     else
       containment = false
-      
+
     if (!$(@_viewSelector).length)
       return
-      
+
     if (@_draggable == true)
       $(@_viewSelector).css("cursor", "pointer")
       if (containment == true)
@@ -142,10 +142,10 @@ class JSView extends JSResponder
       containment = @_parent._containment
     else
       containment = false
-      
+
     if (!$(@_viewSelector).length)
       return
-      
+
     if (@_resizable == true)
       if (containment == true)
         $(@_viewSelector).resizable
@@ -181,23 +181,23 @@ class JSView extends JSResponder
             frame.size.height = $(@_viewSelector).height()
             @_self.setFrame(frame)
             @_resizeAction()
-            
+
   setHidden:(@_hidden)->
     if ($(@_viewSelector).length)
       if (@_hidden == true)
         $(@_viewSelector).css("display", "none")
       else
         $(@_viewSelector).css("display", "inline-block")
-      
+
   setContainment:(@_containment) ->
     for obj in @_objlist
       obj.setDraggable(obj._draggable, obj._axis, obj._dragopacity)
-      
+
   bringSubviewToFront:(obj)->
     id = obj._objectID
     v = $('#' + id)
     v.appendTo(v.parent())
-    
+
   removeFromSuperview:=>
     @destructor() if (typeof @destructor == 'function')
     return if (@_parent == null)
@@ -238,23 +238,23 @@ class JSView extends JSResponder
       @_tapAction2 = tapAction
     else
       return
-      
+
     if (!$(@_viewSelector).length)
       return
-      
+
     $(@_viewSelector).css("cursor", "pointer")
     if (tapnum == 1)
       $(@_viewSelector).on 'tap', (e)=>
         if (@_tapAction? && @_userInteractionEnabled == true && @_alpha > 0.0 && @_hidden == false)
           @_tapAction(@_self, e)
           e.stopPropagation()
-          
+
     if (tapnum == 2)
       $(@_viewSelector).on 'doubletap', (e)=>
         if (@_tapAction2? && @_userInteractionEnabled == true && @_alpha > 0.0 && @_hidden == false)
           @_tapAction2(@_self, e)
           e.stopPropagation()
-        
+
   animateWithDuration:(duration, animations, completion = undefined, flag = false)=>
     duration *= 1000
     animobj = {}
@@ -292,7 +292,7 @@ class JSView extends JSResponder
             @_frame.size.height = value
       if (completion?)
         completion(@_self)
-      
+
   setShadow:(@_shadow)->
     if (@_shadow == true)
       $(@_viewSelector).css("box-shadow", "2px 2px 10px rgba(0,0,0,0.4)")
@@ -323,14 +323,14 @@ class JSView extends JSResponder
       @addTapGesture(@_tapAction)
     if (@_tapAction2?)
       @addTapGesture(@_tapAction2, 2)
-    
+
     if (@_objlist.length > 0)
       for i in [0...objectNum(@_objlist)]
         o = @_objlist[i]
         if (!$(o._viewSelector).length)
           $(@_viewSelector).append(o._div)
           o.viewDidAppear()
-            
+
     $(@_viewSelector).bind
       'touchstart mousedown':(event)=>
         if (@_editable == false && event?)

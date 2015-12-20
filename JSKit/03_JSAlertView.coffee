@@ -4,13 +4,13 @@
 #*****************************************
 
 class JSAlertView extends JSView
-    constructor:(@_title, @_message, @_param = null, @_passform = null)->
+    constructor:(@_title, @_message, @_param = undefined, @_passform = undefined)->
         super()
         @_bgColor = JSColor("clearColor")
         @_style = "JSAlertViewStyleDefault"
         @delegate = @
         @cancel = false
-    
+
     setAlertViewStyle:(@_style)->
         $("body").css
             "font-size": "80%"
@@ -77,16 +77,15 @@ class JSAlertView extends JSView
                 @_self.removeFromSuperview()
         alerthash["buttons"] = buttonhash
         $(@_viewSelector+"_form").dialog(alerthash)
-    
+
     setData:(@_data)->
         if ($(@_viewSelector+"_form").length)
             for i in [0...@_data.length]
                 value = @_data[i]
                 $(@_viewSelector+"_textfield_"+i).val(value)
-    
+
     show:->
         $(@_viewSelector+"_form").dialog("open")
-    
+
     viewDidAppear:->
         @setAlertViewStyle(@_style)
-

@@ -11,23 +11,26 @@ class JSButton extends JSControl
         @_buttonTitle = "Button"
         @_style = "JSFormButtonStyleNormal"
         @_textSize = 8
+        @_picturedir = 'Media/Picture'
         @delegate = null
         @icon = undefined
-    
+        @savedir = ''
+        @filter = []
+
     setIcon:(@icon)->
-    
+
     setButtonTitle:(title)->
         @_buttonTitle = title
         if ($(@_viewSelector+"_button").length)
             $(@_viewSelector+"_button").val(@_buttonTitle)
-      
+
     setTextSize:(@_textSize)->
         $(@_viewSelector+"_button").css('font-size', @_textSize+'pt')
-      
+
     setStyle:(@_style)->
         if ($(@_viewSelector+"_button").length)
             @viewDidAppear()
-        
+
     setFrame:(frame)->
         super(frame)
         switch @_style
@@ -36,10 +39,18 @@ class JSButton extends JSControl
                 buttonheight = frame.size.height
                 $(@_viewSelector+"_button").css("width", buttonwidth+"px")
                 $(@_viewSelector+"_button").css("height", buttonheight+"px")
-            when "JSFormButtonStyleImageUpload"
+            when "JSFormButtonStyleImageUpload", "JSFormButtonStyleFileUpload"
                 buttonwidth = @_frame.size.width
                 $(@_viewSelector+"_button").css("width", buttonwidth+"px")
-    
+
+    setIcon:(@icon)->
+        $(@_viewSelector+"_button").button {
+            icons: {
+                primary: @icon
+            }
+        }
+        $(@_viewSelector+"_button").tooltip()
+
     viewDidAppear:->
         super()
         if ($(@_viewSelector+"_button").length)
@@ -59,15 +70,36 @@ class JSButton extends JSControl
         else if (@_style == "JSFormButtonStyleImageUpload")
             tag += "<div id=\""+@_objectID+"_pack\">"
             tag += "<input id=\""+@_objectID+"_file\" type=\"file\" name=\""+@_objectID+"_file\" style=\"display:none;\">"
-            tag += "<input type=\"submit\" id=\""+@_objectID+"_button\" style=\"position:absolute;z-index:1;\" value=\""+@_buttonTitle+"\" onClick=\"$('#"+@_objectID+"_file').click();\" />"
+            tag += "<button class='jquery-ui-icon' type=\"submit\" id=\""+@_objectID+"_button\" style=\"position:absolute;z-index:1;\" title=\"image upload\" onClick=\"$('#"+@_objectID+"_file').click();\" />"
             tag += "</div>"
+            @icon = "ui-icon-circle-arrow-n"
+        else if (@_style == "JSFormButtonStyleFileUpload")
+            tag += "<div id=\""+@_objectID+"_pack\">"
+            tag += "<input id=\""+@_objectID+"_file\" type=\"file\" name=\""+@_objectID+"_file\" style=\"display:none;\">"
+            tag += "<button class='jquery-ui-icon' type=\"submit\" id=\""+@_objectID+"_button\" style=\"position:absolute;z-index:1;\" title=\"file upload\" onClick=\"$('#"+@_objectID+"_file').click();\" />"
+            tag += "</div>"
+            @icon = "ui-icon-circle-arrow-n"
         $(@_viewSelector).append(tag)
-        if (@_style == "JSFormButtonStyleImageUpload")
+        if (@_style == "JSFormButtonStyleFileUpload")
+            $(@_viewSelector+"_file").change =>
+                if (typeof @delegate.didFileUploadStart == 'function')
+                    @delegate.didFileUploadStart()
+                $(@_viewSelector+"_file").upload "syslibs/library.php",
+                    mode: "uploadfile"
+                    savedir: @savedir
+                    filter: @filter
+                    key: @_objectID+"_file"
+                , (res) =>
+                    if (typeof @delegate.didFileUpload == 'function')
+                        @delegate.didFileUpload(res)
+                    $(@_viewSelector+"_file").val("")
+                , "json"
+        else if (@_style == "JSFormButtonStyleImageUpload")
             $(@_viewSelector+"_file").change =>
                 if (typeof @delegate.didUploadStart == 'function')
                     @delegate.didUploadStart()
                 $(@_viewSelector+"_file").upload "syslibs/library.php",
-                    mode: "uploadfile"
+                    mode: "uploadimage"
                     key: @_objectID+"_file"
                 , (res) =>
                     if (typeof @delegate.didImageUpload == 'function')
@@ -75,9 +107,9 @@ class JSButton extends JSControl
                     $(@_viewSelector+"_file").val("")
                     $.post "syslibs/library.php",
                         mode:"createThumbnail"
-                        path:"Media/Picture"
+                        path:@_picturedir
                 , "json"
-            
+
         $(@_viewSelector).css("overflow", "visible")
         $(@_viewSelector+"_button").css("overflow", "hidden")
         $(@_viewSelector+"_button").css("position", "absolute")
@@ -85,7 +117,7 @@ class JSButton extends JSControl
         $(@_viewSelector+"_button").css("font-size", @_textSize+"pt")
         $(@_viewSelector+"_button").css("width", buttonwidth+"px")
         $(@_viewSelector+"_button").css("height", buttonheight+"px")
-        
+
         if (@icon?)
             $(@_viewSelector+"_button").button {
                 icons: {

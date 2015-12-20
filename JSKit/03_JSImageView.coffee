@@ -41,7 +41,7 @@ class JSImageView extends JSView
           $(@_viewSelector).imgLiquid(fill: false)
         when "JSViewContentModeScaleAspectFill"
           $(@_viewSelector).imgLiquid()
-          
+
   viewDidAppear:->
     super()
     @setCornerRadius(@_cornerRadius)

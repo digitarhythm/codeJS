@@ -77,3 +77,4 @@ class JSFileManager extends JSObject
     , (ret) =>
       if (@moveaction?)
         @moveaction(parseInt(ret))
+
