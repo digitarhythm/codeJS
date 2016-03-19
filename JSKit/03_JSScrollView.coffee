@@ -4,23 +4,23 @@
 #*****************************************
 
 class JSScrollView extends JSView
-  constructor:(frame)->
-    super(frame)
-    @_scroll = false
+    constructor:(frame)->
+        super(frame)
+        @_scroll = false
 
-  destructor:->
-    super()
-  
-  setScroll:(@_scroll)->
-    if (@_scroll == true)
-      $(@_viewSelector).css("overflow", "auto")
-      $(@_viewSelector).css("-webkit-overflow-scrolling", "touch")
-    else
-      @setClipToBounds(@_clipToBounds)
+    destructor:->
+        super()
 
-  viewDidAppear:->
-    super()
-    @setScroll(@_scroll)
+    setScroll:(@_scroll)->
+        if (@_scroll == true)
+            $(@_viewSelector).css("overflow", "auto")
+            $(@_viewSelector).css("-webkit-overflow-scrolling", "touch")
+        else
+            @setClipToBounds(@_clipToBounds)
 
-  animateWithDuration:(duration, animations, completion = null)=>
-    super(duration, animations, completion)
+    viewDidAppear:->
+        super()
+        @setScroll(@_scroll)
+
+    animateWithDuration:(duration, animations, completion = null)=>
+        super(duration, animations, completion)

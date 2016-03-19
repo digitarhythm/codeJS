@@ -4,17 +4,17 @@
 #*****************************************
 
 class JSResponder extends JSObject
-  constructor: ->
-    super()
-    @_event = null
-    @_touches = false
+    constructor: ->
+        super()
+        @_event = null
+        @_touches = false
 
-  didBrowserResize:->
-    for o in @_objlist
-      o.didBrowserResize()
+    didBrowserResize:->
+        for o in @_objlist
+            o.didBrowserResize()
 
-  locationView:->
-    pt = new JSPoint()
-    pt.x = @_event.offsetX
-    pt.y = @_event.offsetY
-    return pt
+    locationView:->
+        pt = new JSPoint()
+        pt.x = @_event.offsetX
+        pt.y = @_event.offsetY
+        return pt

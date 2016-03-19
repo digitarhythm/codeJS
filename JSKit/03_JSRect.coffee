@@ -4,7 +4,7 @@
 #*****************************************
 
 class JSRect extends JSObject
-  constructor:->
-    super()
-    @origin = new JSPoint()
-    @size = new JSSize()
+    constructor:->
+        super()
+        @origin = new JSPoint()
+        @size = new JSSize()

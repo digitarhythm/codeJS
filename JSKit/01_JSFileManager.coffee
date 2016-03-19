@@ -4,77 +4,77 @@
 #*****************************************
 
 class JSFileManager extends JSObject
-  constructor:->
-    super()
+    constructor:->
+        super()
 
-  escapeHTML:(s) ->
-    s.replace /[&"<>]/g, (c) ->
-    escapeRules[c]
-  
-  escapeRules =
-    "&": "&amp;"
-    "\"": "&quot;"
-    "<": "&lt;"
-    ">": "&gt;"
+    escapeHTML:(s) ->
+        s.replace /[&"<>]/g, (c) ->
+            escapeRules[c]
 
-  stringWithContentsOfFile:(fname, @readaction)->    
-    if (!fname?)
-      return
-    $.post "syslibs/library.php",
-      mode: "stringWithContentsOfFile"
-      fname: fname
-    ,(data) =>
-      if (@readaction?)
-        @readaction(data)
-  
-  writeToFile:(path, string, @saveaction)->
-    $.post "syslibs/library.php",
-      mode: "writeToFile"
-      fname: path
-      data: string
-    , (ret) =>
-      if (@saveaction?)
-        @saveaction(parseInt(ret))
+    escapeRules =
+        "&": "&amp;"
+        "\"": "&quot;"
+        "<": "&lt;"
+        ">": "&gt;"
 
-  fileList:(path, type, @listaction)->
-    $.post "syslibs/library.php",
-      mode: "filelist"
-      path: path
-      filter: type
-    ,(filelist) =>
-      if (@listaction?)
-          @listaction(filelist)
+    stringWithContentsOfFile:(fname, @readaction)->
+        if (!fname?)
+            return
+        $.post "syslibs/library.php",
+            mode: "stringWithContentsOfFile"
+            fname: fname
+        ,(data) =>
+            if (@readaction?)
+                @readaction(data)
 
-  thumbnailList:(path, @imagelistaction)->
-    $.post "syslibs/library.php",
-      mode: "thumbnailList"
-      path: path
-    ,(filelist) =>
-      if (@imagelistaction?)
-          @imagelistaction(filelist)
+    writeToFile:(path, string, @saveaction)->
+        $.post "syslibs/library.php",
+            mode: "writeToFile"
+            fname: path
+            data: string
+        , (ret) =>
+            if (@saveaction?)
+                @saveaction(parseInt(ret))
 
-  createDirectoryAtPath:(path, @creatediraction)->
-    $.post "syslibs/library.php",
-      mode: "createDirectoryAtPath"
-      path: path
-    , (ret) =>
-      if (@creatediraction?)
-        @creatediraction(parseInt(ret))
+    fileList:(path, type, @listaction)->
+        $.post "syslibs/library.php",
+            mode: "filelist"
+            path: path
+            filter: type
+        ,(filelist) =>
+            if (@listaction?)
+                @listaction(filelist)
 
-  removeItemAtPath:(path, @removeaction)->
-    $.post "syslibs/library.php",
-      mode: "removeFile"
-      path: path
-    , (ret) =>
-      if (@removeaction?)
-        @removeaction(parseInt(ret))
+    thumbnailList:(path, @imagelistaction)->
+        $.post "syslibs/library.php",
+            mode: "thumbnailList"
+            path: path
+        ,(filelist) =>
+            if (@imagelistaction?)
+                @imagelistaction(filelist)
 
-  moveItemAtPath:(file, path, @moveaction)->
-    $.post "syslibs/library.php",
-      mode: "moveFile"
-      file: file
-      toPath: path
-    , (ret) =>
-      if (@moveaction?)
-        @moveaction(parseInt(ret))
+    createDirectoryAtPath:(path, @creatediraction)->
+        $.post "syslibs/library.php",
+            mode: "createDirectoryAtPath"
+            path: path
+        , (ret) =>
+            if (@creatediraction?)
+                @creatediraction(parseInt(ret))
+
+    removeItemAtPath:(path, @removeaction)->
+        $.post "syslibs/library.php",
+            mode: "removeFile"
+            path: path
+        , (ret) =>
+            if (@removeaction?)
+                @removeaction(parseInt(ret))
+
+    moveItemAtPath:(file, path, @moveaction)->
+        $.post "syslibs/library.php",
+            mode: "moveFile"
+            file: file
+            toPath: path
+        , (ret) =>
+            if (@moveaction?)
+                @moveaction(parseInt(ret))
 

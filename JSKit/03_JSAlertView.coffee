@@ -10,6 +10,7 @@ class JSAlertView extends JSView
         @_style = "JSAlertViewStyleDefault"
         @delegate = @
         @cancel = false
+        @_closeEvent = undefined
 
     setAlertViewStyle:(@_style)->
         $("body").css
@@ -40,7 +41,7 @@ class JSAlertView extends JSView
         if ($(@_viewSelector+"_form").length)
             $(@_viewSelector+"_form").remove()
         $(@_viewSelector).append(@_tag)
-        buttonhash = 
+        buttonhash =
             OK:=>
                 if (@delegate? && typeof @delegate.clickedButtonAtIndex == "function")
                     switch @_style
@@ -84,7 +85,13 @@ class JSAlertView extends JSView
                 value = @_data[i]
                 $(@_viewSelector+"_textfield_"+i).val(value)
 
+    setCloseEvent:(@_closeEvent)->
+
     show:->
+        if (@_closeEvent?)
+            $(@_viewSelector+"_form").dialog
+                close: =>
+                    @_closeEvent(@_self)
         $(@_viewSelector+"_form").dialog("open")
 
     viewDidAppear:->

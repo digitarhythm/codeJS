@@ -4,6 +4,6 @@
 #*****************************************
 
 class JSObject
-  constructor:->
-    @_self = @
-    @_objectID = UniqueID()
+    constructor:->
+        @_self = @
+        @_objectID = UniqueID()

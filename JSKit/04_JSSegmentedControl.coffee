@@ -18,6 +18,9 @@ class JSSegmentedControl extends JSControl
                 $("input:radio[name='"+@_objectID+"_radio'][value='"+@_selectedSegmentIndex+"']").attr("checked", "checked")
                 $(@_viewSelector+"_radio").buttonset('refresh')
 
+    getValue:->
+        return @_selectedSegmentIndex
+
     setTextSize:(@_textSize)->
 
     addSegmentTag:->

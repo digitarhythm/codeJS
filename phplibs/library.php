@@ -253,19 +253,21 @@ function savefile($_file, $_dir) {
 function filelist($path, $filter)
 {
     global $_HOMEDIR_;
-    $dir = opendir($_HOMEDIR_."/".$path);
     $result_f = array();
     $result_d = array();
-    while ($fname = readdir($dir)) {
-        $target = "$_HOMEDIR_/$path/$fname";
-        if (is_dir($target) == true) {
-            if (!preg_match("/^\./", $fname)) {
-                $result_d[] = $fname;
-            }
-        } else {
-            $ext = pathinfo($fname, PATHINFO_EXTENSION);
-            if (in_array($ext, $filter) == true) {
-                $result_f[] = $fname;
+    if (is_dir($_HOMEDIR_."/".$path)) {
+        $dir = opendir($_HOMEDIR_."/".$path);
+        while ($fname = readdir($dir)) {
+            $target = "$_HOMEDIR_/$path/$fname";
+            if (is_dir($target) == true) {
+                if (!preg_match("/^\./", $fname)) {
+                    $result_d[] = $fname;
+                }
+            } else {
+                $ext = pathinfo($fname, PATHINFO_EXTENSION);
+                if (in_array($ext, $filter) == true) {
+                    $result_f[] = $fname;
+                }
             }
         }
     }

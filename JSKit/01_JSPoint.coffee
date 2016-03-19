@@ -4,7 +4,7 @@
 #*****************************************
 
 class JSPoint extends JSObject
-  constructor: ->
-    super()
-    @x = 0
-    @y = 0
+    constructor: ->
+        super()
+        @x = 0
+        @y = 0
