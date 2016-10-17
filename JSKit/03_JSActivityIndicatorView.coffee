@@ -9,6 +9,7 @@ class JSActivityIndicatorView extends JSView
         @_bgColor = JSColor("clearColor")
         @_userInteractionEnabled = false
         @_activityIndicatorViewStyle = "JSActivityIndicatorViewStyleGray"
+        @_body = undefined
 
     startAnimating:->
         @setHidden(false)
@@ -29,6 +30,7 @@ class JSActivityIndicatorView extends JSView
         $(@_viewSelector).append(tag)
         $(@_viewSelector+"_indicator").width(@_frame.size.width)
         $(@_viewSelector+"_indicator").height(@_frame.size.height)
+        @_body = $(@_viewSelector+"_indicator")
 
     viewDidAppear:->
         super()

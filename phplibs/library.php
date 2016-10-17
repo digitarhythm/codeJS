@@ -40,87 +40,87 @@ switch ($mode) {
         $ret = stringWithContentsOfFile($fname);
         echo $ret;
         break;
-    
+
     case "writeToFile":
         $fname = $_REQUEST["fname"];
         $data = $_REQUEST["data"];
         $ret = writeToFile($data, $fname);
         echo $ret;
         break;
-    
+
     case "filelist":
         $path = $_arg["path"];
         $filter = $_arg["filter"];
         $ret = filelist($path, $filter);
         echo JSON_encode($ret);
         break;
-    
+
     case "uploadimage":
         $ret = saveImageFile($_file, $_arg);
         echo $ret;
         break;
-    
+
     case "uploadfile":
         $ret = saveFile($_file, $_arg);
         echo $ret;
         break;
-    
+
     case "createThumbnail":
         $path = $_arg["path"];
         createThumbnail($path);
         break;
-    
+
     case "thumbnailList":
         $path = $_arg["path"];
         $ret = thumbnailList($path);
         echo JSON_encode($ret);
         break;
-    
+
     case "fileUnlink":
         $fpath = $_arg["fpath"];
         unlink($_HOMEDIR_."/".$fpath);
         echo $fpath;
         break;
-    
+
     case "savePicture":
         $imagepath = $_arg['imagepath'];
         $fpath = $_arg['fpath'];
         $ret = savePicture($imagepath, $fpath);
         echo $ret;
         break;
-    
+
     case "removeFile":
         $path = $_arg['path'];
         $ret = removeFile($path);
         echo $ret;
         break;
-    
+
     case "moveFile":
         $file = $_arg['file'];
         $toPath = $_arg['toPath'];
         $ret = moveFile($file, $toPath);
         echo $ret;
         break;
-    
+
     case "setUserDefaults":
         $value = $_arg['value'];
         $forKey = $_arg['forKey'];
         $ret = setUserDefaults($value, $forKey);
         echo $ret;
         break;
-    
+
     case "getUserDefaults":
         $forKey = $_arg['forKey'];
         $ret = getUserDefaults($forKey);
         echo $ret;
         break;
-    
+
     case "removeUserDefaults":
         $forKey = $_arg['forKey'];
         $ret = removeUserDefaults($forKey);
         echo $ret;
         break;
-    
+
     case "createDirectoryAtPath":
         $path = $_arg['path'];
         $ret = createDirectoryAtPath($path);
@@ -146,7 +146,7 @@ function stringWithContentsOfFile($fname) {
 //##########################################################################################
 function writeToFile($data, $fname) {
     global $_HOMEDIR_;
-    
+
     $fullpath = $_HOMEDIR_."/".$fname;
     $path = pathinfo($fullpath, PATHINFO_DIRNAME);
     if (is_dir($path) === false) {
@@ -166,13 +166,13 @@ function writeToFile($data, $fname) {
 //##########################################################################################
 function saveImageFile($_file, $_dir) {
     global $_HOMEDIR_;
-    
+
     $imginfo = $_file[$_dir['key']];
     $tmpname = $imginfo['tmp_name'];
     $type = $imginfo['type'];
     $orgname = $imginfo['name'];
     $savedir = $_HOMEDIR_."/Media/Picture";
-    
+
     switch ($type) {
         case "image/png":
             $ext = ".png";
@@ -198,7 +198,7 @@ function saveImageFile($_file, $_dir) {
             return "{path:'', err:0, type:'".$type."'}";
             break;
     }
-    
+
     if(is_uploaded_file($tmpname)){
         $temppath = tempnam($savedir, $head);
         $savepath = $temppath.$ext;
@@ -361,13 +361,13 @@ function deleteAloneThumb($path)
 function savePicture($imagepath, $path)
 {
     global $_HOMEDIR_;
-    
+
     if (is_file($_HOMEDIR_."/".$imagepath) === false) {
         return $imagepath;
     }
-    
+
     $ret = copy($_HOMEDIR_."/".$imagepath, $_HOMEDIR_."/".$path);
-    
+
     return $ret;
 }
 
@@ -377,7 +377,7 @@ function savePicture($imagepath, $path)
 function removeFile($path)
 {
     global $_HOMEDIR_;
-    
+
     $fullpath = $_HOMEDIR_."/".$path;
     if (is_file($fullpath) || is_dir($fullpath)) {
         $err = system("rm -rf ".$fullpath);
@@ -389,7 +389,7 @@ function removeFile($path)
     } else {
         $ret = -2;
     }
-    
+
     return $ret;
 }
 
@@ -399,7 +399,7 @@ function removeFile($path)
 function moveFile($file, $toPath)
 {
     global $_HOMEDIR_;
-    
+
     $orgFullPath = $_HOMEDIR_."/".$file;
     $toFullPath = $_HOMEDIR_."/".$toPath;
     if (is_file($orgFullPath)) {
@@ -412,7 +412,7 @@ function moveFile($file, $toPath)
     } else {
         $ret = 0;
     }
-    
+
     return $ret;
 }
 
@@ -422,14 +422,14 @@ function moveFile($file, $toPath)
 function setUserDefaults($value, $forKey)
 {
     global $_HOMEDIR_;
-    
+
     try {
         $dbh = new PDO('sqlite:'.$_HOMEDIR_.'/Library/sqlite3.db');
         $sth = $dbh->prepare('SELECT forKey,value FROM user_defaults WHERE forKey=?');
         $sth->execute(array($forKey));
         $result = $sth->fetchAll();
         $sth->closeCursor();
-        
+
         $dbh = new PDO('sqlite:'.$_HOMEDIR_.'/Library/sqlite3.db');
         if (isset($result[0]['forKey'])) {
             $sth = $dbh->prepare('UPDATE user_defaults SET value=? WHERE forKey=?');
@@ -439,12 +439,12 @@ function setUserDefaults($value, $forKey)
             $sth->execute(array($forKey, $value));
         }
         $sth->closeCursor();
-        
+
         $ret = "1";
     } catch( PDOException $e ) {
         $ret = "-1";
     }
-    
+
     return $ret;
 }
 
@@ -454,14 +454,14 @@ function setUserDefaults($value, $forKey)
 function getUserDefaults($forKey)
 {
     global $_HOMEDIR_;
-    
+
     try {
         $dbh = new PDO('sqlite:'.$_HOMEDIR_.'/Library/sqlite3.db');
         $sth = $dbh->prepare('SELECT value FROM user_defaults WHERE forKey=?');
         $sth->execute(array($forKey));
         $result = $sth->fetchAll();
         $sth->closeCursor();
-        
+
         if (isset($result[0]['value'])) {
             $ret = $result[0]['value'];
         } else {
@@ -470,7 +470,7 @@ function getUserDefaults($forKey)
     } catch( PDOException $e ) {
         $ret = "";
     }
-    
+
     return $ret;
 }
 
@@ -480,7 +480,7 @@ function getUserDefaults($forKey)
 function removeUserDefaults($forKey)
 {
     global $_HOMEDIR_;
-    
+
     try {
         $dbh = new PDO('sqlite:'.$_HOMEDIR_.'/Library/sqlite3.db');
         $sth = $dbh->prepare('DELETE FROM user_defaults WHERE forKey=?');
@@ -490,7 +490,7 @@ function removeUserDefaults($forKey)
     } catch( PDOException $e ) {
         $ret = "-1";
     }
-    
+
     return $ret;
 }
 
@@ -500,7 +500,7 @@ function removeUserDefaults($forKey)
 function createDirectoryAtPath($path)
 {
     global $_HOMEDIR_;
-    
+
     $fullpath = $_HOMEDIR_."/".$path;
     if (is_file($fullpath) || is_dir($fullpath)) {
         $ret = 0;
@@ -512,7 +512,29 @@ function createDirectoryAtPath($path)
             $ret = 1;
         }
     }
-    
+
+    return $ret;
+}
+
+//##########################################################################################
+// 指定された文字列を含むuserDefaultsのエントリをリストにして返す
+//##########################################################################################
+function getListFromUserDefaults($str)
+{
+    global $_HOMEDIR_;
+
+    try {
+        $dbh = new PDO('sqlite:'.$_HOMEDIR_.'/Library/sqlite3.db');
+        $sth = $dbh->prepare('SELECT forKey, value FROM user_defaults WHERE value LIKE ?');
+        $sth->execute(array("%".$str."%"));
+        $result = $sth->fetchAll();
+        $sth->closeCursor();
+
+        $ret = json_encode($result);
+    } catch( PDOException $e ) {
+        $ret = "";
+    }
+
     return $ret;
 }
 ?>

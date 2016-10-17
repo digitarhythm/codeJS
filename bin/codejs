@@ -45,17 +45,19 @@ if [ -z "$opt" ]; then
   exit
 fi
 
-wdir=$(pwd)
-while [ ! -d "./appscode" ]; do
-  cd "${wdir}/.."
-  wdir=$(pwd)
-  if [ ${wdir} = "/" ]; then
-    echo "Not found code:JS project directory."
-    exit
-  fi
-done
+if [ ! ${opt} = "new" ]; then
+    wdir=$(pwd)
+    while [ ! -d "./appscode" ]; do
+      cd "${wdir}/.."
+      wdir=$(pwd)
+      if [ ${wdir} = "/" ]; then
+        echo "Not found code:JS project directory."
+        exit
+      fi
+    done
 
-echo "Execute directory ["${wdir}"]"
+    echo "Execute directory ["${wdir}"]"
+fi
 
 case ${opt} in
 new)

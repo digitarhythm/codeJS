@@ -73,15 +73,15 @@ class JSTextField extends JSControl
             if (@_editable == true) # モード変更前が編集可能モード
 
                 if (!$(@_viewSelector+"_text").length)
-                    tag = "<input type='"+@_formtype+"' id='"+@_objectID+"_text' style='position:absolute;z-index:1;height:"+@_frame.size.height+"px;' value='"+@_text+"' />"
+                    tag = "<input type='"+@_formtype+"' id='"+@_objectID+"_text' style='position:absolute;z-index:1;height:"+@_frame.size.height+"px;' value='"+@_text+"'>"
                 else
                     @_text = $(@_viewSelector+"_text").val()
                     $(@_viewSelector+"_text").remove()
-                    tag = "<input type='"+@_formtype+"' id='"+@_objectID+"_text' style='position:absolute;z-index:1;height:"+@_frame.size.height+"px;' value='"+@_text+"' />"
+                    tag = "<input type='"+@_formtype+"' id='"+@_objectID+"_text' style='position:absolute;z-index:1;height:"+@_frame.size.height+"px;' value='"+@_text+"'>"
             else # モード変更前が編集不可モード
 
                 disp = JSEscape(@_text)
-                tag = "<input type='"+@_formtype+"' id='"+@_objectID+"_text' style='position:absolute;z-index:1;height:"+@_frame.size.height+"px;' value='"+disp+"' />"
+                tag = "<input type='"+@_formtype+"' id='"+@_objectID+"_text' style='position:absolute;z-index:1;height:"+@_frame.size.height+"px;' value='"+disp+"'>"
 
             x = -2
             y = -2

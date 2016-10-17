@@ -14,5 +14,7 @@ class JSUserCookies extends JSObject
         ret = decodeURIComponent($.cookie(forKey))
         return ret
 
-    removeObjectForKey:(forKey)->
-        $.removeCookie(forKey)
+    removeObjectForKey:(forKey, domain=location.hostname)->
+        path = "/"
+        $.removeCookie(forKey, {path: path, domain: domain})
+
