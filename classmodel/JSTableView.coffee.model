@@ -2,13 +2,13 @@ class [_classname_] extends JSTableView
     constructor:(frame)->
         super(frame)
         ###
-        Please describe user processing below from here. 
+        Please describe user processing below from here.
         ###
 
     viewDidAppear:->
         super()
         ###
-        Please describe the processing about a view below from here. 
+        Please describe the processing about a view below from here.
         ###
 
     didSelectRowAtIndexPath:(indexPath)->

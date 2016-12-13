@@ -1,25 +1,25 @@
 class [_classname_] extends JSView
-  constructor:(frame)->
-    super(frame)
-    ###
-    Please describe initialization processing of a class below from here. 
-    ###
+    constructor:(frame)->
+        super(frame)
+        ###
+        Please describe initialization processing of a class below from here.
+        ###
 
-  destructor:->
-    super()
-    ###
-    Please describe the process that is executed before the class is deleted below.
-    ###
-    
-  viewDidAppear:->
-    super()
-    ###
-    Please describe the processing about a view below from here. 
-    ###
+    destructor:->
+        super()
+        ###
+        Please describe the process that is executed before the class is deleted below.
+        ###
+        
+    viewDidAppear:->
+        super()
+        ###
+        Please describe the processing about a view below from here.
+        ###
 
-  didBrowserResize:->
-    super()
-    ###
-    Please describe the processing about a view below from here. 
-    ###
+    didBrowserResize:->
+        super()
+        ###
+        Please describe the processing about a view below from here.
+        ###
 

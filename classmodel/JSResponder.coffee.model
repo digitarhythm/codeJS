@@ -1,6 +1,6 @@
 class [_classname_] extends JSResponder
-  constructor:->
-    super()
-    ###
-    Please describe user processing below from here. 
-    ###
+    constructor:->
+        super()
+        ###
+        Please describe user processing below from here.
+        ###

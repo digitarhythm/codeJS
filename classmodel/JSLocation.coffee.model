@@ -1,7 +1,6 @@
 class [_classname_] extends JSLocation
-  constructor:-> 
-    super()
-    ###
-    Please describe initialization processing of a class below from here. 
-    ###
-
+    constructor:->
+        super()
+        ###
+        Please describe initialization processing of a class below from here.
+        ###
