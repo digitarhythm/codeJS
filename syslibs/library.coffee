@@ -88,10 +88,10 @@ getApplicationFrame=->
 getBounds=->
     width = document.width
     if (!width?)
-        width = document.documentElement.clientWidth - 1
+        width = document.documentElement.clientWidth
     height = document.height
     if (!height?)
-        height = document.documentElement.clientHeight - 1
+        height = document.documentElement.clientHeight
     frame = JSRectMake(0, 0, width, height)
     return frame
 

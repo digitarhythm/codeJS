@@ -6,12 +6,13 @@
 class JSLabel extends JSView
     constructor: (frame = JSRectMake(0, 0, 120, 24)) ->
         super(frame)
-        @_textSize = 10 
+        @_textSize = 10
         @_textColor = JSColor("black")
+        @_textWeight = "normal"
         @_bgColor = JSColor("#f0f0f0")
         @_textAlignment = "JSTextAlignmentCenter"
         @_text = "Label"
-        
+
     setText: (@_text) ->
         if ($(@_viewSelector).length)
             $(@_viewSelector).css("text-indent", "4px")
@@ -21,10 +22,13 @@ class JSLabel extends JSView
         if ($(@_viewSelector).length)
             $(@_viewSelector).css("font-size", @_textSize+"pt")
 
+    setTextWeight:(@_textWeight)->
+        $(@_viewSelector).css("font-weight", @_textWeight)
+
     setTextColor: (@_textColor) ->
         if ($(@_viewSelector).length)
             $(@_viewSelector).css("color", @_textColor)
-        
+
     setTextAlignment: (@_textAlignment) ->
         switch @_textAlignment
             when "JSTextAlignmentCenter"
@@ -35,17 +39,18 @@ class JSLabel extends JSView
                 $(@_viewSelector).css("text-align", "right")
             else
                 $(@_viewSelector).css("text-align", "center")
-    
+
     setFrame:(frame)->
         super(frame)
         $(@_viewSelector).width(frame.size.width)
         $(@_viewSelector).height(frame.size.height)
-    
+
     viewDidAppear: ->
         super()
         $(@_viewSelector).width(@_frame.size.width)
         $(@_viewSelector).css("vertical-align", "middle")
         $(@_viewSelector).css("line-height",@_frame.size.height+"px")
+        $(@_viewSelector).css("font-weight", @_textWeight)
         @setText(@_text)
         @setTextSize(@_textSize)
         @setTextColor(@_textColor)

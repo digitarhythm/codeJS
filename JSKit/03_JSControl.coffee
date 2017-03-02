@@ -7,15 +7,15 @@ class JSControl extends JSView
     constructor:(frame)->
         super(frame)
         @_enable = true
-    
+
     addTarget: (@action) ->
-    
+
     setEnable:(@_enable)->
         if (@_enable == false)
             @_self.setAlpha(0.2)
         else
             @_self.setAlpha(1.0)
-    
+
     viewDidAppear:->
         super()
         @setEnable(@_enable)

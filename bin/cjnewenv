@@ -18,6 +18,11 @@ $projdir = realpath(__DIR__."/..");
 $system_ini = parse_ini_file($projdir."/configs/system.ini", true);
 $environ = $system_ini["ENVIRON"];
 
+// library path
+$jquerypath = $environ['jquerypath'];
+$jqueryuipath = $environ['jqueryuipath'];
+$jqueryuibase = $environ['jqueryuibase'];
+
 // path initialize
 $sysjslibs = $projdir."/syslibs";
 $usrjslibs = $homedir."/syslibs";
@@ -53,7 +58,10 @@ foreach($createdir_arr as $path) {
 // create config file
 $fp = fopen($homedir."/configs/system.ini", "w");
 fputs($fp, "[ENVIRON]\n");
-fputs($fp, "jqueryui-theme=\"codejs-default\"\n\n");
+fputs($fp, "jquerypath=\"$jquerypath\"\n");
+fputs($fp, "jqueryuipath=\"$jqueryuipath\"\n");
+fputs($fp, "jqueryuibase=\"$jqueryuibase\"\n");
+fputs($fp, "jqueryui-theme=\"swanky-purse\"\n\n");
 fputs($fp, "[FRAMEWORKS]\n\n");
 fputs($fp, "[APIKEY]\n\n");
 fputs($fp, "[ADDLIB]\n\n");
