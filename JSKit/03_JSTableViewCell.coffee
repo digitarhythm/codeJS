@@ -8,6 +8,7 @@ class JSTableViewCell extends JSView
         super()
         @_image = null
         @_imageview = null
+        @_alpha = 1.0
         @_text = ""
         @_textColor = JSColor("black")
         @_textSize = 12
@@ -17,7 +18,7 @@ class JSTableViewCell extends JSView
         @_borderWidth = 1
 
         sidesize = @_frame.size.height
-        @tag = "<div id='"+@_objectID+"_cell' style='position:absolute;left:0px;top:0px;width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;z-index:1;'><div id='"+@_objectID+"_text' style='position:relative;left:"+@_frame.size.height+"px;top:0px;width:"+(@_frame.size.width-sidesize-4)+"px;height:"+@_frame.size.height+"px;display:table-cell;vertical-align:middle;'></div></div>"
+        @tag = "<div id='"+@_objectID+"_cell' style='position:absolute;left:0px;top:0px;width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;z-index:1; opacity:"+@_alpha+";'><div id='"+@_objectID+"_text' style='position:relative;left:"+@_frame.size.height+"px;top:0px;width:"+(@_frame.size.width-sidesize-4)+"px;height:"+@_frame.size.height+"px;display:table-cell;vertical-align:middle;'></div></div>"
 
     setText:(@_text)->
         if ($(@_viewSelector+"_text").length)
@@ -66,6 +67,7 @@ class JSTableViewCell extends JSView
         @_frame.origin.x = 1
         $(@_viewSelector).append(@tag)
         @setFrame(@_frame)
+        @setAlpha(@_alpha)
         @setText(@_text)
         @setTextColor(@_textColor)
         @setTextSize(@_textSize)

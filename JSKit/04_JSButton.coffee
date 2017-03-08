@@ -16,6 +16,7 @@ class JSButton extends JSControl
         @icon = undefined
         @savedir = ''
         @filter = []
+        @selector = undefined
 
     setIcon:(@icon)->
 
@@ -39,7 +40,7 @@ class JSButton extends JSControl
                 buttonheight = frame.size.height
                 $(@_viewSelector+"_button").css("width", buttonwidth+"px")
                 $(@_viewSelector+"_button").css("height", buttonheight+"px")
-            when "JSFormButtonStyleImageUpload", "JSFormButtonStyleFileUpload"
+            when "JSFormButtonStyleImageUpload", "JSFormButtonStyleFileUpload", "JSFormButtonStyleFileUpload"
                 buttonwidth = @_frame.size.width
                 $(@_viewSelector+"_button").css("width", buttonwidth+"px")
 
@@ -53,13 +54,17 @@ class JSButton extends JSControl
 
     viewDidAppear:->
         super()
+
         if ($(@_viewSelector+"_button").length)
             $(@_viewSelector+"_button").remove()
+
         if ($(@_viewSelector+"_pack").length)
             $(@_viewSelector+"_pack").remove()
-        tag = ""
+
         buttonwidth = @_frame.size.width
         buttonheight = @_frame.size.height
+
+        tag = ""
         if (@_style == "JSFormButtonStyleNormal")
             tag += "<div>"
             if (@icon?)
@@ -67,19 +72,33 @@ class JSButton extends JSControl
             else
                 tag += "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;z-index:1;' value='"+@_buttonTitle+"' />"
             tag += "</div>"
+
         else if (@_style == "JSFormButtonStyleImageUpload")
             tag += "<div id=\""+@_objectID+"_pack\">"
             tag += "<input id=\""+@_objectID+"_file\" type=\"file\" name=\""+@_objectID+"_file\" style=\"display:none;\">"
             tag += "<button class='jquery-ui-icon' type=\"submit\" id=\""+@_objectID+"_button\" style=\"position:absolute;z-index:1;\" title=\"image upload\" onClick=\"$('#"+@_objectID+"_file').click();\" />"
             tag += "</div>"
             @icon = "ui-icon-circle-arrow-n"
+
         else if (@_style == "JSFormButtonStyleFileUpload")
             tag += "<div id=\""+@_objectID+"_pack\">"
             tag += "<input id=\""+@_objectID+"_file\" type=\"file\" name=\""+@_objectID+"_file\" style=\"display:none;\">"
             tag += "<button class='jquery-ui-icon' type=\"submit\" id=\""+@_objectID+"_button\" style=\"position:absolute;z-index:1;\" title=\"file upload\" onClick=\"$('#"+@_objectID+"_file').click();\" />"
             tag += "</div>"
             @icon = "ui-icon-circle-arrow-n"
+
+        else if (@_style == "JSFormButtonStyleFileSelect")
+            tag += "<div id=\""+@_objectID+"_pack\">"
+            tag += "<input id=\""+@_objectID+"_file\" type=\"file\" name=\""+@_objectID+"_file\" style=\"display:none;\" multiple>"
+            if (@icon?)
+                tag += "<button class='jquery-ui-icon' type=\"submit\" id=\""+@_objectID+"_button\" style=\"position:absolute;z-index:1;\" title=\"file select\" onClick=\"$('#"+@_objectID+"_file').click();\" />"
+                #@icon = "ui-icon-folder-open"
+            else
+                tag += "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;z-index:1;' value='"+@_buttonTitle+"' onClick=\"$('#"+@_objectID+"_file').click();\" />"
+            tag += "</div>"
+
         $(@_viewSelector).append(tag)
+
         if (@_style == "JSFormButtonStyleFileUpload")
             $(@_viewSelector+"_file").change =>
                 if (typeof @delegate.didFileUploadStart == 'function')
@@ -94,6 +113,7 @@ class JSButton extends JSControl
                         @delegate.didFileUpload(res)
                     $(@_viewSelector+"_file").val("")
                 , "json"
+
         else if (@_style == "JSFormButtonStyleImageUpload")
             $(@_viewSelector+"_file").change =>
                 if (typeof @delegate.didUploadStart == 'function')
@@ -109,6 +129,17 @@ class JSButton extends JSControl
                         mode:"createThumbnail"
                         path:@_picturedir
                 , "json"
+
+        else if (@_style == "JSFormButtonStyleFileSelect")
+            $(@_viewSelector+"_file").change (e)=>
+                file = e.target.files
+                #reader = new FileReader()
+                #reader.readAsText(file[0])
+                #reader.onload = (e2)=>
+                #    if (@selector?)
+                #        @selector(reader.result)
+                @selector(file)
+                $(@_viewSelector+"_file").val("")
 
         $(@_viewSelector).css("overflow", "visible")
         $(@_viewSelector+"_button").css("overflow", "hidden")

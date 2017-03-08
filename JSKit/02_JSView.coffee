@@ -272,13 +272,13 @@ class JSView extends JSResponder
             animobj[key] = value
 
         $(@_viewSelector).animate animobj, duration, =>
-            for key, value of animations
+            for key, value of animobj
                 switch key
                     when "top"
                         @_frame.origin.y = value
                     when "left"
                         @_frame.origin.x = value
-                    when "alpha"
+                    when "opacity"
                         @_alpha = value
                     when "background-color"
                         @_bgColor = value

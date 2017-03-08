@@ -46,6 +46,7 @@ class JSTableView extends JSView
 
         # 各セルの内容を返すデリゲートメソッドを呼ぶ
         diff_y = @_rowHeight
+        @_parent.bringSubviewToFront(@_self)
         for i in [0...@_dataNum]
             # 各セルの高さを取得して設定する
             if (typeof @delegate.heightForRowAtIndexPath == 'function')
@@ -62,8 +63,7 @@ class JSTableView extends JSView
             cell.setFrame(JSRectMake(1, diff_y, @_frame.size.width - 4, cellHeight))
             @_tableView.addSubview(cell)
             diff_y += cellHeight+1
-        @_parent.bringSubviewToFront(@_self)
-        
+
     reloadData:->
         if (@_tableView?)
             for obj in @childlist
