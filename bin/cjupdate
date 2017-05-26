@@ -45,14 +45,14 @@ while ($fname = readdir($dir)) {
   if (is_dir("$path/$fname") == true || preg_match("/^\./", $fname) == true || preg_match("/^\d/", $fname) == false) {
     continue;
   }
-  
+
   // CoffeeScriptでコンパイルするファイル一覧配列ソースファイルのパスを登録する
   $file_arr[] = "$path/$fname";
 }
 sort($file_arr);
 $compile = implode(" ", $file_arr);
-system("cat ".$compile." | coffee -b --stdio --compile > ".$h_syslibs."/JSKit.js");
-system("coffee -b -o ".$h_syslibs." -c ".$p_syslibs);
+system("cat ".$compile." | coffee -b -m --stdio --compile > ".$h_syslibs."/JSKit.js");
+system("coffee -b -m -o ".$h_syslibs." -c ".$p_syslibs);
 
 // compile Framework
 $path = $p_framework;
@@ -60,7 +60,7 @@ $dir = opendir($path);
 while ($dirname = readdir($dir)) {
   // もし、検索してきたものが「ディレクトリ」、且つ「ドットで始まっていない」、且つ「*.framework」という名前だったらフレームワークとしてコンパイル
   if (is_dir("$path/$dirname") == true && preg_match("/^\./", $dirname) == false && preg_match("/.*\.framework/", $dirname) == true) {
-    $execstr = "cat $path/$dirname/*.coffee | coffee -b --stdio --compile > $h_framework/$dirname.js";
+    $execstr = "cat $path/$dirname/*.coffee | coffee -b -m --stdio --compile > $h_framework/$dirname.js";
     system($execstr);
   }
 }

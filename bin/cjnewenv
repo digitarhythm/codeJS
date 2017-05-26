@@ -71,7 +71,7 @@ fclose($fp);
 copy($syscode."/applicationMain.coffee", $usrcode."/applicationMain.coffee");
 
 // compile user script(coffee-script)
-system("coffee -b -o ".$usrlibs." -c ".$usrcode);
+system("coffee -b -m -o ".$usrlibs." -c ".$usrcode);
 
 // create database file
 $db = new SQLite3($homedir."/Library/sqlite3.db");

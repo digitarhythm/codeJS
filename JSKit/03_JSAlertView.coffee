@@ -13,12 +13,11 @@ class JSAlertView extends JSView
         @_closeEvent = undefined
 
     setAlertViewStyle:(@_style)->
-        $("body").css
-            "font-size": "80%"
+        $("body").css({"font-size": "80%"})
         @_tag  = "<div id='"+@_objectID+"_form' title='"+@_title+"'>"
-        @_tag += "<p class='validateTips' style='height:48px;'>"+@_message+"</p>"
+        @_tag += "<p class='validateTips' style='height:24px;'>"+@_message+"</p>"
         if (@_style == "JSAlertViewStylePlainTextInput" && @_param?)
-            dialogHeight = 200+(80*@_param.length)
+            dialogHeight = 200+(64*@_param.length)
             @_tag += "<fieldset style='border:0px transparent dotted;'>"
             for i in [0...@_param.length]
                 p = @_param[i]
@@ -26,13 +25,13 @@ class JSAlertView extends JSView
                     value = @_data[i]
                 else
                     value = ""
-                @_tag += "<label style='vertical-align:bottom; height:32px;'>"+p+"</labeL><br>"
+                @_tag += "<label style='vertical-align:bottom; height:24px;'>"+p+"</labeL><br>"
                 if (@_passform?)
                     if (@_passform.indexOf(i) < 0)
                         formtype = "text"
                     else
                         formtype = "password"
-                addtag = "<input type='"+formtype+"' name='"+@_objectID+"_textfield_"+i+"' id='"+@_objectID+"_textfield_"+i+"' style='width:"+(@_frame.size.width-24)+"px; height:24; padding:6px;' value='"+value+"' /><br><br>"
+                addtag = "<input type='"+formtype+"' name='"+@_objectID+"_textfield_"+i+"' id='"+@_objectID+"_textfield_"+i+"' style='width:"+@_frame.size.width+"px;height:16px;font-size:10pt;' value='"+value+"' /><br><br>"
                 @_tag += addtag
             @_tag += "</fieldset>"
         else
@@ -67,7 +66,7 @@ class JSAlertView extends JSView
             buttonhash['Cancel'] = cancelmethod['Cancel']
         alerthash =
             autoOpen: false
-            width: 350
+            width: 440
             height: dialogHeight
             modal: true
             closeOnEscape: true
