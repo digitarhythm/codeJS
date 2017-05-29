@@ -86,9 +86,9 @@ getApplicationFrame=->
 
 # get browser size(include scrolling bar)
 getBounds=->
-    width = document.body.clientWidth
+    width = document.width - 18
     if (!width?)
-        width = document.documentElement.clientWidth - 2
+        width = document.documentElement.clientWidth - 18
     height = document.height
     if (!height?)
         height = document.documentElement.clientHeight - 2
