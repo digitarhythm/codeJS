@@ -37,7 +37,7 @@ class JSMenuView extends JSScrollView
         $(@_viewSelector+"_menu").css("position", "absolute")
         $(@_viewSelector+"_menu").css("overflow", "visible")
         $(@_viewSelector+"_menu").css("font-size", @_textSize+"pt")
-        $(@_viewSelector+"_menu").css("background-color", @_backgroundColor)
+        #$(@_viewSelector+"_menu").css("background-color", @_backgroundColor)
         $(@_viewSelector+"_menu").menu
             select: (event, ui) =>
                 if (@_userInteractionEnabled == false)
