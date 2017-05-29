@@ -86,12 +86,8 @@ getApplicationFrame=->
 
 # get browser size(include scrolling bar)
 getBounds=->
-    width = document.width - 18
-    if (!width?)
-        width = document.documentElement.clientWidth - 18
-    height = document.height
-    if (!height?)
-        height = document.documentElement.clientHeight - 2
+    width = document.documentElement.clientWidth - 2
+    height = document.documentElement.offsetHeight - 2
     frame = JSRectMake(0, 0, width, height)
     return frame
 
