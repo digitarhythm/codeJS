@@ -54,8 +54,6 @@ class JSAlertView extends JSView
                             @delegate.clickedButtonAtIndex(text, @_self)
                         when "JSAlertViewStyleDefault"
                             @delegate.clickedButtonAtIndex(1, @_self)
-                if (@delegate? && typeof @delegate.closedDialog == "function")
-                    @delegate.closedDialog(@_self)
                 $(@_viewSelector+"_form").dialog("close")
                 @_self.removeFromSuperview()
         if (@cancel == true)
@@ -63,8 +61,6 @@ class JSAlertView extends JSView
                 Cancel:=>
                     if (@delegate? && typeof @delegate.clickedButtonAtIndex == "function")
                         @delegate.clickedButtonAtIndex(0, @_self)
-                    if (@delegate? && typeof @delegate.closedDialog == "function")
-                        @delegate.closedDialog(@_self)
                     $(@_viewSelector+"_form").dialog("close")
                     @_self.removeFromSuperview()
             buttonhash['Cancel'] = cancelmethod['Cancel']
@@ -94,6 +90,8 @@ class JSAlertView extends JSView
         if (@_closeEvent?)
             $(@_viewSelector+"_form").dialog
                 close: =>
+                    if (@delegate? && typeof @delegate.closedDialog == "function")
+                        @delegate.closedDialog(@_self)
                     @_closeEvent(@_self)
         $(@_viewSelector+"_form").dialog("open")
 
