@@ -54,8 +54,8 @@ class JSAlertView extends JSView
                             @delegate.clickedButtonAtIndex(text, @_self)
                         when "JSAlertViewStyleDefault"
                             @delegate.clickedButtonAtIndex(1, @_self)
-                        if (@delegate? && typeof @delegate.closedDialog == "function")
-                            @delegate.closedDialog(@_self)
+                    if (@delegate? && typeof @delegate.closedDialog == "function")
+                        @delegate.closedDialog(@_self)
                 $(@_viewSelector+"_form").dialog("close")
                 @_self.removeFromSuperview()
         if (@cancel == true)
