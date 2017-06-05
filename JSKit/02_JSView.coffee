@@ -91,18 +91,6 @@ class JSView extends JSResponder
                 $(@_viewSelector).css("overflow", "normal")
 
     setUserInteractionEnabled:(@_userInteractionEnabled)->
-        if (@_userInteractionEnabled == true)
-            $(@_viewSelector).unbind("click").bind "click", (event) =>
-                if (@_tapAction? && @_alpha > 0.0)
-                    @_tapAction(@_self, event)
-                    event.stopPropagation()
-            $(@_viewSelector).unbind("dblclick").bind "dblclick", (event) =>
-                if (@_tapAction2? && @_alpha > 0.0)
-                    @_tapAction2(@_self, event)
-                    event.stopPropagation()
-        else
-            $(@_viewSelector).unbind("click")
-            $(@_viewSelector).unbind("dblclick")
 
     disableDragObject:(object)->
         if ($(@_viewSelector).length)
@@ -244,12 +232,14 @@ class JSView extends JSResponder
 
         $(@_viewSelector).css("cursor", "pointer")
         if (tapnum == 1)
+            $(@_viewSelector).unbind("tap")
             $(@_viewSelector).on 'tap', (e)=>
                 if (@_tapAction? && @_userInteractionEnabled == true && @_alpha > 0.0 && @_hidden == false)
                     @_tapAction(@_self, e)
                     e.stopPropagation()
 
         if (tapnum == 2)
+            $(@_viewSelector).unbind("doubletap")
             $(@_viewSelector).on 'doubletap', (e)=>
                 if (@_tapAction2? && @_userInteractionEnabled == true && @_alpha > 0.0 && @_hidden == false)
                     @_tapAction2(@_self, e)
