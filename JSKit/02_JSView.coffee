@@ -234,14 +234,14 @@ class JSView extends JSResponder
         if (tapnum == 1)
             $(@_viewSelector).unbind("tap")
             $(@_viewSelector).on 'tap', (e)=>
-                if (@_tapAction? && @_userInteractionEnabled == true && @_alpha > 0.0 && @_hidden == false)
+                if (@_tapAction? && @_userInteractionEnabled == true && @_hidden == false)
                     @_tapAction(@_self, e)
                     e.stopPropagation()
 
         if (tapnum == 2)
             $(@_viewSelector).unbind("doubletap")
             $(@_viewSelector).on 'doubletap', (e)=>
-                if (@_tapAction2? && @_userInteractionEnabled == true && @_alpha > 0.0 && @_hidden == false)
+                if (@_tapAction2? && @_userInteractionEnabled == true && @_hidden == false)
                     @_tapAction2(@_self, e)
                     e.stopPropagation()
 
