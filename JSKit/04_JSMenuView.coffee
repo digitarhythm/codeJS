@@ -13,6 +13,9 @@ class JSMenuView extends JSScrollView
 
     addTarget:(@_action)->
 
+    setTextSize:(@_textSize)->
+        addMenuItem:(@_menuitem)
+
     addMenuItem:(@_menuitem)->
         if (!@_menuitem?)
             return
