@@ -10,7 +10,7 @@ class [_classname_] extends JSView
         ###
         Please describe the process that is executed before the class is deleted below.
         ###
-        
+
     viewDidAppear:->
         super()
         ###

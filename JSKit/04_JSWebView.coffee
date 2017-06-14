@@ -1,4 +1,5 @@
-#***************************************** # JSWebView - Web site handling class
+#*****************************************
+# JSWebView - Web site handling class
 # Coded by kouichi.sakazaki 2015.10.05
 #*****************************************
 
