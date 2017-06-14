@@ -6,7 +6,7 @@
 class JSScrollView extends JSView
     constructor:(frame)->
         super(frame)
-        @_frame.size.width -= 24
+        @_frame.size.width
         @_scroll = false
 
     destructor:->
