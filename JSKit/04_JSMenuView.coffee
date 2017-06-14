@@ -26,7 +26,7 @@ class JSMenuView extends JSScrollView
         @_div = "<ul id='"+@_objectID+"_menu' style='z-index:1;'><!--menuitem--></ul>"
         menustr = ""
         for disp in @_menuitem
-            menustr += "<li><a href='#' style='width:#{@_frame.size.width}px;background-color:"+@_backgroundColor+";'>"+disp+"</a></li>"
+            menustr += "<li><a href='#' style='background-color:"+@_backgroundColor+";'>"+disp+"</a></li>"
         @_div = @_div.replace(/<!--menuitem-->/, menustr)
 
         if ($(@_viewSelector+"_menu").length)
@@ -36,7 +36,7 @@ class JSMenuView extends JSScrollView
         $(@_viewSelector+"_menu").css("left", "0px")
         $(@_viewSelector+"_menu").css("top", "0px")
         $(@_viewSelector+"_menu").css("width", @_frame.size.width+"px")
-        $(@_viewSelector+"_menu").css("height", (@_frame.size.height * @_menuitem.length)+"px")
+        $(@_viewSelector+"_menu").css("height", ((@_frame.size.height + 4) * @_menuitem.length)+"px")
         $(@_viewSelector+"_menu").css("position", "absolute")
         $(@_viewSelector+"_menu").css("overflow", "visible")
         $(@_viewSelector+"_menu").css("font-size", @_textSize+"pt")
