@@ -13,7 +13,7 @@ class JSUserDefaults extends JSObject
             "forKey": forKey
             "value": JSON.stringify(value)
 
-    stringForKey:(forKey, action)->
+    stringForKey:(forKey, action = undefined)->
         $.post "syslibs/library.php",
             "mode": "getUserDefaults"
             "forKey": forKey
@@ -22,7 +22,8 @@ class JSUserDefaults extends JSObject
                 data2 = JSON.parse(data)
             else
                 data2 = ""
-            action(data2)
+            if (action?)
+                action(data2)
 
     removeObjectForKey:(forKey)->
         $.post "syslibs/library.php",

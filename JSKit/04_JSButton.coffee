@@ -68,7 +68,7 @@ class JSButton extends JSControl
         if (@_style == "JSFormButtonStyleNormal")
             tag += "<div>"
             if (@icon?)
-                tag += "<button class='jquery-ui-icon' type='submit' id='"+@_objectID+"_button' style='position:absolute;z-index:1;' title='"+@_buttonTitle+"' onClick='return false;' />"
+                tag += "<button class='jquery-ui-icon' type='submit' id='"+@_objectID+"_button' style='position:absolute;z-index:1;' title='"+@_buttonTitle+"' />"
             else
                 tag += "<input type='submit' id='"+@_objectID+"_button' style='position:absolute;z-index:1;' value='"+@_buttonTitle+"' />"
             tag += "</div>"
