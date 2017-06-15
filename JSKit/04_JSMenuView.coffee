@@ -42,6 +42,8 @@ class JSMenuView extends JSScrollView
         $(@_viewSelector+"_menu").css("font-size", @_textSize+"pt")
         #$(@_viewSelector+"_menu").css("background-color", @_backgroundColor)
         $(@_viewSelector+"_menu").menu
+            _closeOnDocumentClick: (event)->
+              return false
             select: (event, ui) =>
                 if (@_userInteractionEnabled == false)
                     return
@@ -61,6 +63,7 @@ class JSMenuView extends JSScrollView
     closeMenu:->
         $(@_viewSelector+"_menu").remove()
         event.stopPropagation()
+
 
     viewDidAppear:->
         super()
