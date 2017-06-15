@@ -49,6 +49,8 @@ class JSMenuView extends JSScrollView
                 item = ui.item.context.textContent
                 @selectMenuItem(item)
                 @closeMenu()
+            classes:
+                "ui-menu": "highlight"
 
     selectMenuItem:(item)->
         if (@_action?)
