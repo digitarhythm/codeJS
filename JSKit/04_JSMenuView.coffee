@@ -7,7 +7,7 @@ class JSMenuView extends JSScrollView
     constructor:(frame = JSRectMake(0, 0, 200, 0))->
         super(frame)
         @_textSize = 10
-        @_backgroundColor = JSColor("clearColor")
+        @_bgColor = JSColor("clearColor")
         @_clipToBounds = false
         @_containment = false
 
