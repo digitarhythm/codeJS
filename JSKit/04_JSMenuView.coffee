@@ -45,8 +45,7 @@ class JSMenuView extends JSScrollView
             select: (event, ui) =>
                 if (@_userInteractionEnabled == false)
                     return
-                obj = ui.item
-                JSLog(obj.text())
+                item = ui.item.text()
                 @selectMenuItem(item)
                 @closeMenu()
             classes:
