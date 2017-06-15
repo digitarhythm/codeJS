@@ -16,7 +16,7 @@ class JSListView extends JSScrollView
         @_clipToBounds = true
         #@_scroll = true
         @_delegate = @
-        
+
     setFrame:(frame)->
         super(frame)
         if ($(@_viewSelector+"_select").length)
@@ -37,7 +37,7 @@ class JSListView extends JSScrollView
                     @_listData = new Array()
                     for item in list
                         @_listData.push(item)
-                    
+
                 @_tag = "<select id='"+@_objectID+"_select' size='"+size+"' style='width:"+(@_frame.size.width)+"px;height:"+(@_frame.size.height)+"px;z-index:1;'>"
                 if (!@_listData?)
                     @_listData = new Array()
@@ -49,18 +49,20 @@ class JSListView extends JSScrollView
                 if ($(@_viewSelector+"_select").length)
                     $(@_viewSelector+"_select").remove()
                 $(@_viewSelector).append(@_tag)
-                
+
                 $(@_viewSelector+"_select").css("background-color", "clearColor")
                 $(@_viewSelector+"_select").css("border", "0px transparent")
                 $(@_viewSelector+"_select").css("font-size", @_textSize)
-                
+
                 if (@_style=="JSListStyleStandard")
-                    $(@_viewSelector+"_select").click (e) =>
+                    #$(@_viewSelector+"_select").click (e) =>
+                    $(@_viewSelector+"_select").on 'click', (e) =>
                         e.stopPropagation()
                         @_select = $(@_viewSelector+"_select option:selected").val()
                         if (@_clickaction? && @_select?)
                             @_clickaction(@_select)
-                    $(@_viewSelector+"_select").dblclick (e) =>
+                    #$(@_viewSelector+"_select").dblclick (e) =>
+                    $(@_viewSelector+"_select").on "dblclick", (e) =>
                         e.stopPropagation()
                         @_select = $(@_viewSelector+"_select option:selected").val()
                         if (@_dblclickaction? && @_select?)
@@ -71,7 +73,7 @@ class JSListView extends JSScrollView
                         @_select = $(@_viewSelector+"_select option:selected").val()
                         if (@_clickaction? && @_select?)
                             @_clickaction(@_select)
-                        
+
             when "JSListStyleSortable"
                 @_tag = "<table style='width:100%;'><tbody id='"+@_objectID+"_select'>"
                 if (!list?)
@@ -86,7 +88,7 @@ class JSListView extends JSScrollView
                 if ($(@_viewSelector+"_select").length)
                     $(@_viewSelector+"_select").remove()
                 $(@_viewSelector).append(@_tag)
-                
+
                 $(@_viewSelector+"_select").sortable
                     placeholder: "ui-sortable-placeholder"
                     distance: 3
@@ -96,32 +98,32 @@ class JSListView extends JSScrollView
                         @sortReflection()
                         if (typeof @_delegate.sortUpdate == 'function')
                             @_delegate.sortUpdate(event, ui)
-                    
+
                 $(@_viewSelector+"_select").disableSelection()
-                
+
                 $(@_viewSelector+"_select").css("background-color", "transparent")
                 $(@_viewSelector+"_select").css("border", "0px transparent")
                 $(@_viewSelector+"_select").css("font-size", (@_textSize-4)+"pt")
 
         $(@_viewSelector+"_select").width(@_frame.size.width+"px")
         $(@_viewSelector+"_select").height(@_frame.size.height+"px")
-        
+
     count:->
         return @_listData.length
-        
+
     objectAtIndex:(index)->
         return @_listData[index]
-        
+
     indexOfObject:(target)->
         num = @_listData.indexOf(target)
         return num
-        
+
     getSelect:->
         return @_select
 
     setSelect:(@_select)->
         $(@_viewSelector+"_select").val(@_select)
-    
+
     sortReflection:->
         if (@_style == "JSListStyleSortable")
             arr = $(@_viewSelector+"_select").sortable("toArray")
@@ -129,23 +131,23 @@ class JSListView extends JSScrollView
             for key, i in arr
                 ret[i] = @_orglist[key]
             @_listData = ret
-        
+
     setTextSize:(@_textSize)->
         if (@_listData?)
             @setListData(@_listData)
-        
+
     addTarget:(action, tap = 1)->
         if (tap == 1)
             @_clickaction = action
         else
             @_dblclickaction = action
-    
+
     setStyle:(@_style)->
         @setListData(@_listData)
-    
+
     reload:->
         @setListData(@_listData)
-    
+
     viewDidAppear:->
         super()
         @setListData(@_listData)
