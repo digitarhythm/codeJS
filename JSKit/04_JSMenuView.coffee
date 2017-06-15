@@ -51,6 +51,9 @@ class JSMenuView extends JSScrollView
                 @closeMenu()
             classes:
                 "ui-menu": "highlight"
+            position:
+                my: "left top"
+                at: "right-5 top+5"
 
     selectMenuItem:(item)->
         if (@_action?)
