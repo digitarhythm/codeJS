@@ -7,7 +7,7 @@ class JSMenuView extends JSScrollView
     constructor:(frame = JSRectMake(0, 0, 200, 0))->
         super(frame)
         @_textSize = 10
-        @_backgroundColor = JSColor("white")
+        @_backgroundColor = JSColor("clearColor")
         @_clipToBounds = false
         @_containment = false
 
@@ -26,7 +26,7 @@ class JSMenuView extends JSScrollView
         @_div = "<ul id='"+@_objectID+"_menu' style='z-index:1;'><!--menuitem--></ul>"
         menustr = ""
         for disp in @_menuitem
-            menustr += "<li><a href='#' style='background-color:"+@_backgroundColor+";'>"+disp+"</a></li>"
+            menustr += "<li><a href='#'>"+disp+"</a></li>"
         @_div = @_div.replace(/<!--menuitem-->/, menustr)
 
         if ($(@_viewSelector+"_menu").length)
