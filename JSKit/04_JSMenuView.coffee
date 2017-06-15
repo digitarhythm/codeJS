@@ -26,7 +26,7 @@ class JSMenuView extends JSScrollView
         @_div = "<ul id='"+@_objectID+"_menu' style='z-index:1;'><!--menuitem--></ul>"
         menustr = ""
         for disp in @_menuitem
-            menustr += "<li><a href='#'>"+disp+"</a></li>"
+            menustr += "<li><div>"+disp+"</div></li>"
         @_div = @_div.replace(/<!--menuitem-->/, menustr)
 
         if ($(@_viewSelector+"_menu").length)
