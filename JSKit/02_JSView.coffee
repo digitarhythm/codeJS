@@ -351,6 +351,8 @@ class JSView extends JSResponder
                         e = event.changedTouches[0]
                     else
                         e = event
+                    @_frame.origin.x = parseInt($(@_viewSelector).css('left').replace(/px/, ''))
+                    @_frame.origin.y = parseInt($(@_viewSelector).css('top').replace(/px/, ''))
                     @touchesEnded(e)
             'touchcancel':(event)=>
                 if (@_editable == false && event?)
