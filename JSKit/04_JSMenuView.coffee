@@ -35,15 +35,13 @@ class JSMenuView extends JSScrollView
         $(@_viewSelector).append(@_div)
         $(@_viewSelector+"_menu").css("left", "0px")
         $(@_viewSelector+"_menu").css("top", "0px")
-        $(@_viewSelector+"_menu").css("width", @_frame.size.width+"px")
-        $(@_viewSelector+"_menu").css("height", (@_frame.size.height * @_menuitem.length)+"px")
+        #$(@_viewSelector+"_menu").css("width", @_frame.size.width+"px")
+        #$(@_viewSelector+"_menu").css("height", (@_frame.size.height * @_menuitem.length)+"px")
         $(@_viewSelector+"_menu").css("position", "absolute")
         $(@_viewSelector+"_menu").css("overflow", "visible")
         $(@_viewSelector+"_menu").css("font-size", @_textSize+"pt")
         #$(@_viewSelector+"_menu").css("background-color", @_backgroundColor)
         $(@_viewSelector+"_menu").menu
-            _closeOnDocumentClick: (event)->
-              return false
             select: (event, ui) =>
                 if (@_userInteractionEnabled == false)
                     return
