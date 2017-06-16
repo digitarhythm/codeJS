@@ -48,6 +48,11 @@ class JSTextView extends JSScrollView
                 $(@_viewSelector+"_textarea").html(disp)
             @setFrame(@_frame)
 
+    setFocus:->
+        setTimeout =>
+            $(@_viewSelector+"_textarea").focus()
+        , 0
+
     setTextSize: (@_textSize) ->
         if ($(@_viewSelector+"_textarea").length)
             $(@_viewSelector+"_textarea").css("font-size", @_textSize+"pt")
