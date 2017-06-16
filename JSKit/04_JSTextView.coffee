@@ -85,14 +85,14 @@ class JSTextView extends JSScrollView
             if (@_editable == true) # モード変更前が編集可能モード
 
                 if (!$(@_viewSelector+"_textarea").length)
-                    tag = "<textarea id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;z-index:1;'>"+@_text+"</textarea>"
+                    tag = "<textarea id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;z-index:1;width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;'>"+@_text+"</textarea>"
                 else
                     @_text = $(@_viewSelector+"_textarea").val()
                     return
 
             else # モード変更前が編集不可モード
 
-                tag = "<textarea id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;z-index:1;'>"+@_text+"</textarea>"
+                tag = "<textarea id='"+@_objectID+"_textarea' style='position:absolute;overflow:auto;word-break:break-all;z-index:1;width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;'>"+@_text+"</textarea>"
 
             x = -2
             y = -2
@@ -108,7 +108,7 @@ class JSTextView extends JSScrollView
                 text = JSEscape(@_text)
                 disp = text.replace(/\n/g, "<br>")
 
-            tag = "<div id='"+@_objectID+"_textarea' style='overflow:auto;word-break:break-all;z-index:1;display:table-cell; vertical-align:middle;'>"+disp+"</div>"
+            tag = "<div id='"+@_objectID+"_textarea' style='overflow:auto;word-break:break-all;z-index:1;display:table-cell; vertical-align:middle;width:"+@_frame.size.width+"px;height:"+@_frame.size.height+"px;'>"+disp+"</div>"
             x = 0
             y = 0
 
