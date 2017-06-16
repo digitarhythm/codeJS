@@ -10,7 +10,7 @@ class JSTableView extends JSView
         super(frame)
         @_rowHeight = 32
         @_clipToBounds = true
-        @_bgColor = JSColor("clearColor")
+        @_bgColor = JSColor("white")
         @_scroll = true
         @_titlebarColor = JSColor("#d0d8e0")
         @_titleColor = JSColor("black")
