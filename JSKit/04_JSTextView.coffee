@@ -109,7 +109,7 @@ class JSTextView extends JSScrollView
                 text = JSEscape(@_text)
                 disp = text.replace(/\n/g, "<br>")
 
-            tag = "<div id='"+@_objectID+"_textarea' style='overflow:auto;word-break:break-all;z-index:1;display:table-cell; vertical-align:middle;'>"+disp+"</div>"
+            tag = "<div id='"+@_objectID+"_textarea' style='overflow:hidden;word-break:break-all;z-index:1;display:table-cell; vertical-align:middle;'>"+disp+"</div>"
             x = 0
             y = 0
 
