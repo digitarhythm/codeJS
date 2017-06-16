@@ -79,7 +79,8 @@ class JSTableView extends JSView
     deselectRowAtIndexPath:->
         if (@_tableView?)
             for obj in @childlist
-                obj.setBackgroundColor(JSColor(obj._bgColor))
+                color = if (obj._orgBgColor?) then obj._orgBgColor else obj._bgColor
+                obj.setBackgroundColor(color)
 
     viewDidAppear:->
         super()

@@ -14,6 +14,7 @@ class JSTableViewCell extends JSView
         @_textSize = 12
         @_textAlignment = "JSTextAlignmentLeft"
         @_bgColor = JSColor("clearColor")
+        @_orgBgColor = undefined
         @_borderColor = JSColor("#d0d8e0")
         @_borderWidth = 1
 
@@ -75,6 +76,7 @@ class JSTableViewCell extends JSView
         @setImage(@_image)
         $(@_viewSelector).on 'tap', (event)=>
             if (typeof @delegate.didSelectRowAtIndexPath == 'function')
+                @_orgBgColor = @_bgColor
                 @_tableview.deselectRowAtIndexPath()
                 @setBackgroundColor(JSColor("#87cefa"))
                 @delegate.didSelectRowAtIndexPath(@_cellnum, event)
