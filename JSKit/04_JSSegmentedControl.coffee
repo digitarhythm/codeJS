@@ -8,15 +8,12 @@ class JSSegmentedControl extends JSControl
         super(JSRectMake(0, 0, 120, 32))
         @_bgColor = JSColor("clearColor")
         @_textSize = 12
-        @_selectedSegmentIndex = -1
+        @_selectedSegmentIndex = 0
 
     setValue:(@_selectedSegmentIndex)->
         if ($(@_viewSelector+"_radio").length)
-            if (@_selectedSegmentIndex < 0)
+            if (@_selectedSegmentIndex == 0)
                 @addSegmentTag()
-            else
-                $("input:radio[name='"+@_objectID+"_radio'][value='"+@_selectedSegmentIndex+"']").attr("checked", "checked")
-                $(@_viewSelector+"_radio").buttonset('refresh')
 
     getValue:->
         return @_selectedSegmentIndex
@@ -24,23 +21,31 @@ class JSSegmentedControl extends JSControl
     setTextSize:(@_textSize)->
 
     addSegmentTag:->
-        tag = '<div id="'+@_objectID+'_radio" style="width:'+@_frame.size.width+'px;height:'+@_frame.size.height+'px;display:table-cell;vertical-align:middle;">'
-        for i in [0...@_dataarray.length]
-            tag += '<input type="radio" id="'+@_objectID+'_radio_'+i+'" name="'+@_objectID+'_radio" value="'+i+'" /><label for="'+@_objectID+'_radio_'+i+'" style="width:'+(@_frame.size.width/@_dataarray.length)+'px;height:'+@_frame.size.height+'px;border:1px #f0f0f0 solid;font-size:'+@_textSize+'pt;"><div style="position:absolute;left:0px;top:0px;width:100%;height:100%;display:table-cell;line-height:'+@_frame.size.height+'px;">'+@_dataarray[i]+'</div></label>'
-        tag += '</div>'
+        button_w = Math.floor((@_frame.size.width - 128) / (@_dataarray.length + 1)) + 4
+        button_h = @_frame.size.height - 32
+        tag = ""
+        tag += "<form id='#{@_objectID}_radio'>"
+        for i in [1..@_dataarray.length]
+            if (i == @_selectedSegmentIndex)
+                check = "checked"
+            else
+                check = ""
+            tag += "<label for='#{@_objectID}-radio-#{i}' style='position:absolite;width:#{button_w}px;height:#{button_h}px;line-height:#{button_h}px;'>#{@_dataarray[i-1]}</label>"
+            tag += "<input type='radio' name='#{@_objectID}_radio' id='#{@_objectID}-radio-#{i}' style='position:absolite;width:#{button_w}px;height:#{button_h}px;padding:8px;' value='#{i}' #{check}>"
+        tag += "</form>"
+
         if ($(@_viewSelector+"_radio").length)
             $(@_viewSelector+"_radio").remove()
         $(@_viewSelector).append(tag)
-        $(@_viewSelector+"_radio").buttonset()
-        $(@_viewSelector).off()
-        $(@_viewSelector).on 'click', =>
-            @__select = parseInt(@_selectedSegmentIndex)
-            $(@_viewSelector+"_radio").buttonset('refresh')
-            select = parseInt($("input:radio[name='"+@_objectID+"_radio']:checked").val())
-            if (select? && @__select != select)
+        $("input[name='#{@_objectID}_radio']").checkboxradio
+            icon: false
+            classes:
+                "ui-checkboxradio": "highlight"
+        $(@_viewSelector+"_radio").on 'click', =>
+            select = parseInt($(@_viewSelector+"_radio input:radio:checked").val())
+            select2 = parseInt(@_selectedSegmentIndex)
+            if (select? && select != select2)
                 @_selectedSegmentIndex = select
-                if (@action?)
-                    @action(@_self)
 
     viewDidAppear:->
         super()

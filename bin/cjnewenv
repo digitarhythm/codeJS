@@ -61,7 +61,7 @@ fputs($fp, "[ENVIRON]\n");
 fputs($fp, "jquerypath=\"$jquerypath\"\n");
 fputs($fp, "jqueryuipath=\"$jqueryuipath\"\n");
 fputs($fp, "jqueryuibase=\"$jqueryuibase\"\n");
-fputs($fp, "jqueryui-theme=\"swanky-purse\"\n\n");
+fputs($fp, "jqueryui-theme=\"blitzer\"\n\n");
 fputs($fp, "[FRAMEWORKS]\n\n");
 fputs($fp, "[APIKEY]\n\n");
 fputs($fp, "[ADDLIB]\n\n");

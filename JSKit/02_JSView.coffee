@@ -194,7 +194,7 @@ class JSView extends JSResponder
         for o in @_parent._objlist
             if (o._objectID == @_objectID)
                 t = i
-                break;
+                break
             i++
         if ( t >= 0)
             @_parent._objlist.splice(t, 1)
