@@ -22,6 +22,7 @@ class JSSegmentedControl extends JSControl
             @addSegmentTag()
 
     addSegmentTag:->
+        button_w = Math.floor(@_frame.size.width / (@_dataarray.length + 1))
         button_h = @_frame.size.height - 12
         tag = ""
         tag += "<div id='#{@_objectID}_radio' style='width:#{@_frame.size.width}px;height:#{@_frame.size.height}px;'>"
@@ -30,8 +31,8 @@ class JSSegmentedControl extends JSControl
                 check = "checked"
             else
                 check = ""
-            tag += "<label for='#{@_objectID}-radio-#{i}' style='font-size:#{@_textSize}pt;height:#{button_h}px;line-height:#{button_h}px;'>#{@_dataarray[i-1]}</label>"
-            tag += "<input type='radio' name='#{@_objectID}_radio' id='#{@_objectID}-radio-#{i}' value='#{i}' #{check} style='height:#{button_h}px;'>"
+            tag += "<label for='#{@_objectID}-radio-#{i}' style='font-size:#{@_textSize}pt;width:#{button_w}px;height:#{button_h}px;line-height:#{button_h}px;'>#{@_dataarray[i-1]}</label>"
+            tag += "<input type='radio' name='#{@_objectID}_radio' id='#{@_objectID}-radio-#{i}' value='#{i}' #{check} style='width:#{button_w}px;height:#{button_h}px;'>"
         tag += "</div>"
 
         if ($(@_viewSelector+"_radio").length)
