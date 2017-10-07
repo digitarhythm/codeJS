@@ -8,7 +8,7 @@ class JSSegmentedControl extends JSControl
         super(JSRectMake(0, 0, 120, 32))
         @_bgColor = JSColor("clearColor")
         @_textSize = 9
-        @_selectedSegmentIndex = 0
+        @_selectedSegmentIndex = undefined
 
     setValue:(@_selectedSegmentIndex)->
         if ($(@_viewSelector+"_radio").length)
@@ -26,12 +26,12 @@ class JSSegmentedControl extends JSControl
         button_h = @_frame.size.height - 12
         tag = ""
         tag += "<div id='#{@_objectID}_radio' style='width:#{@_frame.size.width}px;height:#{@_frame.size.height}px;'>"
-        for i in [1..@_dataarray.length]
+        for i in [0...@_dataarray.length]
             if (i == @_selectedSegmentIndex)
                 check = "checked"
             else
                 check = ""
-            tag += "<label for='#{@_objectID}-radio-#{i}' style='font-size:#{@_textSize}pt;width:#{button_w}px;height:#{button_h}px;line-height:#{button_h}px;'>#{@_dataarray[i-1]}</label>"
+            tag += "<label for='#{@_objectID}-radio-#{i}' style='font-size:#{@_textSize}pt;width:#{button_w}px;height:#{button_h}px;line-height:#{button_h}px;'>#{@_dataarray[i]}</label>"
             tag += "<input type='radio' name='#{@_objectID}_radio' id='#{@_objectID}-radio-#{i}' value='#{i}' #{check} style='width:#{button_w}px;height:#{button_h}px;'>"
         tag += "</div>"
 

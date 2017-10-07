@@ -105,14 +105,14 @@
     $search_dir = "usrlibs";
     $dir = opendir($_HOMEDIR_."/".$search_dir);
     while ($fname = readdir($dir)) {
-        if ($fname != "applicationMain.js" && preg_match("/.*\.".$ext."$/", $fname)) {
+        if ($fname != "applicationMain.js" && preg_match("/.*\.".$ext."$/", $fname) && !preg_match("/^\..*/", $fname)) {
             $link_arr[] = $search_dir."/".$fname;
         }
     }
     $search_dir = "Plugins";
     $dir = opendir($_HOMEDIR_."/".$search_dir);
     while ($fname = readdir($dir)) {
-        if ($fname != "applicationMain.js" && preg_match("/.*\.".$ext."$/", $fname)) {
+        if ($fname != "applicationMain.js" && preg_match("/.*\.".$ext."$/", $fname) && !preg_match("/^\..*/", $fname)) {
             $link_arr[] = $search_dir."/".$fname;
         }
     }

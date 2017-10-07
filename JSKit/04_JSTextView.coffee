@@ -188,7 +188,7 @@ class JSTextView extends JSScrollView
                 when "mincho"
                     $(@_viewSelector+"_textarea").css("font-family", "'Hiragino Mincho ProN', serif;")
                 when "gothic"
-                    $(@_viewSelector+"_textarea").css("font-family", "'Hiragino Maru Gothic Pro W4', 'sans-serif';");
+                    $(@_viewSelector+"_textarea").css("font-family", "'Hiragino Maru Gothic Pro W4', 'sans-serif';")
 
     viewDidAppear: ->
         super()
