@@ -28,7 +28,7 @@ class JSWebView extends JSScrollView
         super()
         tag = "<div id='"+@_objectID+"_webview' style='position:absolute; overflow:hidden; width:"+@_frame.size.width+"px; height:"+@_frame.size.height+"px; border-radius:"+@_cornerRadius+"px;'>"
         if (@_request?)
-            tag += "<iframe src='"+@_request+"' style='position:absolute; width:"+@_frame.size.width+"px; height:"+@_frame.size.height+"px;'></iframe>"
+            tag += "<iframe src='"+@_request+"' style='position:absolute; width:"+@_frame.size.width+"px; height:"+@_frame.size.height+"px; border:0px; margin:0px 0px 0px 0px'></iframe>"
         tag += "</div>"
         $(@_viewSelector).append(tag)
 
