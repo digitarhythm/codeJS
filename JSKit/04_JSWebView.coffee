@@ -31,4 +31,3 @@ class JSWebView extends JSScrollView
             tag += "<iframe src='"+@_request+"' style='position:absolute; width:"+@_frame.size.width+"px; height:"+@_frame.size.height+"px; border:0px; margin:0px 0px 0px 0px'></iframe>"
         tag += "</div>"
         $(@_viewSelector).append(tag)
-
