@@ -51,8 +51,8 @@ while ($fname = readdir($dir)) {
 }
 sort($file_arr);
 $compile = implode(" ", $file_arr);
-system("cat ".$compile." | coffee -b -m --stdio --compile > ".$h_syslibs."/JSKit.js");
-system("coffee -b -m -o ".$h_syslibs." -c ".$p_syslibs);
+system("cat ".$compile." | coffee -bM --stdio --compile > ".$h_syslibs."/JSKit.js");
+system("coffee -bMo ".$h_syslibs." -c ".$p_syslibs);
 
 // compile Framework
 $path = $p_framework;
@@ -60,7 +60,7 @@ $dir = opendir($path);
 while ($dirname = readdir($dir)) {
   // もし、検索してきたものが「ディレクトリ」、且つ「ドットで始まっていない」、且つ「*.framework」という名前だったらフレームワークとしてコンパイル
   if (is_dir("$path/$dirname") == true && preg_match("/^\./", $dirname) == false && preg_match("/.*\.framework/", $dirname) == true) {
-    $execstr = "cat $path/$dirname/*.coffee | coffee -b -m --stdio --compile > $h_framework/$dirname.js";
+    $execstr = "cat $path/$dirname/*.coffee | coffee -bM --stdio --compile > $h_framework/$dirname.js";
     system($execstr);
   }
 }

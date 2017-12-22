@@ -1,4 +1,4 @@
 #!/bin/bash
 src="./appscode/"
 js="./usrlibs/"
-coffee -b -m -o $js -w $src
+coffee -bMo $js -w $src
