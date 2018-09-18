@@ -1,6 +1,6 @@
 #*****************************************
 # JSActivityIndicatorView - loading indicator control class
-# Coded by kouichi.sakazaki 2013.05.16
+# Coded by Hajime Oh-yake 2013.05.16
 #*****************************************
 
 class JSActivityIndicatorView extends JSView

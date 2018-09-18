@@ -1,6 +1,6 @@
 #*****************************************
 # JSSegmentedControl - radio switch parts class
-# Coded by kouichi.sakazaki 2013.11.05
+# Coded by Hajime Oh-yake 2013.11.05
 #*****************************************
 
 class JSSegmentedControl extends JSControl

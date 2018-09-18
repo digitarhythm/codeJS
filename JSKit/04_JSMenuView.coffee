@@ -1,6 +1,6 @@
 #*****************************************
 # JSMenuView - Menu control class
-# Coded by kouichi.sakazaki 2013.04.04
+# Coded by Hajime Oh-yake 2013.04.04
 #*****************************************
 
 class JSMenuView extends JSScrollView

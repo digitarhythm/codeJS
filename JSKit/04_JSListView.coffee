@@ -1,6 +1,6 @@
 #*****************************************
 # JSListView list view manage class
-# Coded by kouichi.sakazaki 2013.04.02
+# Coded by Hajime Oh-yake 2013.04.02
 #*****************************************
 
 class JSListView extends JSScrollView

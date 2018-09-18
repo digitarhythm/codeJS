@@ -1,6 +1,6 @@
 #*****************************************
 # JSTableViewController - table base data manage class
-# Coded by kouichi.sakazaki 2013.09.10
+# Coded by Hajime Oh-yake 2013.09.10
 #*****************************************
 
 class JSTableViewController extends JSObject

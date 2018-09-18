@@ -1,6 +1,6 @@
 #*****************************************
 # JSWebView - Web site handling class
-# Coded by kouichi.sakazaki 2015.10.05
+# Coded by Hajime Oh-yake 2015.10.05
 #*****************************************
 
 class JSWebView extends JSScrollView

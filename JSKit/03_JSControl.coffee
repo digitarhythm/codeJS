@@ -1,6 +1,6 @@
 #*****************************************
 # JSControl - User action control class
-# Coded by kouichi.sakazaki 2013.03.29
+# Coded by Hajime Oh-yake 2013.03.29
 #*****************************************
 
 class JSControl extends JSView

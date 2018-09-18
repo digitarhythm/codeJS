@@ -1,6 +1,6 @@
 #*****************************************
 # JSObject - base class of all Object
-# Coded by kouichi.sakazaki 2013.03.25
+# Coded by Hajime Oh-yake 2013.03.25
 #*****************************************
 
 class JSObject

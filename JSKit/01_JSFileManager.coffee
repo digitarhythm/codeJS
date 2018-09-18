@@ -1,6 +1,6 @@
 #*****************************************
 # JSFileManager - File manage clss
-# Coded by kouichi.sakazaki 2013.03.31
+# Coded by Hajime Oh-yake 2013.03.31
 #*****************************************
 
 class JSFileManager extends JSObject

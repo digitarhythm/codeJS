@@ -1,6 +1,6 @@
 #*****************************************
 # JSPoint - point coodinate class
-# Coded by kouichi.sakazaki 2013.03.26
+# Coded by Hajime Oh-yake 2013.03.26
 #*****************************************
 
 class JSPoint extends JSObject

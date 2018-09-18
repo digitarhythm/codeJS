@@ -1,6 +1,6 @@
 #*****************************************
 # JSUserDefaults - User Default Class
-# Coded by kouichi.sakazaki 2013.07.24
+# Coded by Hajime Oh-yake 2013.07.24
 #*****************************************
 
 class JSUserDefaults extends JSObject

@@ -1,6 +1,6 @@
 #*****************************************
 # JSFont - Font dispatch
-# Coded by kouichi.sakazaki 2016.12.17
+# Coded by Hajime Oh-yake 2016.12.17
 #*****************************************
 
 class JSFont extends JSObject

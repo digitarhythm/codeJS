@@ -1,6 +1,6 @@
 #*****************************************
 # JSUserCookies - User Cookie Class
-# Coded by kouichi.sakazaki 2013.09.05
+# Coded by Hajime Oh-yake 2013.09.05
 #*****************************************
 
 class JSUserCookies extends JSObject

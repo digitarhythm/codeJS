@@ -1,6 +1,6 @@
 #*****************************************
 # JSImagePicker - Image select control class
-# Coded by kouichi.sakazaki 2013.04.23
+# Coded by Hajime Oh-yake 2013.04.23
 #*****************************************
 
 class JSImagePicker extends JSScrollView

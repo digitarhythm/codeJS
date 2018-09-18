@@ -1,6 +1,6 @@
 #*****************************************
 # JSSwitch - switch parts class
-# Coded by kouichi.sakazaki 2013.05.20
+# Coded by Hajime Oh-yake 2013.05.20
 #*****************************************
 
 class JSSwitch extends JSControl

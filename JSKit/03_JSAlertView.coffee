@@ -1,6 +1,6 @@
 #*****************************************
 # JSAlertView - Dialog control class
-# Coded by kouichi.sakazaki 2013.04.25
+# Coded by Hajime Oh-yake 2013.04.25
 #*****************************************
 
 class JSAlertView extends JSView
